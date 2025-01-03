@@ -1,5 +1,10 @@
+<!-- 
 ---
 description: How to install Docusaurus locally, and start a Docusaurus site in no time.
+---
+ -->
+---
+description: Docusaurus をローカルにインストールして、すぐに Docusaurus サイトを開始する方法。
 ---
 
 <!-- 
@@ -17,7 +22,7 @@ Docusaurus consists of a set of npm [packages](https://github.com/facebook/docus
  -->
 Docusaurus は npm [packages](https://github.com/facebook/docusaurus/tree/main/packages) のセットで構成されています。
 
-: :: tip
+::: tip
 
 <!-- 
 Use the **[Fast Track](introduction.mdx#fast-track)** to understand Docusaurus in **5 minutes ⏱**!
@@ -27,31 +32,31 @@ Use the **[Fast Track](introduction.mdx#fast-track)** to understand Docusaurus i
 <!-- 
 Use **[docusaurus.new](https://docusaurus.new)** to test Docusaurus immediately in your browser!
  -->
-Use **[docusaurus.new](https://docusaurus.new)** to test Docusaurus immediately in your browser !
+**[docusaurus.new](https://docusaurus.new)** を使用すると、お使いのブラウザですぐに Docusaurus をテストできます !
 
-: ::
+:::
 
 <!-- 
 ## Requirements {#requirements}
  -->
-## Requirements {#requirements}
+## 必須条件 {#requirements}
 
 <!-- 
 - [Node.js](https://nodejs.org/en/download/) version 18.0 or above (which can be checked by running `node -v`). You can use [nvm](https://github.com/nvm-sh/nvm) for managing multiple Node versions on a single machine installed.
   - When installing Node.js, you are recommended to check all checkboxes related to dependencies.
  -->
-- [Node.js](https://nodejs.org/en/download/) version18.0or above (which can be checked by running `node -v`) . You can use [nvm](https://github.com/nvm-sh/nvm) for managing multiple Node versions on a single machine installed.
-  - When installing Node.js, you are recommended to check all checkboxes related to dependencies.
+- [Node.js](https://nodejs.org/en/download/) のバージョンが18.0以上である必要があります (`node -v` を実行することで確認できます)。[nvm](https://github.com/nvm-sh/nvm) を使用すると、インストールした1台のマシンで複数の Node バージョンを管理できます。
+  - Node.js をインストールする際には、依存関係に関連するすべてのチェックボックスをオンにすることをおすすめします。
 
 <!-- 
 ## Scaffold project website {#scaffold-project-website}
  -->
-## Scaffold project website {#scaffold-project-website}
+## Scaffold (足場) プロジェクトの Web サイト {#scaffold-project-website}
 
 <!-- 
 The easiest way to install Docusaurus is to use the [`create-docusaurus`](./api/misc/create-docusaurus.mdx) command line tool that helps you scaffold a skeleton Docusaurus website. You can run this command anywhere in a new empty repository or within an existing repository, it will create a new directory containing the scaffolded files.
  -->
-The easiest way to install Docusaurus is to use the [`create-docusaurus`](./api/misc/create-docusaurus.mdx) command line tool that helps you scaffold a skeleton Docusaurus website. You can run this command anywhere in a new empty repository or within an existing repository, it will create a new directory containing the scaffolded files.
+Docusaurus をインストールする最も簡単な方法は、Docusaurus Web サイトのひな型を作成するのに役立つ、[`create-docusaurus`](./api/misc/create-docusaurus.mdx)コマンドラインツールを使用することです。このコマンドは、新しい空のリポジトリでも、既存のリポジトリでも、どこでも実行でき、このコマンドを実行すると、ひな型ファイルを含む新しいディレクトリが作成されます。
 
 ```bash
 npx create-docusaurus@latest my-website classic
@@ -60,37 +65,40 @@ npx create-docusaurus@latest my-website classic
 <!-- 
 We recommend the `classic` template so that you can get started quickly, and it contains features found in Docusaurus 1. The `classic` template contains `@docusaurus/preset-classic` which includes standard documentation, a blog, custom pages, and a CSS framework (with dark mode support). You can get up and running extremely quickly with the classic template and customize things later on when you have gained more familiarity with Docusaurus.
  -->
-We recommend the `classic` template so that you can get started quickly, and it contains features found in Docusaurus1. The `classic` template contains `@docusaurus/preset-classic` which includes standard documentation, a blog, custom pages, and a CSS framework (with dark mode support) . You can get up and running extremely quickly with the classic template and customize things later on when you have gained more familiarity with Docusaurus.
+すぐに使い始められるように、Docusaurus v1の機能が含まれている、`classic` テンプレートをおすすめします。`classic` テンプレートには `@docusaurus/preset-classic` が含まれており、標準ドキュメント、ブログ、カスタムページ、CSS フレームワーク (ダークモード対応) が含まれています。classic テンプレートを使用すると、非常に迅速にサイトを立ち上げることができ、また、Docusaurus の使い方に慣れてきたら、後からカスタマイズできます。
 
 <!-- 
 You can also use the template's TypeScript variant by passing the `--typescript` flag. See [TypeScript support](./typescript-support.mdx) for more information.
  -->
-You can also use the template's TypeScript variant by passing the `--typescript` flag. See [TypeScript support](./typescript-support.mdx) for more information.
+また、`--typescript` フラグを渡すことで、テンプレートの TypeScript 版を使うこともできます。詳しくは[TypeScript 対応](./typescript-support.mdx)を参照してください。
 
 ```bash
 npx create-docusaurus@latest my-website classic --typescript
 ```
 
-: :: info Meta-Only
+::: info Meta-Only
 
 <!-- 
 If you are setting up a new Docusaurus website for a Meta open source project, run this command inside an internal repository, which comes with some useful Meta-specific defaults:
  -->
-If you are setting up a new Docusaurus website for a Meta open source project, run this command inside an internal repository, which comes with some useful Meta-specific defaults:
+Meta オープンソースプロジェクト用に新しい Docusaurus Web サイトをセットアップする場合は、Meta 特有の便利なデフォルト設定が含まれているこのコマンドを、内部リポジトリ内で実行してください:
 
 ```bash
 scarf static-docs-bootstrap
 ```
 
-: ::
+:::
 
 <details>
+<!-- 
   <summary>Alternative installation commands</summary>
+ -->
+  <summary>代替インストール・コマンド</summary>
 
 <!-- 
 You can also initialize a new project using your preferred project manager:
  -->
-You can also initialize a new project using your preferred project manager:
+また、お好みのプロジェクト・マネージャーを使って新しいプロジェクトを初期化できます:
 
 ```bash npm2yarn
 npm init docusaurus
@@ -101,17 +109,17 @@ npm init docusaurus
 <!-- 
 Run `npx create-docusaurus@latest --help`, or check out its [API docs](./api/misc/create-docusaurus.mdx) for more information about all available flags.
  -->
-Run `npx create-docusaurus@latest --help`, or check out its [API docs](./api/misc/create-docusaurus.mdx) for more information about all available flags.
+`npx create-docusaurus@latest --help` を実行するか、[API docs](./api/misc/create-docusaurus.mdx)で利用可能なすべてのフラグの詳細を確認してください。
 
 <!-- 
 ## Project structure {#project-structure}
  -->
-## Project structure {#project-structure}
+## プロジェクト構造 {#project-structure}
 
 <!-- 
 Assuming you chose the classic template and named your site `my-website`, you will see the following files generated under a new directory `my-website/`:
  -->
-Assuming you chose the classic template and named your site `my-website`, you will see the following files generated under a new directory `my-website/`:
+classic テンプレートを選択し、サイト名を `my-website` とした場合、新しいディレクトリ `my-website/` の下に以下のファイルが生成されます:
 
 ```bash
 my-website
@@ -142,7 +150,7 @@ my-website
 <!-- 
 ### Project structure rundown {#project-structure-rundown}
  -->
-### Project structure rundown {#project-structure-rundown}
+### プロジェクト構造要約 {#project-structure-rundown}
 
 <!-- 
 - `/blog/` - Contains the blog Markdown files. You can delete the directory if you've disabled the blog plugin, or you can change its name after setting the `path` option. More details can be found in the [blog guide](blog.mdx)
@@ -154,24 +162,24 @@ my-website
 - `/package.json` - A Docusaurus website is a React app. You can install and use any npm packages you like in them
 - `/sidebars.js` - Used by the documentation to specify the order of documents in the sidebar
  -->
-- `/blog/` - Contains the blog Markdown files. You can delete the directory if you've disabled the blog plugin, or you can change its name after setting the `path` option. More details can be found in the [blog guide](blog.mdx)
-- `/docs/` - Contains the Markdown files for the docs. Customize the order of the docs sidebar in `sidebars.js`. You can delete the directory if you've disabled the docs plugin, or you can change its name after setting the `path` option. More details can be found in the [docs guide](./guides/docs/docs-introduction.mdx)
-- `/src/` - Non-documentation files like pages or custom React components. You don't have to strictly put your non-documentation files here, but putting them under a centralized directory makes it easier to specify in case you need to do some sort of linting/processing
-  - `/src/pages` - Any JSX/TSX/MDX file within this directory will be converted into a website page. More details can be found in the [pages guide](guides/creating-pages.mdx)
-- `/static/` - Static directory. Any contents inside here will be copied into the root of the final `build` directory
-- `/docusaurus.config.js` - A config file containing the site configuration. This is the equivalent of `siteConfig.js` in Docusaurus v1
-- `/package.json` - A Docusaurus website is a React app. You can install and use any npm packages you like in them
-- `/sidebars.js` - Used by the documentation to specify the order of documents in the sidebar
+- `/blog/` - blog 用の Markdown ファイルが格納されています。blog プラグインを無効にしている場合は、このディレクトリを削除するか、`path` オプションを設定した後で名前を変更できます。詳細は[blog ガイド](blog.mdx)をご覧ください。
+- `/docs/` - docs 用の Markdown ファイルが格納されています。`sidebars.js` で docs サイドバーの並び順をカスタマイズできます。docs プラグインを無効にしている場合は、このディレクトリを削除するか、`path` オプションを設定した後に名前を変更できます。詳細は[docs ガイド](./guides/docs/docs-introduction.mdx)をご覧ください。
+- `/src/` - pages やカスタム React コンポーネントなど、ドキュメント以外のファイルです。厳密には、ドキュメント以外のファイルをここに置く必要はありませんが、一元化されたディレクトリの下に置くことで、何らかの lint や処理が必要になったときに指定しやすくなります。
+  - `/src/pages` - このディレクトリにある JSX/TSX/MDX ファイルは、Web サイトのページに変換されます。詳細は[pages ガイド](guides/creating-pages.mdx)をご覧ください。
+- `/static/` - 静的ディレクトリです。この中にあるすべてのコンテンツは、最終的な `build` ディレクトリのルートにコピーされます。
+- `/docusaurus.config.js` - サイトの設定を含む設定ファイルです。これは Docusaurus v1の `siteConfig.js` に相当します。
+- `/package.json` - Docusaurus Web サイトは React アプリケーションです。好きな npm パッケージをインストールして使用できます。
+- `/sidebars.js` - サイドバーのドキュメントの順序を指定するために、ドキュメントで使用されます。
 
 <!-- 
 ### Monorepos {#monorepos}
  -->
-### Monorepos {#monorepos}
+### Monorepo {#monorepos}
 
 <!-- 
 If you are using Docusaurus for documentation of an existing project, a monorepo may be the solution for you. Monorepos allow you to share dependencies between similar projects. For example, your website may use your local packages to showcase latest features instead of depending on a released version. Then, your contributors can update the docs as they implement features. An example monorepo folder structure is below:
  -->
-If you are using Docusaurus for documentation of an existing project, a monorepo may be the solution for you. Monorepos allow you to share dependencies between similar projects. For example, your website may use your local packages to showcase latest features instead of depending on a released version. Then, your contributors can update the docs as they implement features. An example monorepo folder structure is below:
+既存のプロジェクトのドキュメンテーションに Docusaurus を使用する場合、monorepo が最適かもしれません。monorepo を使うと、類似したプロジェクト間で依存関係を共有できます。たとえば、Web サイトでは、リリースされたバージョンに依存する代わりに、ローカルパッケージを使って最新の機能を紹介できます。そうすれば、コントリビューターが機能を実装するたびにドキュメントを更新できます。monorepo のフォルダー構造の例を以下に示します:
 
 ```bash
 my-monorepo
@@ -188,27 +196,27 @@ my-monorepo
 <!-- 
 In this case, you should run `npx create-docusaurus` within the `./my-monorepo` folder.
  -->
-In this case, you should run `npx create-docusaurus` within the `./my-monorepo` folder.
+この場合、`./my-monorepo` フォルダー内で `npx create-docusaurus` を実行してください。
 
 <!-- 
 If you're using a hosting provider such as Netlify or Vercel, you will need to change the `Base directory` of the site to where your Docusaurus root is. In this case, that would be `./website`. Read more about configuring ignore commands in the [deployment docs](./deployment.mdx#deploying-to-netlify).
  -->
-If you're using a hosting provider such as Netlify or Vercel, you will need to change the `Base directory` of the site to where your Docusaurus root is. In this case, that would be `./website`. Read more about configuring ignore commands in the [deployment docs](./deployment.mdx#deploying-to-netlify).
+Netlify や Vercel のようなホスティング・プロバイダを使用している場合は、サイトの `Base directory` を Docusaurus のルートがある場所に変更する必要があります。この場合は `./website` となります。ignore コマンドの設定については、[deployment docs](./deployment.mdx#deploying-to-netlify)をご覧ください。
 
 <!-- 
 Read more about monorepos in the [Yarn documentation](https://yarnpkg.com/features/workspaces) (Yarn is not the only way to set up a monorepo, but it's a common solution), or checkout [Docusaurus](https://github.com/facebook/docusaurus) and [Jest](https://github.com/facebook/jest) for some real-world examples.
  -->
-Read more about monorepos in the [Yarn documentation](https://yarnpkg.com/features/workspaces) (Yarn is not the only way to set up a monorepo, but it's a common solution) , or checkout [Docusaurus](https://github.com/facebook/docusaurus) and [Jest](https://github.com/facebook/jest) for some real-world examples.
+monorepo については、[Yarn ドキュメント](https://yarnpkg.com/features/workspaces)をご覧ください (Yarn が monorepo を設定する唯一の方法ではないが、一般的なソリューションです)。または、[Docusaurus](https://github.com/facebook/docusaurus)や[Jest](https://github.com/facebook/jest)で、実際の例を確認してください。
 
 <!-- 
 ## Running the development server {#running-the-development-server}
  -->
-## Running the development server {#running-the-development-server}
+## 開発サーバーの実行 {#running-the-development-server}
 
 <!-- 
 To preview your changes as you edit the files, you can run a local development server that will serve your website and reflect the latest changes.
  -->
-To preview your changes as you edit the files, you can run a local development server that will serve your website and reflect the latest changes.
+ファイルを編集しながら変更をプレビューするには、ローカル開発サーバーを実行し、Web サイトに最新の変更を反映させます。
 
 ```bash npm2yarn
 cd my-website
@@ -218,22 +226,22 @@ npm run start
 <!-- 
 By default, a browser window will open at [`http://localhost:3000`](http://localhost:3000).
  -->
-By default, a browser window will open at [`http://localhost:3000`](http://localhost:3000).
+デフォルトでは、[`http://localhost:3000`](http://localhost:3000)で、ブラウザ・ウィンドウが開きます。
 
 <!-- 
 Congratulations! You have just created your first Docusaurus site! Browse around the site to see what's available.
  -->
-Congratulations ! You have just created your first Docusaurus site ! Browse around the site to see what's available.
+おめでとうございます ! あなたは今、最初の Docusaurus サイトを作成しました ! サイト内をブラウズして、何が利用できるかを確認してください。
 
 <!-- 
 ## Build {#build}
  -->
-## Build {#build}
+## ビルド {#build}
 
 <!-- 
 Docusaurus is a modern static website generator so we need to build the website into a directory of static contents and put it on a web server so that it can be viewed. To build the website:
  -->
-Docusaurus is a modern static website generator so we need to build the website into a directory of static contents and put it on a web server so that it can be viewed. To build the website:
+Docusaurus は最新の静的 Web サイトジェネレータですので、Web サイトを静的コンテンツのディレクトリに構築する必要があり、それを Web サーバーに置いて、閲覧できるようにします。Web サイトをビルドするには:
 
 ```bash npm2yarn
 npm run build
@@ -242,17 +250,17 @@ npm run build
 <!-- 
 and contents will be generated within the `/build` directory, which can be copied to any static file hosting service like [GitHub pages](https://pages.github.com/), [Vercel](https://vercel.com/) or [Netlify](https://www.netlify.com/). Check out the docs on [deployment](deployment.mdx) for more details.
  -->
-and contents will be generated within the `/build` directory, which can be copied to any static file hosting service like [GitHub pages](https://pages.github.com/), [Vercel](https://vercel.com/) or [Netlify](https://www.netlify.com/). Check out the docs on [deployment](deployment.mdx) for more details.
+そしてコンテンツは `/build` ディレクトリに生成され、[GitHub pages](https://pages.github.com/)、[Vercel](https://vercel.com/)、[Netlify](https://www.netlify.com/)などの静的ファイルホスティング・サービスにコピーできます。詳細は[deployment](deployment.mdx)のドキュメントをご覧ください。
 
 <!-- 
 ## Updating your Docusaurus version {#updating-your-docusaurus-version}
  -->
-## Updating your Docusaurus version {#updating-your-docusaurus-version}
+## Docusaurus バージョンの更新 {#updating-your-docusaurus-version}
 
 <!-- 
 There are many ways to update your Docusaurus version. One guaranteed way is to manually change the version number in `package.json` to the desired version. Note that all `@docusaurus/`-namespaced packages should be using the same version.
  -->
-There are many ways to update your Docusaurus version. One guaranteed way is to manually change the version number in `package.json` to the desired version. Note that all `@docusaurus/`-namespaced packages should be using the same version.
+Docusaurus バージョンを更新する方法はたくさんあります。確実な方法の一つは、`package.json` のバージョン番号を手動で目的のバージョンに変更することです。なお、すべての `@docusaurus/` ネームスペースのパッケージは、同じバージョンを使用する必要があります。
 
 import UpgradeGuide from '@site/src/components/UpgradeGuide';
 
@@ -261,25 +269,25 @@ import UpgradeGuide from '@site/src/components/UpgradeGuide';
 <!-- 
 Then, in the directory containing `package.json`, run your package manager's install command:
  -->
-Then, in the directory containing `package.json`, run your package manager's install command:
+次に、`package.json` のあるディレクトリで、パッケージ・マネージャーのインストールコマンドを実行します:
 
 ```bash npm2yarn
 npm install
 ```
 
-: :: tip
+::: tip
 
 <!-- 
 `npm install` may report several vulnerabilities and recommend running `npm audit` to address them. Typically, these reported vulnerabilities, such as RegExp DOS vulnerabilities, are harmless and can be safely ignored. Also read this article, which reflects our thinking: [npm audit: Broken by Design](https://overreacted.io/npm-audit-broken-by-design/).
  -->
-`npm install` may report several vulnerabilities and recommend running `npm audit` to address them. Typically, these reported vulnerabilities, such as RegExp DOS vulnerabilities, are harmless and can be safely ignored. Also read this article, which reflects our thinking: [npm audit: Broken by Design](https://overreacted.io/npm-audit-broken-by-design/).
+`npm install` は、いくつかの脆弱性を報告し、それらに対処するために `npm audit` の実行を推奨することがあります。典型的には、RegExp の DOS 脆弱性など、報告された脆弱性は無害であり、安全に無視できます。我々の考えを反映したこの記事も、併せてお読みください: [npm audit: Broken by Design](https://overreacted.io/npm-audit-broken-by-design/).
 
-: ::
+:::
 
 <!-- 
 To check that the update occurred successfully, run:
  -->
-To check that the update occurred successfully, run:
+アップデートが正常に行われたことを確認するには、以下を実行します:
 
 ```bash
 npx docusaurus --version
@@ -288,32 +296,32 @@ npx docusaurus --version
 <!-- 
 You should see the correct version as output.
  -->
-You should see the correct version as output.
+出力として正しいバージョンが表示されるはずです。
 
 <!-- 
 Alternatively, if you are using Yarn, you can do:
  -->
-Alternatively, if you are using Yarn, you can do:
+あるいは、Yarn を使用している場合は、次のようにできます:
 
 ```bash
 yarn add @docusaurus/core @docusaurus/preset-classic
 ```
 
-: :: tip
+::: tip
 
 <!-- 
 Use new unreleased features of Docusaurus with the [`@canary` npm dist tag](/community/canary)
  -->
-Use new unreleased features of Docusaurus with the [`@canary` npm dist tag](/community/canary)
+Docusaurus の未リリースの新機能を[`@canary` npm dist タグ](/community/canary)で使用できます。
 
-: ::
+:::
 
 <!-- 
 ## Problems? {#problems}
  -->
-## Problems ? {#problems}
+## 問題 ? {#problems}
 
 <!-- 
 Ask for help on [Stack Overflow](https://stackoverflow.com/questions/tagged/docusaurus), on our [GitHub repository](https://github.com/facebook/docusaurus), our [Discord server](https://discordapp.com/invite/docusaurus), or [X](https://x.com/docusaurus).
  -->
-Ask for help on [Stack Overflow](https://stackoverflow.com/questions/tagged/docusaurus), on our [GitHub repository](https://github.com/facebook/docusaurus), our [Discord server](https://discordapp.com/invite/docusaurus), or [X](https://x.com/docusaurus).
+[Stack Overflow](https://stackoverflow.com/questions/tagged/docusaurus)、[GitHub リポジトリ](https://github.com/facebook/docusaurus)、[Discord サーバー](https://discordapp.com/invite/docusaurus)、または[X](https://x.com/docusaurus)で助けを求めてください。

@@ -37,7 +37,7 @@
   },
   "plugins": {
       "@textlint/markdown": {
-          "extensions": [".mdx"]
+          "extensions": [".mdx", ".md"]
       }
   }
 }

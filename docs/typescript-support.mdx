@@ -1,0 +1,208 @@
+<!-- 
+---
+description: Docusaurus is written in TypeScript and provides first-class TypeScript support.
+---
+ -->
+---
+description: Docusaurus は TypeScript で書かれており、一流の TypeScript 対応を提供しています。
+---
+
+<!-- 
+# TypeScript Support
+ -->
+# TypeScript 対応
+
+<!-- 
+Docusaurus is written in TypeScript and provides first-class TypeScript support.
+ -->
+Docusaurus は TypeScript で書かれており、一流の TypeScript 対応を提供しています。
+
+<!-- 
+The minimum required version is **TypeScript 5.1**.
+ -->
+最低限必要なバージョンは **TypeScript v5.1** です。
+
+<!-- 
+## Initialization {#initialization}
+ -->
+## 初期設定 {#initialization}
+
+<!-- 
+Docusaurus supports writing and using TypeScript theme components. If the init template provides a TypeScript variant, you can directly [initialize a site](./installation.mdx#scaffold-project-website) with full TypeScript support by using the `--typescript` flag.
+ -->
+Docusaurus は、TypeScript テーマコンポーネントの記述と使用に対応しています。init テンプレートが TypeScript 版を提供している場合、TypeScript をフルサポートしているので、`--typescript` フラグを使用することで、直接[サイトを初期化](./installation.mdx#scaffold-project-website)できます。
+
+```bash
+npx create-docusaurus@latest my-website classic --typescript
+```
+
+<!-- 
+Below are some guides on how to migrate an existing project to TypeScript.
+ -->
+以下は、既存のプロジェクトを TypeScript に移行する方法についてのガイドです。
+
+<!-- 
+## Setup {#setup}
+ -->
+## セットアップ {#setup}
+
+<!-- 
+Add the following packages to your project:
+ -->
+以下のパッケージを、プロジェクトに追加します:
+
+```bash npm2yarn
+npm install --save-dev typescript @docusaurus/module-type-aliases @docusaurus/tsconfig @docusaurus/types
+```
+
+<!-- 
+Then add `tsconfig.json` to your project root with the following content:
+ -->
+次に、以下の内容で `tsconfig.json` をプロジェクト・ルートに追加します:
+
+```json title="tsconfig.json"
+{
+  "extends": "@docusaurus/tsconfig",
+  "compilerOptions": {
+    "baseUrl": "."
+  }
+}
+```
+
+<!-- 
+Docusaurus doesn't use this `tsconfig.json` to compile your project. It is added just for a nicer Editor experience, although you can choose to run `tsc` to type check your code for yourself or on CI.
+ -->
+Docusaurus は、この `tsconfig.json` を使ってプロジェクトをコンパイルすることはありません。これはエディター体験を向上させるために追加されたものですが、`tsc` を実行することで、自分自身や CI 上でコードをタイプチェックできます。
+
+<!-- 
+Now you can start writing TypeScript theme components.
+ -->
+これで TypeScript のテーマ・コンポーネントを書き始めることができます。
+
+<!-- 
+## Typing the config file {#typing-config}
+ -->
+## 設定ファイルの作成 {#typing-config}
+
+<!-- 
+It is possible to use a TypeScript config file in Docusaurus.
+ -->
+Docusaurus では、TypeScript の設定ファイルを使用できます。
+
+```ts title="docusaurus.config.ts"
+import type {Config} from '@docusaurus/types';
+import type * as Preset from '@docusaurus/preset-classic';
+
+// highlight-next-line
+const config: Config = {
+  title: 'My Site',
+  favicon: 'img/favicon.ico',
+
+  /* Your site config here */
+
+  presets: [
+    [
+      'classic',
+      {
+        /* Your preset config here */
+        // highlight-next-line
+      } satisfies Preset.Options,
+    ],
+  ],
+
+  themeConfig: {
+    /* Your theme config here */
+    // highlight-next-line
+  } satisfies Preset.ThemeConfig,
+};
+
+export default config;
+```
+
+<details>
+<!-- 
+  <summary>It is also possible to use [JSDoc type annotations](https://www.typescriptlang.org/docs/handbook/jsdoc-supported-types.html) within a `.js` file:</summary>
+ -->
+  <summary>`.js` ファイル内で [JSDoc タイプ・アノテーション](https://www.typescriptlang.org/docs/handbook/jsdoc-supported-types.html) を使用することも可能です:</summary>
+
+<!-- 
+By default, the Docusaurus TypeScript config does not type-check JavaScript files.
+ -->
+デフォルトでは、Docusaurus の TypeScript 設定は、JavaScript ファイルをタイプチェックしません。
+
+<!-- 
+The `// @ts-check` comment ensures the config file is properly type-checked when running `npx tsc`.
+ -->
+`npx tsc` を実行する際、コメント `// @ts-check` は、設定ファイルが適切にタイプチェックされることを保証します。
+
+```js title="docusaurus.config.js"
+// highlight-next-line
+// @ts-check
+
+// highlight-next-line
+/** @type {import('@docusaurus/types').Config} */
+const config = {
+  tagline: 'Dinosaurs are cool',
+  favicon: 'img/favicon.ico',
+
+  /* Your site config here */
+
+  presets: [
+    [
+      '@docusaurus/preset-classic',
+      // highlight-next-line
+      /** @type {import('@docusaurus/preset-classic').Options} */
+      (
+        {
+          /* Your preset config here */
+        }
+      ),
+    ],
+  ],
+  themeConfig:
+    // highlight-next-line
+    /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
+    (
+      {
+        /* Your theme config here */
+      }
+    ),
+};
+
+export default config;
+```
+
+</details>
+
+:::tip
+
+<!-- 
+Type annotations are very useful and help your IDE understand the type of config objects!
+ -->
+型アノテーションは非常に便利で、IDE が設定オブジェクトの型を理解するのに役立ちます !
+
+<!-- 
+The best IDEs (VS Code, WebStorm, IntelliJ...) will provide a nice auto-completion experience.
+ -->
+最高の IDE (VS Code、WebStorm、IntelliJ…) は、すばらしいオート・コンプリート体験を提供してくれます。
+
+:::
+
+<!-- 
+## Swizzling TypeScript theme components {#swizzling-typescript-theme-components}
+ -->
+## TypeScript テーマコンポーネントの Swizzling {#swizzling-typescript-theme-components}
+
+<!-- 
+For themes that support TypeScript theme components, you can add the `--typescript` flag to the end of the `swizzle` command to get TypeScript source code. For example, the following command will generate `index.tsx` and `styles.module.css` into `src/theme/Footer`.
+ -->
+TypeScript のテーマ・コンポーネントをサポートしているテーマでは、`--typescript` フラグを `swizzle` コマンドの最後に追加することで、TypeScript のソースコードを取得できます。たとえば、以下のコマンドは `index.tsx` と `styles.module.css` を `src/theme/Footer` 内に生成します。
+
+```bash npm2yarn
+npm run swizzle @docusaurus/theme-classic Footer -- --typescript
+```
+
+<!-- 
+All official Docusaurus themes support TypeScript theme components, including [`theme-classic`](./api/themes/theme-classic.mdx), [`theme-live-codeblock`](./api/themes/theme-live-codeblock.mdx), and [`theme-search-algolia`](./api/themes/theme-search-algolia.mdx). If you are a Docusaurus theme package author who wants to add TypeScript support, see the [Lifecycle APIs docs](./api/plugin-methods/extend-infrastructure.mdx#getTypeScriptThemePath).
+ -->
+すべての公式 Docusaurus テーマは、[`theme-classic`](./api/themes/theme-classic.mdx)、[`theme-live-codeblock`](./api/themes/theme-live-codeblock.mdx)、[`theme-search-algolia`](./api/themes/theme-search-algolia.mdx)を含む TypeScript テーマ・コンポーネントに対応しています。TypeScript 対応を追加したい Docusaurus テーマパッケージ作者の方は、[Lifecycle API ドキュメント](./api/plugin-methods/extend-infrastructure.mdx#getTypeScriptThemePath)をご覧ください。

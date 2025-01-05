@@ -70,7 +70,7 @@ We recommend the `classic` template so that you can get started quickly, and it 
 <!-- 
 You can also use the template's TypeScript variant by passing the `--typescript` flag. See [TypeScript support](./typescript-support.mdx) for more information.
  -->
-また、`--typescript` フラグを渡すことで、テンプレートの TypeScript 版を使うこともできます。詳しくは[TypeScript 対応](./typescript-support.mdx)を参照してください。
+また、`--typescript` フラグを渡すことで、テンプレートの TypeScript 版を使うこともできます。詳しくは [TypeScript 対応](./typescript-support.mdx)を参照してください。
 
 ```bash
 npx create-docusaurus@latest my-website classic --typescript
@@ -112,7 +112,7 @@ npm init docusaurus
 <!-- 
 Run `npx create-docusaurus@latest --help`, or check out its [API docs](./api/misc/create-docusaurus.mdx) for more information about all available flags.
  -->
-`npx create-docusaurus@latest --help` を実行するか、[API docs](./api/misc/create-docusaurus.mdx)で利用可能なすべてのフラグの詳細を確認してください。
+`npx create-docusaurus@latest --help` を実行するか、[API ドキュメント](./api/misc/create-docusaurus.mdx)で利用可能なすべてのフラグの詳細を確認してください。
 
 <!-- 
 ## Project structure {#project-structure}
@@ -165,10 +165,10 @@ my-website
 - `/package.json` - A Docusaurus website is a React app. You can install and use any npm packages you like in them
 - `/sidebars.js` - Used by the documentation to specify the order of documents in the sidebar
  -->
-- `/blog/` - blog 用の Markdown ファイルが格納されています。blog プラグインを無効にしている場合は、このディレクトリを削除するか、`path` オプションを設定した後で名前を変更できます。詳細は[blog ガイド](blog.mdx)をご覧ください。
-- `/docs/` - docs 用の Markdown ファイルが格納されています。`sidebars.js` で docs サイドバーの並び順をカスタマイズできます。docs プラグインを無効にしている場合は、このディレクトリを削除するか、`path` オプションを設定した後に名前を変更できます。詳細は[docs ガイド](./guides/docs/docs-introduction.mdx)をご覧ください。
+- `/blog/` - blog 用の Markdown ファイルが格納されています。blog プラグインを無効にしている場合は、このディレクトリを削除するか、`path` オプションを設定した後で名前を変更できます。詳細は [blog ガイド](blog.mdx)をご覧ください。
+- `/docs/` - docs 用の Markdown ファイルが格納されています。`sidebars.js` で docs サイドバーの並び順をカスタマイズできます。docs プラグインを無効にしている場合は、このディレクトリを削除するか、`path` オプションを設定した後に名前を変更できます。詳細は [docs ガイド](./guides/docs/docs-introduction.mdx)をご覧ください。
 - `/src/` - pages やカスタム React コンポーネントなど、ドキュメント以外のファイルです。厳密には、ドキュメント以外のファイルをここに置く必要はありませんが、一元化されたディレクトリの下に置くことで、何らかの lint や処理が必要になったときに指定しやすくなります。
-  - `/src/pages` - このディレクトリにある JSX/TSX/MDX ファイルは、Web サイトのページに変換されます。詳細は[pages ガイド](guides/creating-pages.mdx)をご覧ください。
+  - `/src/pages` - このディレクトリにある JSX/TSX/MDX ファイルは、Web サイトのページに変換されます。詳細は [pages ガイド](guides/creating-pages.mdx)をご覧ください。
 - `/static/` - 静的ディレクトリです。この中にあるすべてのコンテンツは、最終的な `build` ディレクトリのルートにコピーされます。
 - `/docusaurus.config.js` - サイトの設定を含む設定ファイルです。これは Docusaurus v1の `siteConfig.js` に相当します。
 - `/package.json` - Docusaurus Web サイトは React アプリケーションです。好きな npm パッケージをインストールして使用できます。
@@ -204,12 +204,12 @@ In this case, you should run `npx create-docusaurus` within the `./my-monorepo` 
 <!-- 
 If you're using a hosting provider such as Netlify or Vercel, you will need to change the `Base directory` of the site to where your Docusaurus root is. In this case, that would be `./website`. Read more about configuring ignore commands in the [deployment docs](./deployment.mdx#deploying-to-netlify).
  -->
-Netlify や Vercel のようなホスティング・プロバイダを使用している場合は、サイトの `Base directory` を Docusaurus のルートがある場所に変更する必要があります。この場合は `./website` となります。ignore コマンドの設定については、[deployment docs](./deployment.mdx#deploying-to-netlify)をご覧ください。
+Netlify や Vercel のようなホスティング・プロバイダを使用している場合は、サイトの `Base directory` を Docusaurus のルートがある場所に変更する必要があります。この場合は `./website` となります。ignore コマンドの設定については、[デプロイ・ドキュメント](./deployment.mdx#deploying-to-netlify)をご覧ください。
 
 <!-- 
 Read more about monorepos in the [Yarn documentation](https://yarnpkg.com/features/workspaces) (Yarn is not the only way to set up a monorepo, but it's a common solution), or checkout [Docusaurus](https://github.com/facebook/docusaurus) and [Jest](https://github.com/facebook/jest) for some real-world examples.
  -->
-monorepo については、[Yarn ドキュメント](https://yarnpkg.com/features/workspaces)をご覧ください (Yarn が monorepo を設定する唯一の方法ではないが、一般的なソリューションです)。または、[Docusaurus](https://github.com/facebook/docusaurus)や[Jest](https://github.com/facebook/jest)で、実際の例を確認してください。
+monorepo については、[Yarn ドキュメント](https://yarnpkg.com/features/workspaces)をご覧ください (Yarn が monorepo を設定する唯一の方法ではないが、一般的なソリューションです)。または、[Docusaurus](https://github.com/facebook/docusaurus) や [Jest](https://github.com/facebook/jest) で、実際の例を確認してください。
 
 <!-- 
 ## Running the development server {#running-the-development-server}
@@ -253,7 +253,7 @@ npm run build
 <!-- 
 and contents will be generated within the `/build` directory, which can be copied to any static file hosting service like [GitHub pages](https://pages.github.com/), [Vercel](https://vercel.com/) or [Netlify](https://www.netlify.com/). Check out the docs on [deployment](deployment.mdx) for more details.
  -->
-そしてコンテンツは `/build` ディレクトリに生成され、[GitHub pages](https://pages.github.com/)、[Vercel](https://vercel.com/)、[Netlify](https://www.netlify.com/)などの静的ファイルホスティング・サービスにコピーできます。詳細は[deployment](deployment.mdx)のドキュメントをご覧ください。
+そしてコンテンツは `/build` ディレクトリに生成され、[GitHub pages](https://pages.github.com/)、[Vercel](https://vercel.com/)、[Netlify](https://www.netlify.com/) などの静的ファイルホスティング・サービスにコピーできます。詳細は[デプロイ](deployment.mdx)のドキュメントをご覧ください。
 
 <!-- 
 ## Updating your Docusaurus version {#updating-your-docusaurus-version}
@@ -327,4 +327,4 @@ Docusaurus の未リリースの新機能を[`@canary` npm dist タグ](/communi
 <!-- 
 Ask for help on [Stack Overflow](https://stackoverflow.com/questions/tagged/docusaurus), on our [GitHub repository](https://github.com/facebook/docusaurus), our [Discord server](https://discordapp.com/invite/docusaurus), or [X](https://x.com/docusaurus).
  -->
-[Stack Overflow](https://stackoverflow.com/questions/tagged/docusaurus)、[GitHub リポジトリ](https://github.com/facebook/docusaurus)、[Discord サーバー](https://discordapp.com/invite/docusaurus)、または[X](https://x.com/docusaurus)で助けを求めてください。
+[Stack Overflow](https://stackoverflow.com/questions/tagged/docusaurus)、[GitHub リポジトリ](https://github.com/facebook/docusaurus)、[Discord サーバー](https://discordapp.com/invite/docusaurus)、または[X](https://x.com/docusaurus) で助けを求めてください。

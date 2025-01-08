@@ -1,0 +1,313 @@
+<!-- 
+---
+id: git
+slug: /i18n/git
+---
+ -->
+---
+id: git
+slug: /i18n/git
+---
+
+<!-- 
+# i18n - Using git
+ -->
+# 国際化 - Git の使用
+
+<!-- 
+A **possible translation strategy** is to **version control the translation files** with Git (or any other [VCS](https://en.wikipedia.org/wiki/Version_control)).
+ -->
+**翻訳戦略として考えられる** のは Git (または他の [VCS](https://en.wikipedia.org/wiki/Version_control)) で、**翻訳ファイルをバージョン制御する**ことです。
+
+<!-- 
+## Tradeoffs {#tradeoffs}
+ -->
+## 妥協点 {#tradeoffs}
+
+<!-- 
+This strategy has advantages:
+ -->
+この戦略には利点があります:
+
+<!-- 
+- **Easy to get started**: just commit the `i18n` folder to Git
+- **Easy for developers**: Git, GitHub and pull requests are mainstream developer tools
+- **Free** (or without any additional cost, assuming you already use Git)
+- **Low friction**: does not require signing up to an external tool
+- **Rewarding**: contributors are happy to have a nice contribution history
+ -->
+- **簡単に始められる**: `i18n` フォルダーを Git にコミットするだけ
+- **開発者には簡単**: Git、GitHub、プルリクエストは、主流の開発ツール
+- **無償** (もしくは、すでに Git を使っていることを前提に、追加費用なし)
+- **摩擦が少ない**: 外部ツールにサインアップする必要がない
+- **報酬**: コントリビューターにとって、貢献の履歴が残るのはうれしいもの
+
+<!-- 
+Using Git also present some shortcomings:
+ -->
+Git を使うことは、同時に欠点もいくつか指摘されるでしょう:
+
+<!-- 
+- **Hard for non-developers**: they do not master Git and pull-requests
+- **Hard for professional translators**: they are used to SaaS translation software and advanced features
+- **Hard to maintain**: you have to keep the translated files **in sync** with the untranslated files
+ -->
+- **開発者以外には難しい**: 彼らは、Git とプルリクエストをマスタしていない
+- **プロの翻訳者には難しい**: 彼らは、SaaS の翻訳ソフトウェアや高度な機能に慣れている
+- **メンテナンスには難しい**: 翻訳されたファイルと未翻訳のファイルを**同期**させておく必要がある
+
+:::note
+
+<!-- 
+Some **large-scale technical projects** (React, Vue.js, MDN, TypeScript, Nuxt.js, etc.) use Git for translations.
+ -->
+いくつかの **大規模な技術プロジェクト** (React、Vue.js、MDN、TypeScript、Nuxt.js、など) では、翻訳に Git を使っています。
+
+<!-- 
+Refer to the [Docusaurus i18n RFC](https://github.com/facebook/docusaurus/issues/3317) for our notes and links studying these systems.
+ -->
+これらのシステムを研究している私たちのメモとリンクについては、[Docusaurus i18n RFC](https://github.com/facebook/docusaurus/issues/3317) をご覧ください。
+
+:::
+
+<!-- 
+## Initialization {#initialization}
+ -->
+## 初期設定 {#initialization}
+
+<!-- 
+This is a walk-through of using Git to translate a newly initialized English Docusaurus website into French, and assume you already followed the [i18n tutorial](./i18n-tutorial.mdx).
+ -->
+これは、新しく初期化された英語の Docusaurus Web サイトをフランス語に翻訳するための Git を使った手順で、すでに[国際化チュートリアル](./i18n-tutorial.mdx)に目を通しているものとします。
+
+<!-- 
+### Prepare the Docusaurus site {#prepare-the-docusaurus-site}
+ -->
+### Docusaurus サイトの準備 {#prepare-the-docusaurus-site}
+
+<!-- 
+Initialize a new Docusaurus site:
+ -->
+新しい Docusaurus サイトを初期化します:
+
+```bash
+npx create-docusaurus@latest website classic
+```
+
+<!-- 
+Add the site configuration for the French language:
+ -->
+フランス語用のサイト設定を追加します:
+
+```js title="docusaurus.config.js"
+export default {
+  i18n: {
+    defaultLocale: 'en',
+    locales: ['en', 'fr'],
+  },
+  themeConfig: {
+    navbar: {
+      items: [
+        // ...
+        {
+          type: 'localeDropdown',
+          position: 'left',
+        },
+        // ...
+      ],
+    },
+  },
+  // ...
+};
+```
+
+<!-- 
+Translate the homepage:
+ -->
+ホームページを翻訳します:
+
+```jsx title="src/pages/index.js"
+import React from 'react';
+import Translate from '@docusaurus/Translate';
+import Layout from '@theme/Layout';
+
+export default function Home() {
+  return (
+    <Layout>
+      <h1 style={{margin: 20}}>
+        <Translate description="The homepage main heading">
+          Welcome to my Docusaurus translated site!
+        </Translate>
+      </h1>
+    </Layout>
+  );
+}
+```
+
+<!-- 
+### Initialize the `i18n` folder {#initialize-the-i18n-folder}
+ -->
+### `i18n` フォルダーの初期化 {#initialize-the-i18n-folder}
+
+<!-- 
+Use the [write-translations](../cli.mdx#docusaurus-write-translations-sitedir) CLI command to initialize the JSON translation files for the French locale:
+ -->
+CLI コマンド [write-translations](../cli.mdx#docusaurus-write-translations-sitedir) を使用して、フランス語ロケール用の JSON 翻訳ファイルを初期化します:
+
+```bash npm2yarn
+npm run write-translations -- --locale fr
+
+  1 translations written at i18n/fr/code.json
+ 11 translations written at i18n/fr/docusaurus-theme-classic/footer.json
+  4 translations written at i18n/fr/docusaurus-theme-classic/navbar.json
+  3 translations written at i18n/fr/docusaurus-plugin-content-docs/current.json
+```
+
+:::tip
+
+<!-- 
+Use the `--messagePrefix '(fr) '` option to make the untranslated strings stand out.
+ -->
+未翻訳の文字列を目立たせるには、`--messagePrefix '(fr) '` オプションを使いましょう。
+
+<!-- 
+`Hello` will appear as `(fr) Hello` and makes it clear a translation is missing.
+ -->
+`Hello` は `(fr) Hello` と表示され、翻訳が欠落していることが明確に示されます。
+
+:::
+
+<!-- 
+Copy your untranslated Markdown files to the French folder:
+ -->
+未翻訳の Markdown ファイルを、フランス語フォルダーにコピーします:
+
+```bash
+mkdir -p i18n/fr/docusaurus-plugin-content-docs/current
+cp -r docs/** i18n/fr/docusaurus-plugin-content-docs/current
+
+mkdir -p i18n/fr/docusaurus-plugin-content-blog
+cp -r blog/** i18n/fr/docusaurus-plugin-content-blog
+
+mkdir -p i18n/fr/docusaurus-plugin-content-pages
+cp -r src/pages/**.md i18n/fr/docusaurus-plugin-content-pages
+cp -r src/pages/**.mdx i18n/fr/docusaurus-plugin-content-pages
+```
+
+<!-- 
+Add all these files to Git.
+ -->
+これらのファイルをすべて Git に追加します。
+
+<!-- 
+### Translate the files {#translate-the-files}
+ -->
+### ファイルの翻訳 {#translate-the-files}
+
+<!-- 
+Translate the Markdown and JSON files in `i18n/fr` and commit the translation.
+ -->
+`i18n/fr` にある Markdown ファイルと JSON ファイルを翻訳し、翻訳をコミットします。
+
+<!-- 
+You should now be able to start your site in French and see the translations:
+ -->
+これで、フランス語でサイトを開始し、翻訳を見ることができます:
+
+```bash npm2yarn
+npm run start -- --locale fr
+```
+
+<!-- 
+You can also build the site locally or on your CI:
+ -->
+ローカルまたは CI 上でサイトをビルドできます:
+
+```bash npm2yarn
+npm run build
+# or
+npm run build -- --locale fr
+```
+
+<!-- 
+### Repeat {#repeat}
+ -->
+### リピート {#repeat}
+
+<!-- 
+Follow the same process for each locale you need to support.
+ -->
+対応が必要な各ロケールについて、同じ手順に従ってください。
+
+<!-- 
+## Maintenance {#maintenance}
+ -->
+## メンテナンス {#maintenance}
+
+<!-- 
+Keeping translated files **consistent** with the originals **can be challenging**, in particular for Markdown documents.
+ -->
+翻訳されたファイルをオリジナルと **一貫性** を保つことは、特に Markdown 文書の場合、**非常に困難です**。
+
+<!-- 
+### Markdown translations {#markdown-translations}
+ -->
+### Markdown 翻訳 {#markdown-translations}
+
+<!-- 
+When an untranslated Markdown document is edited, it is **your responsibility to maintain the respective translated files**, and we unfortunately don't have a good way to help you do so.
+ -->
+未翻訳の Markdown ドキュメントが編集された場合、**それぞれの翻訳ファイルを維持するのはあなたの責任** で、残念ながら、私たちはそのお手伝いをする良い方法を持ち合わせていません。
+
+<!-- 
+To keep your translated sites consistent, when the `website/docs/doc1.md` doc is edited, you need **backport these edits** to `i18n/fr/docusaurus-plugin-content-docs/current/doc1.md`.
+ -->
+翻訳サイトの一貫性を保つために、ドキュメント `website/docs/doc1.md` が編集された場合は、`i18n/fr/docusaurus-plugin-content-docs/current/doc1.md` に **これらの編集をバックポート (移植) する** 必要があります。
+
+<!-- 
+### JSON translations {#json-translations}
+ -->
+### JSON 翻訳 {#json-translations}
+
+<!-- 
+To help you maintain the JSON translation files, it is possible to run again the [write-translations](../cli.mdx#docusaurus-write-translations-sitedir) CLI command:
+ -->
+JSON 翻訳ファイルを管理するために、CLI コマンド [write-translations](../cli.mdx#docusaurus-write-translations-sitedir) を再度実行できます:
+
+```bash npm2yarn
+npm run write-translations -- --locale fr
+```
+
+<!-- 
+New translations will be appended, and existing ones will not be overridden.
+ -->
+新しい翻訳が追加されても、既存の翻訳が上書きされることはありません。
+
+:::tip
+
+<!-- 
+Reset your translations with the `--override` option.
+ -->
+`--override` オプションで翻訳をリセットします。
+
+:::
+
+<!-- 
+### Localize edit URLs {#localize-edit-urls}
+ -->
+### 編集 URL のローカライズ {#localize-edit-urls}
+
+<!-- 
+When the user is browsing a page at `/fr/doc1`, the edit button will link by default to the unlocalized doc at `website/docs/doc1.md`.
+ -->
+ユーザーが `/fr/doc1` のページを閲覧しているとき、編集ボタンはデフォルトで `website/docs/doc1.md` の未ローカライズ・ドキュメントにリンクします。
+
+<!-- 
+Your translations are on Git, and you can use the `editLocalizedFiles: true` option of the docs and blog plugins.
+ -->
+翻訳は Git 上にあり、docs と blog プラグインの `editLocalizedFiles: true` オプションを使うことができます。
+
+<!-- 
+The edit button will link to the localized doc at `i18n/fr/docusaurus-plugin-content-docs/current/doc1.md`.
+ -->
+編集ボタンは、`i18n/fr/docusaurus-plugin-content-docs/current/doc1.md` にあるローカライズされたドキュメントにリンクします。

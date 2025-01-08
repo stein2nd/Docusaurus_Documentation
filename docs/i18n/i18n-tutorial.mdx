@@ -1,0 +1,806 @@
+<!-- 
+---
+id: tutorial
+description: This tutorial will walk you through the basics of the Docusaurus i18n system.
+slug: /i18n/tutorial
+---
+ -->
+---
+id: tutorial
+description: このチュートリアルでは、Docusaurus 国際化システムの基本について、説明します。
+slug: /i18n/tutorial
+---
+
+<!-- 
+# i18n - Tutorial
+ -->
+# 国際化 - チュートリアル
+
+```mdx-code-block
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+```
+
+<!-- 
+This tutorial will walk you through the basics of the **Docusaurus i18n system**.
+ -->
+このチュートリアルでは、**Docusaurus 国際化システム**の基本について、説明します。
+
+<!-- 
+We will add **French** translations to a **newly initialized English Docusaurus website**.
+ -->
+**新しく初期化された英語の Docusaurus Web サイト** に、**フランス語** の翻訳を追加します。
+
+<!-- 
+Initialize a new site with `npx create-docusaurus@latest website classic` (like [this one](https://github.com/facebook/docusaurus/tree/main/examples/classic)).
+ -->
+`npx create-docusaurus@latest website classic` で、新規サイトを初期化します ([これ](https://github.com/facebook/docusaurus/tree/main/examples/classic)のようなもの)。
+
+<!-- 
+## Configure your site {#configure-your-site}
+ -->
+## サイトの設定 {#configure-your-site}
+
+<!-- 
+Modify `docusaurus.config.js` to add the i18n support for the French language.
+ -->
+フランス語用の国際化対応を追加するため、`docusaurus.config.js` を修正します。
+
+<!-- 
+### Site configuration {#site-configuration}
+ -->
+### サイト設定 {#site-configuration}
+
+<!-- 
+Use the [site i18n configuration](./../api/docusaurus.config.js.mdx#i18n) to declare the i18n locales:
+ -->
+国際化ロケールを宣言するには、[サイト国際化設定](./../api/docusaurus.config.js.mdx#i18n) を使用します:
+
+```js title="docusaurus.config.js"
+export default {
+  i18n: {
+    defaultLocale: 'en',
+    locales: ['en', 'fr', 'fa'],
+    localeConfigs: {
+      en: {
+        htmlLang: 'en-GB',
+      },
+      // You can omit a locale (e.g. fr) if you don't need to override the defaults
+      fa: {
+        direction: 'rtl',
+      },
+    },
+  },
+};
+```
+
+<!-- 
+The locale names are used for the translation files' locations, as well as your translated locales' base URL. When building all locales, only the default locale will have its name omitted in the base URL.
+ -->
+ロケール名は、翻訳ファイルの保存場所と同様に、翻訳されたロケールのベース URL にも使用されます。すべてのロケールを構築する際、デフォルト・ロケールのみベース URL の名前が省略されます。
+
+<!-- 
+Docusaurus uses the locale names to provide **sensible defaults**: the `<html lang="...">` attribute, locale label, calendar format, etc. You can customize these defaults with the `localeConfigs`.
+ -->
+Docusaurus は、ロケール名を使用して、**賢明なデフォルト** を提供します: `<html lang="...">` 属性、ロケール・ラベル、カレンダー・フォーマット、等。これらのデフォルトは、`localeConfigs` でカスタマイズできます。
+
+<!-- 
+### Theme configuration {#theme-configuration}
+ -->
+### テーマ設定 {#theme-configuration}
+
+<!-- 
+Add a **navbar item** of type `localeDropdown` so that users can select the locale they want:
+ -->
+`localeDropdown` タイプの **navbar アイテム** を追加し、ユーザーが必要なロケールを選択できるようにします:
+
+```js title="docusaurus.config.js"
+export default {
+  themeConfig: {
+    navbar: {
+      items: [
+        // highlight-start
+        {
+          type: 'localeDropdown',
+          position: 'left',
+        },
+        // highlight-end
+      ],
+    },
+  },
+};
+```
+
+:::tip
+
+<!-- 
+You can pass a query parameter that will be appended to the URL when a user changes the locale using the dropdown (e.g. `queryString: '?persistLocale=true'`).
+ -->
+ユーザーがドロップダウンでロケールを変更した際に、URL に追加されるクエリー・パラメータを渡すことができます (例: `queryString: '?persistLocale=true'`)。
+
+<!-- 
+This is useful for implementing an automatic locale detection on your server. For example, you can use this parameter to store the user's preferred locale in a cookie.
+ -->
+これは、ロケールの自動検出をサーバーに実装する際に便利です。たとえば、このパラメータを使用してユーザーの好みのロケールを Cookie に保存できます。
+
+:::
+
+<!-- 
+### Start your site {#start-your-site}
+ -->
+### サイトの起動 {#start-your-site}
+
+<!-- 
+Start your localized site in dev mode, using the locale of your choice:
+ -->
+選択したロケールを使用して、ローカライズされたサイトを、dev モードで起動します:
+
+```bash npm2yarn
+npm run start -- --locale fr
+```
+
+<!-- 
+Your site is accessible at [`http://localhost:3000/fr/`](http://localhost:3000/fr/).
+ -->
+サイトは [`http://localhost:3000/fr/`](http://localhost:3000/fr/) でアクセスできます。
+
+<!-- 
+We haven't provided any translation yet, so the site is mostly untranslated.
+ -->
+私たちはまだ翻訳を提供していないので、サイトはほとんど翻訳されていません。
+
+:::tip
+
+<!-- 
+Docusaurus provides **default translations** for generic theme labels, such as "Next" and "Previous" for the pagination.
+ -->
+Docusaurus は、ページネーションの「次へ」や「前へ」のような一般的なテーマ・ラベルについて、**デフォルト翻訳** を提供しています。
+
+<!-- 
+Please help us complete those **[default translations](https://github.com/facebook/docusaurus/tree/main/packages/docusaurus-theme-translations/locales)**.
+ -->
+これらの **[デフォルト翻訳](https://github.com/facebook/docusaurus/tree/main/packages/docusaurus-theme-translations/locales)** の完成に、ご協力ください。
+
+:::
+
+:::warning
+
+<!-- 
+Each locale is a **distinct standalone single-page application**: it is not possible to start the Docusaurus sites in all locales at the same time.
+ -->
+各ロケールは、**独立したスタンドアローンのシングルページ・アプリケーション** です: 同時にすべてのロケールで Docusaurus サイトを起動できません。
+
+:::
+
+<!-- 
+## Translate your site {#translate-your-site}
+ -->
+## サイトの翻訳 {#translate-your-site}
+
+<!-- 
+All translation data for the French locale is stored in `website/i18n/fr`. Each plugin sources its own translated content under the corresponding folder, while the `code.json` file defines all text labels used in the React code.
+ -->
+フランス語ロケール用のすべての翻訳データは `website/i18n/fr` に保存されます。各プラグインは、対応するフォルダー配下の独自の翻訳コンテンツをソースとし、`code.json` ファイルは、React コードで使用されるすべてのテキストラベルを定義します。
+
+:::note
+
+<!-- 
+After copying files around, restart your site with `npm run start -- --locale fr`. Hot-reload will work better when editing existing files.
+ -->
+ファイルをコピーしたら、`npm run start -- --locale fr` でサイトを再起動します。既存のファイルを編集する場合は、ホット・リロードの方がうまくいきます。
+
+:::
+
+<!-- 
+### Translate your React code {#translate-your-react-code}
+ -->
+### React コードの翻訳 {#translate-your-react-code}
+
+<!-- 
+For any React code you've written yourself: React pages, React components, etc., you will use the [**translation APIs**](../docusaurus-core.mdx#translate).
+ -->
+自身で書いた React のコード (React ページ、React コンポーネント、等) には、[**翻訳 API**](../docusaurus-core.mdx#translate) を使用します。
+
+<!-- 
+Locate all text labels in your React code that will be visible to your users, and mark them with the translation APIs. There are two kinds of APIs:
+ -->
+React のコードの中で、ユーザーが目にするテキストラベルをすべて探し出し、翻訳 API でマークします。API には2種類あります:
+
+<!-- 
+- The `<Translate>` component wraps a string as a JSX element;
+- The `translate()` callback takes a message and returns a string.
+ -->
+- `<Translate>` コンポーネントは、文字列を JSX 要素としてラップする。
+- `translate()` コールバックは、メッセージを受け取り、文字列を返す。
+
+<!-- 
+Use the one that better fits the context semantically. For example, the `<Translate>` can be used as React children, while for props that expect a string, the callback can be used.
+ -->
+セマンティクス的に、コンテキストにより適合するほうを使用しましょう。たとえば、`<Translate>` は React の子として使用でき、文字列を期待する prop にはコールバックを使用できます。
+
+:::warning
+
+<!-- 
+A JSX element is an _object_, not a object. Using it in contexts expecting strings (such as the children of [`<option>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/option)) would [coerce it to a string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/toString), which returns `"[object Object]"`. While we encourage you to use `<Translate>` as JSX children, only use the element form when it actually works.
+ -->
+JSX 要素は _object_ であり、文字列ではありません。([`<option>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/option) の子のような) 文字列を期待するコンテキストでこれを使用すると、[文字列に強制](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/toString)され、`「[object Object]」` が返されます。JSX の子として `<Translate>` を使用することをおすすめしますが、実際に機能する場合のみ、要素形式を使用してください。
+
+:::
+
+```mdx-code-block
+<Tabs>
+<TabItem value="Before">
+```
+
+```jsx title="src/pages/index.js"
+import React from 'react';
+import Layout from '@theme/Layout';
+import Link from '@docusaurus/Link';
+
+export default function Home() {
+  return (
+    <Layout>
+      {/* highlight-next-line */}
+      <h1>Welcome to my website</h1>
+      <main>
+        {/* highlight-start */}
+        You can also visit my
+        <Link to="https://docusaurus.io/blog">blog</Link>
+        {/* highlight-end */}
+        <img
+          src="/img/home.png"
+          // highlight-next-line
+          alt="Home icon"
+        />
+      </main>
+    </Layout>
+  );
+}
+```
+
+```mdx-code-block
+</TabItem>
+<TabItem value="After">
+```
+
+```jsx title="src/pages/index.js"
+import React from 'react';
+import Layout from '@theme/Layout';
+import Link from '@docusaurus/Link';
+
+// highlight-next-line
+import Translate, {translate} from '@docusaurus/Translate';
+
+export default function Home() {
+  return (
+    <Layout>
+      <h1>
+        {/* highlight-next-line */}
+        <Translate>Welcome to my website</Translate>
+      </h1>
+      <main>
+        {/* highlight-start */}
+        <Translate
+          id="homepage.visitMyBlog"
+          description="The homepage message to ask the user to visit my blog"
+          values={{
+            blogLink: (
+              <Link to="https://docusaurus.io/blog">
+                <Translate
+                  id="homepage.visitMyBlog.linkLabel"
+                  description="The label for the link to my blog">
+                  blog
+                </Translate>
+              </Link>
+            ),
+          }}>
+          {'You can also visit my {blogLink}'}
+        </Translate>
+        {/* highlight-end */}
+
+        <img
+          src="/img/home.png"
+          alt={
+            // highlight-start
+            translate({
+              message: 'Home icon',
+              description: 'The homepage icon alt message',
+            })
+            // highlight-end
+          }
+        />
+      </main>
+    </Layout>
+  );
+}
+```
+
+```mdx-code-block
+</TabItem>
+</Tabs>
+```
+
+:::info
+
+<!-- 
+Docusaurus provides a **very small and lightweight translation runtime** on purpose, and only supports basic [placeholders interpolation](../docusaurus-core.mdx#interpolate), using a subset of the [ICU Message Format](https://formatjs.io/docs/core-concepts/icu-syntax/).
+ -->
+Docusaurus は、目的上、**非常に小さく軽量な翻訳ランタイム** を提供しており、[ICU メッセージ・フォーマット](https://formatjs.io/docs/core-concepts/icu-syntax/)のサブセットを使用した、基本的な[プレースホルダ補間](../docusaurus-core.mdx#interpolate)にしか対応していません。
+
+<!-- 
+Most documentation websites are generally **static** and don't need advanced i18n features (**plurals**, **genders**, etc.). Use a library like [react-intl](https://www.npmjs.com/package/react-intl) for more advanced use-cases.
+ -->
+ほとんどのドキュメント Web サイトは一般的に **静的** であり、高度な国際化機能 (**複数形**、**ジェンダー** など) を必要としません。より高度なユースケースについては、[react-intl](https://www.npmjs.com/package/react-intl) のようなライブラリを使用してください。
+
+:::
+
+<!-- 
+The `docusaurus write-translations` command will statically analyze all React code files used in your site, extract calls to these APIs, and aggregate them in the `code.json` file. The translation files will be stored as maps from IDs to translation message objects (including the translated label and the description of the label). In your calls to the translation APIs (`<Translate>` or `translate()`), you need to specify either the default untranslated message or the ID, in order for Docusaurus to correctly correlate each translation entry to the API call.
+ -->
+`docusaurus write-translations` コマンドは、サイト内で使用されているすべての React コードファイルを静的に解析し、これらの API への呼び出しを抽出して `code.json` ファイルに集約します。翻訳ファイルは、ID から (翻訳されたラベルとラベルの説明を含む) 翻訳メッセージ・オブジェクトへのマップとして、保存されます。翻訳 API (`<Translate>` または `translate()`) への呼び出しでは、Docusaurus が各翻訳エントリーと API 呼び出しを正しく関連付けるために、デフォルトの未翻訳メッセージまたは ID を指定する必要があります。
+
+<!-- 
+:::warning text labels must be static
+ -->
+:::warning テキストラベルは、静的でなければならない
+
+<!-- 
+The `docusaurus write-translations` command only does **static analysis** of your code. It doesn't actually run your site. Therefore, dynamic messages can't be extracted, as the message is an _expression_, not a _string_:
+ -->
+`docusaurus write-translations` コマンドは、コードの **静的解析** を行うだけです。実際にサイトを実行するわけではありません。したがって、動的なメッセージは抽出できません (メッセージは _文字列_ ではなく、_式_ なので):
+
+```jsx
+const items = [
+  {id: 1, title: 'Hello'},
+  {id: 2, title: 'World'},
+];
+
+function ItemsList() {
+  return (
+    <ul>
+      {/* DON'T DO THIS: doesn't work with the write-translations command */}
+      {items.map((item) => (
+        <li key={item.id}>
+          <Translate>{item.title}</Translate>
+        </li>
+      ))}
+    <ul>
+  );
+}
+```
+
+<!-- 
+This still behaves correctly at runtime. However, in the future, we may provide a "no-runtime" mechanism, allowing the translations to be directly inlined in the React code through Babel transformations, instead of calling the APIs at runtime. Therefore, to be future-proof, you should always prefer statically analyzable messages. For example, we can refactor the code above to:
+ -->
+これでも、実行時には正しく動作するでしょう。しかし、将来的には、実行時に API を呼び出す代わりに、Babel 変換を通じて React コードに直接インライン化された翻訳を可能にする「非ランタイム」なしくみを提供する可能性があります。従って、将来的なことを考えると、常に静的に分析可能なメッセージが良いでしょう。たとえば、上のコードを次のようにリファクタリングできます:
+
+```jsx
+const items = [
+  {id: 1, title: <Translate>Hello</Translate>},
+  {id: 2, title: <Translate>World</Translate>},
+];
+
+function ItemsList() {
+  return (
+    <ul>
+      {/* The titles are now already translated when rendering! */}
+      {items.map((item) => (
+        <li key={item.id}>{item.title}</li>
+      ))}
+    <ul>
+  );
+}
+```
+
+<!-- 
+You can see the calls to the translation APIs as purely _markers_ that tell Docusaurus that "here's a text label to be replaced with a translated message".
+ -->
+翻訳 API への呼び出しは、Docusaurus に「ここに、翻訳されたメッセージに置き換えるための、テキストラベルがありますよ」と伝える、純粋な _マーカー_ として見ることができます。
+
+:::
+
+<!-- 
+#### Pluralization {#pluralization}
+ -->
+#### 複数形化 {#pluralization}
+
+<!-- 
+When you run `write-translations`, you will notice that some labels are pluralized:
+ -->
+`write-translations` を実行すると、いくつかのラベルが複数形になっていることに気付くでしょう:
+
+```json title="i18n/en/code.json"
+{
+  // ...
+  "theme.blog.post.plurals": "One post|{count} posts"
+  // ...
+}
+```
+
+<!-- 
+Every language will have a list of [possible plural categories](https://unicode-org.github.io/cldr-staging/charts/37/supplemental/language_plural_rules.html). Docusaurus will arrange them in the order of `["zero", "one", "two", "few", "many", "other"]`. For example, because English (`en`) has two plural forms ("one" and "other"), the translation message has two labels separated by a pipe (`|`). For Polish (`pl`) which has three plural forms ("one", "few", and "many"), you would provide three labels in that order, joined by pipes.
+ -->
+すべての言語には、[可能な複数形のカテゴリ](https://unicode-org.github.io/cldr-staging/charts/37/supplemental/language_plural_rules.html)のリストがあります。Docusaurus は、それらを `["zero", "one", "two", "few", "many", "other"]` の順に並べます。たとえば、英語 (`en`) には2つの複数形 (「one」と「other」) があるので、翻訳メッセージはパイプ ( `|` ) で区切られた2つのラベルを持ちます。ポーランド語 (`pl`) には3つの複数形 (「one」、「few」、「many」) があるため、パイプで区切られた3つのラベルをこの順番で指定します。
+
+<!-- 
+You can pluralize your own code's messages as well:
+ -->
+独自コードのメッセージも、複数形にできます:
+
+```jsx
+import {translate} from '@docusaurus/Translate';
+import {usePluralForm} from '@docusaurus/theme-common';
+
+function ItemsList({items}) {
+  // `usePluralForm` will provide the plural selector for the current locale
+  const {selectMessage} = usePluralForm();
+  // Select the appropriate pluralized label based on `items.length`
+  const message = selectMessage(
+    items.length,
+    translate(
+      {message: 'One item|{count} items'},
+      {count: items.length},
+    ),
+  );
+  return (
+    <>
+      <h2>{message}</h2>
+      <ul>{items.map((item) => <li key={item.id}>{item.title}</li>)}<ul>
+    </>
+  );
+}
+```
+
+:::note
+
+<!-- 
+Docusaurus uses [`Intl.PluralRules`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/PluralRules) to resolve and select plural forms. It is important to provide the right number of plural forms in the right order for `selectMessage` to work.
+ -->
+Docusaurus は、複数形の解決と選択を、[`Intl.PluralRules`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/PluralRules) を使用して行います。`selectMessage` が機能するためには、適切な数の複数形を、適切な順序で、指定することが重要です。
+
+:::
+
+<!-- 
+### Translate plugin data {#translate-plugin-data}
+ -->
+### プラグイン・データの翻訳 {#translate-plugin-data}
+
+<!-- 
+JSON translation files are used for everything that is interspersed in your code:
+ -->
+JSON 翻訳ファイルは、コードに散在するすべてのものに使用されます:
+
+<!-- 
+- React code, including the translated labels you have marked above
+- Navbar and footer labels in theme config
+- Docs sidebar category labels in `sidebars.js`
+- Blog sidebar title in plugin options
+- ...
+ -->
+- 上記でマークした翻訳済みラベルを含む、React コード
+- テーマ設定の Navbar と footer ラベル
+- `sidebars.js` にある Docs サイドバーのカテゴリー・ラベル
+- plugin オプションの Blog サイドバー・タイトル
+- ...
+
+<!-- 
+Run the [write-translations](../cli.mdx#docusaurus-write-translations-sitedir) command:
+ -->
+[write-translations](../cli.mdx#docusaurus-write-translations-sitedir) コマンドを実行します:
+
+```bash npm2yarn
+npm run write-translations -- --locale fr
+```
+
+<!-- 
+It will extract and initialize the JSON translation files that you need to translate. The `code.json` file at the root includes all translation API calls extracted from the source code, which could either be written by you or provided by the themes, some of which may already be translated by default.
+ -->
+翻訳に必要な JSON 翻訳ファイルが抽出され、初期化されます。ルートにある `code.json` ファイルには、ソースコードから抽出されたすべての翻訳 API コールが含まれています。ソースコードは、あなたが書いたか、テーマによって提供されたもので、デフォルトですでに翻訳されているものもあります。
+
+```json title="i18n/fr/code.json"
+{
+  // No ID for the <Translate> component: the default message is used as ID
+  "Welcome to my website": {
+    "message": "Welcome to my website"
+  },
+  "home.visitMyBlog": {
+    "message": "You can also visit my {blog}",
+    "description": "The homepage message to ask the user to visit my blog"
+  },
+  "homepage.visitMyBlog.linkLabel": {
+    "message": "Blog",
+    "description": "The label for the link to my blog"
+  },
+  "Home icon": {
+    "message": "Home icon",
+    "description": "The homepage icon alt message"
+  }
+}
+```
+
+<!-- 
+Plugins and themes will also write their own JSON translation files, such as:
+ -->
+プラグインやテーマは、次のような独自の JSON 翻訳ファイルも書きます:
+
+```json title="i18n/fr/docusaurus-theme-classic/navbar.json"
+{
+  "title": {
+    "message": "My Site",
+    "description": "The title in the navbar"
+  },
+  "item.label.Docs": {
+    "message": "Docs",
+    "description": "Navbar item with label Docs"
+  },
+  "item.label.Blog": {
+    "message": "Blog",
+    "description": "Navbar item with label Blog"
+  },
+  "item.label.GitHub": {
+    "message": "GitHub",
+    "description": "Navbar item with label GitHub"
+  }
+}
+```
+
+<!-- 
+Translate the `message` attribute in the JSON files of `i18n/fr`, and your site layout and homepage should now be translated.
+ -->
+`i18n/fr` の JSON ファイルの `message` 属性を翻訳すると、サイトのレイアウトとホームページが翻訳されます。
+
+<!-- 
+### Translate Markdown files {#translate-markdown-files}
+ -->
+### Markdown ファイルの翻訳 {#translate-markdown-files}
+
+<!-- 
+Official Docusaurus content plugins extensively use Markdown/MDX files and allow you to translate them.
+ -->
+公式 Docusaurus コンテンツ・プラグインは、Markdown/MDX ファイルを広く使用し、それらを翻訳できます。
+
+<!-- 
+#### Translate the docs {#translate-the-docs}
+ -->
+#### ドキュメントの翻訳 {#translate-the-docs}
+
+<!-- 
+Copy your docs Markdown files from `docs/` to `i18n/fr/docusaurus-plugin-content-docs/current`, and translate them:
+ -->
+docs の Markdown ファイルを `docs/` から `i18n/fr/docusaurus-plugin-content-docs/current` にコピーし、翻訳します:
+
+```bash
+mkdir -p i18n/fr/docusaurus-plugin-content-docs/current
+cp -r docs/** i18n/fr/docusaurus-plugin-content-docs/current
+```
+
+:::info
+
+<!-- 
+Notice that the `docusaurus-plugin-content-docs` plugin always divides its content by versions. The data in `./docs` folder will be translated in the `current` subfolder and `current.json` file. See [the doc versioning guide](../guides/docs/versioning.mdx#terminology) for more information about what "current" means.
+ -->
+`docusaurus-plugin-content-docs` プラグインは、常にバージョンごとにコンテンツを分割していることに注意してください。`./docs` フォルダー内のデータは、`current` サブフォルダーと `current.json` ファイルで翻訳されます。「current」の意味については、[ドキュメント・バージョン管理ガイド](../guides/docs/versioning.mdx#terminology)をご覧ください。
+
+:::
+
+<!-- 
+#### Translate the blog {#translate-the-blog}
+ -->
+#### blog の翻訳 {#translate-the-blog}
+
+<!-- 
+Copy your blog Markdown files to `i18n/fr/docusaurus-plugin-content-blog`, and translate them:
+ -->
+blog の Markdown ファイルを `i18n/fr/docusaurus-plugin-content-blog` にコピーし、翻訳します:
+
+```bash
+mkdir -p i18n/fr/docusaurus-plugin-content-blog
+cp -r blog/** i18n/fr/docusaurus-plugin-content-blog
+```
+
+<!-- 
+#### Translate the pages {#translate-the-pages}
+ -->
+#### pages の翻訳 {#translate-the-pages}
+
+<!-- 
+Copy your pages Markdown files to `i18n/fr/docusaurus-plugin-content-pages`, and translate them:
+ -->
+pages の Markdown ファイルを `i18n/fr/docusaurus-plugin-content-pages` にコピーし、翻訳します:
+
+```bash
+mkdir -p i18n/fr/docusaurus-plugin-content-pages
+cp -r src/pages/**.md i18n/fr/docusaurus-plugin-content-pages
+cp -r src/pages/**.mdx i18n/fr/docusaurus-plugin-content-pages
+```
+
+:::warning
+
+<!-- 
+We only copy `.md` and `.mdx` files, as React pages are translated through JSON translation files already.
+ -->
+React ページはすでに JSON 翻訳ファイルを通して翻訳されているので、`.md` ファイルと `.mdx` ファイルだけをコピーします。
+
+:::
+
+<!-- 
+:::tip Use explicit heading IDs
+ -->
+:::tip 明示的な見出し ID の使用
+
+<!-- 
+By default, a Markdown heading `### Hello World` will have a generated ID `hello-world`. Other documents can link it with `[link](#hello-world)`. However, after translation, the heading becomes `### Bonjour le Monde`, with ID `bonjour-le-monde`.
+ -->
+デフォルトでは、Markdown の見出し `### Hello World` は、生成された ID `hello-world` を持ちます。他のドキュメントは `[link](#hello-world)` でリンクできます。しかし、翻訳後の見出しは `### Bonjour le Monde` となり、ID は `bonjour-le-monde` となります。
+
+<!-- 
+Generated IDs are not always a good fit for localized sites, as it requires you to localize all the anchor links:
+ -->
+生成された ID は、すべてのアンカーリンクをローカライズする必要があるため、ローカライズされたサイトには必ずしも適していません:
+
+```diff
+- [link](#hello-world).
++ [link](#bonjour-le-monde)
+```
+
+<!-- 
+For localized sites, it is recommended to use **[explicit heading IDs](../guides/markdown-features/markdown-features-toc.mdx#heading-ids)**.
+ -->
+ローカライズされたサイトについては、**[明示的な見出し ID](../guides/markdown-features/markdown-features-toc.mdx#heading-ids)** を使用することをおすすめします。
+
+:::
+
+<!-- 
+## Deploy your site {#deploy-your-site}
+ -->
+## サイトのデプロイ {#deploy-your-site}
+
+<!-- 
+You can choose to deploy your site under a **single domain** or use **multiple (sub)domains**.
+ -->
+サイトのデプロイを、**シングル・ドメイン** 下でするか、または **複数の (サブ) ドメイン** を使用するかを、選択できます。
+
+<!-- 
+### Single-domain deployment {#single-domain-deployment}
+ -->
+### シングル・ドメインのデプロイ {#single-domain-deployment}
+
+<!-- 
+Run the following command:
+ -->
+以下のコマンドを実行します:
+
+```bash npm2yarn
+npm run build
+```
+
+<!-- 
+Docusaurus will build **one single-page application per locale**:
+ -->
+Docusaurus は、**1ロケールあたり1つの、シングルページ・アプリケーション** を構築します:
+
+<!-- 
+- `website/build`: for the default, English language
+- `website/build/fr`: for the French language
+ -->
+- `website/build`: デフォルト用、英語
+- `website/build/fr`: フランス語用
+
+<!-- 
+You can now [deploy](../deployment.mdx) the `build` folder to the static hosting solution of your choice.
+ -->
+これで `build` フォルダーを、お好みの静的ホスティング・ソリューションに[デプロイ](../deployment.mdx)できます。
+
+:::note
+
+<!-- 
+The Docusaurus website uses this strategy:
+ -->
+Docusaurus Web サイトは、この戦略を採用しています:
+
+<!-- 
+- [`https://docusaurus.io`](https://docusaurus.io)
+- [`https://docusaurus.io/fr`](https://docusaurus.io/fr)
+ -->
+- [`https://docusaurus.io`](https://docusaurus.io)
+- [`https://docusaurus.io/fr`](https://docusaurus.io/fr)
+
+:::
+
+:::tip
+
+<!-- 
+Static hosting providers generally redirect `/unknown/url` to `/404.html` by convention, always showing an **English 404 page**.
+ -->
+静的ホスティング・プロバイダは、通常、慣例により `/unknown/url` を `/404.html` にリダイレクトし、常に **英語の404エラー・ページ** を表示します。
+
+<!-- 
+**Localize your 404 pages** by configuring your host to redirect `/fr/*` to `/fr/404.html`.
+ -->
+ `/fr/*` を `/fr/404.html` にリダイレクトするようにホストを設定することで、**404エラー・ページをローカライズします**。
+
+<!-- 
+This is not always possible, and depends on your host: GitHub Pages can't do this, [Netlify](https://docs.netlify.com/routing/redirects/redirect-options/#custom-404-page-handling) can.
+ -->
+これは常に可能なわけではなく、ホストに依存します: GitHub Pages ではできませんが、[Netlify](https://docs.netlify.com/routing/redirects/redirect-options/#custom-404-page-handling) ではできます。
+
+:::
+
+<!-- 
+### Multi-domain deployment {#multi-domain-deployment}
+ -->
+### マルチ・ドメインのデプロイ {#multi-domain-deployment}
+
+<!-- 
+You can also build your site for a single locale:
+ -->
+また、シングル・ロケール向けにサイトも構築できます:
+
+```bash npm2yarn
+npm run build -- --locale fr
+```
+
+<!-- 
+Docusaurus will not add the `/fr/` URL prefix.
+ -->
+Docusaurus は、`/fr/` という URL 接頭辞を追加しません。
+
+<!-- 
+On your [static hosting provider](../deployment.mdx):
+ -->
+[静的ホスティング・プロバイダー](../deployment.mdx)で:
+
+<!-- 
+- create one deployment per locale
+- configure the appropriate build command, using the `--locale` option
+- configure the (sub)domain of your choice for each deployment
+ -->
+- ロケールあたり1つのデプロイを作成する
+- `--locale` オプションを使用して、適切なビルドコマンドを設定する
+- 各デプロイに任意の (サブ) ドメインを設定する
+
+:::warning
+
+<!-- 
+This strategy is **not possible** with GitHub Pages, as it is only possible to **have a single deployment**.
+ -->
+この戦略は GitHub Pages では、**シングル・デプロイしか持てない** から、**不可能** です。
+
+:::
+
+<!-- 
+### Hybrid {#hybrid}
+ -->
+### ハイブリッド {#hybrid}
+
+<!-- 
+It is possible to have some locales using sub-paths, and others using subdomains.
+ -->
+複数のロケールを持つことは可能で、サブパスを使うロケールもあれば、サブドメインを使うロケールもあります。
+
+<!-- 
+It is also possible to deploy each locale as a separate subdomain, assemble the subdomains in a single unified domain at the CDN level:
+ -->
+また、各ロケールを個別のサブドメインとしてデプロイし、CDN レベルでサブドメインを1つの統一ドメインにまとめることも可能です:
+
+<!-- 
+- Deploy your site as `fr.docusaurus.io`
+- Configure a CDN to serve it from `docusaurus.io/fr`
+ -->
+- サイトを `fr.docusaurus.io` としてデプロイする
+- CDN を設定して、`docusaurus.io/fr` からサーブする
+
+<!-- 
+## Managing translations {#managing-translations}
+ -->
+## 翻訳の管理 {#managing-translations}
+
+<!-- 
+Docusaurus doesn't care about how you manage your translations: all it needs is that all translation files (JSON, Markdown, or other data files) are available in the file system during building. However, as site creators, you would need to consider how translations are managed so your translation contributors could collaborate well.
+ -->
+Docusaurus は、あなたがどのように翻訳を管理するかは気にしません: 必要なのは、すべての翻訳ファイル (JSON、Markdown、またはその他のデータ・ファイル) がビルド中にファイルシステムで利用可能であることだけです。しかし、サイト作成者としては、翻訳をどのように管理し、翻訳コントリビューターがうまくコラボレーションできるようにするかを考慮する必要があります。
+
+<!-- 
+We will share two common translation collaboration strategies: [**using git**](./i18n-git.mdx) and [**using Crowdin**](./i18n-crowdin.mdx).
+ -->
+私たちは、2つの一般的な翻訳コラボレーション戦略を共有します: [**git の使用**](./i18n-git.mdx)と [**Crowdin の使用**](./i18n-crowdin.mdx)。

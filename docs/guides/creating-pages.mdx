@@ -1,0 +1,234 @@
+<!-- 
+---
+slug: /creating-pages
+sidebar_label: Pages
+---
+ -->
+---
+slug: /creating-pages
+sidebar_label: Pages
+---
+
+<!-- 
+# Creating Pages
+ -->
+# ページの作成
+
+<!-- 
+In this section, we will learn about creating pages in Docusaurus.
+ -->
+このセクションでは、Docusaurus でのページ作成について説明します。
+
+<!-- 
+The `@docusaurus/plugin-content-pages` plugin empowers you to create **one-off standalone pages** like a showcase page, playground page, or support page. You can use React components, or Markdown.
+ -->
+`@docusaurus/plugin-content-pages` プラグインを使用すると、ショーケースのページ、プレイグラウンドのページ、サポートのページなど、**単体のスタンドアローンのページ** を作成できます。React コンポーネントまたは Markdown を使用できます。
+
+:::note
+
+<!-- 
+Pages do not have sidebars, only [docs](./docs/docs-introduction.mdx) do.
+ -->
+ページにはサイドバーはなく、[docs](./docs/docs-introduction.mdx) にのみサイドバーがあります。
+
+:::
+
+:::info
+
+<!-- 
+Check the [Pages Plugin API Reference documentation](./../api/plugins/plugin-content-pages.mdx) for an exhaustive list of options.
+ -->
+オプションの完全なリストに関しては、[ページ・プラグイン API リファレンス・ドキュメント](./../api/plugins/plugin-content-pages.mdx)をご覧ください。
+
+:::
+
+<!-- 
+## Add a React page {#add-a-react-page}
+ -->
+## React ページの追加 {#add-a-react-page}
+
+<!-- 
+React is used as the UI library to create pages. Every page component should export a React component, and you can leverage the expressiveness of React to build rich and interactive content.
+ -->
+React は、ページを作成するための UI ライブラリとして使用されます。すべてのページ・コンポーネントは、React コンポーネントをエクスポートする必要があり、React の表現力を活用して、リッチでインタラクティブなコンテンツを構築できます。
+
+<!-- 
+Create a file `/src/pages/helloReact.js`:
+ -->
+`/src/pages/helloReact.js` ファイルを作成します:
+
+```jsx title="/src/pages/helloReact.js"
+import React from 'react';
+import Layout from '@theme/Layout';
+
+export default function Hello() {
+  return (
+    <Layout title="Hello" description="Hello React Page">
+      <div
+        style={{
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          height: '50vh',
+          fontSize: '20px',
+        }}>
+        <p>
+          Edit <code>pages/helloReact.js</code> and save to reload.
+        </p>
+      </div>
+    </Layout>
+  );
+}
+```
+
+<!-- 
+Once you save the file, the development server will automatically reload the changes. Now open [`http://localhost:3000/helloReact`](http://localhost:3000/helloReact) and you will see the new page you just created.
+ -->
+ファイルを保存すると、開発サーバーは自動的に変更をリロードします。次に [`http://localhost:3000/helloReact`](http://localhost:3000/helloReact) を開くと、先ほど作成した新しいページが表示されます。
+
+<!-- 
+Each page doesn't come with any styling. You will need to import the `Layout` component from `@theme/Layout` and wrap your contents within that component if you want the navbar and/or footer to appear.
+ -->
+各ページは、スタイリングされていません。navbar や footer を表示させたい場合は、`@theme/Layout` から `Layout` コンポーネントをインポートし、そのコンポーネントでコンテンツをラップする必要があります。
+
+:::tip
+
+<!-- 
+You can also create TypeScript pages with the `.tsx` extension (`helloReact.tsx`).
+ -->
+`.tsx` 拡張子で TypeScript ページも作成できます (`helloReact.tsx`)。
+
+:::
+
+<!-- 
+## Add a Markdown page {#add-a-markdown-page}
+ -->
+## Markdown ページの追加 {#add-a-markdown-page}
+
+<!-- 
+Create a file `/src/pages/helloMarkdown.md`:
+ -->
+`/src/pages/helloMarkdown.md` ファイルを作成します:
+
+```md title="/src/pages/helloMarkdown.md"
+---
+title: my hello page title
+description: my hello page description
+hide_table_of_contents: true
+---
+
+# Hello
+
+How are you?
+```
+
+<!-- 
+In the same way, a page will be created at [`http://localhost:3000/helloMarkdown`](http://localhost:3000/helloMarkdown).
+ -->
+同様に、[`http://localhost:3000/helloMarkdown`](http://localhost:3000/helloMarkdown) にページが作成されます。
+
+<!-- 
+Markdown pages are less flexible than React pages because it always uses the theme layout.
+ -->
+Markdown ページは、常にテーマのレイアウトを使用するため、React ページよりも柔軟性に欠けます。
+
+<!-- 
+Here's an [example Markdown page](/examples/markdownPageExample).
+ -->
+ここに [Markdown ページの例](/examples/markdownPageExample)があります。
+
+:::tip
+
+<!-- 
+You can use the full power of React in Markdown pages too, refer to the [MDX](https://mdxjs.com/) documentation.
+ -->
+Markdown ページでも React のフルパワーを使うことができるので、[MDX](https://mdxjs.com/) ドキュメントをご覧ください。
+
+:::
+
+<!-- 
+## Routing {#routing}
+ -->
+## ルーティング {#routing}
+
+<!-- 
+If you are familiar with other static site generators like Jekyll and Next, this routing approach will feel familiar to you. Any JavaScript file you create under `/src/pages/` directory will be automatically converted to a website page, following the `/src/pages/` directory hierarchy. For example:
+ -->
+Jekyll や Next のような他の静的サイトジェネレータに慣れていれば、このルーティング・アプローチは身近に感じられるでしょう。`/src/pages/` ディレクトリ下に作成した JavaScript ファイルは、`/src/pages/` ディレクトリの階層に従って、自動的に Web サイトのページに変換されます。たとえば:
+
+<!-- 
+- `/src/pages/index.js` → `[baseUrl]`
+- `/src/pages/foo.js` → `[baseUrl]/foo`
+- `/src/pages/foo/test.js` → `[baseUrl]/foo/test`
+- `/src/pages/foo/index.js` → `[baseUrl]/foo/`
+ -->
+- `/src/pages/index.js` → `[baseUrl]`
+- `/src/pages/foo.js` → `[baseUrl]/foo`
+- `/src/pages/foo/test.js` → `[baseUrl]/foo/test`
+- `/src/pages/foo/index.js` → `[baseUrl]/foo/`
+
+<!-- 
+In this component-based development era, it is encouraged to co-locate your styling, markup, and behavior together into components. Each page is a component, and if you need to customize your page design with your own styles, we recommend co-locating your styles with the page component in its own directory. For example, to create a "Support" page, you could do one of the following:
+ -->
+このコンポーネント・ベースの開発時代では、スタイリング、マークアップ、ビヘイビア (挙動) をコンポーネントにまとめることが推奨されます。各ページはコンポーネントであり、ページのデザインを独自のスタイルでカスタマイズする必要がある場合、スタイルを独自のディレクトリにあるページ・コンポーネントと一緒に配置することをおすすめします。たとえば、「サポート」ページを作成する場合、以下のいずれかの方法が考えられます:
+
+<!-- 
+- Add a `/src/pages/support.js` file
+- Create a `/src/pages/support/` directory and a `/src/pages/support/index.js` file.
+ -->
+- `/src/pages/support.js` ファイルを追加する
+- `/src/pages/support/` ディレクトリと `/src/pages/support/index.js` ファイルを作成する
+
+<!-- 
+The latter is preferred as it has the benefits of letting you put files related to the page within that directory. For example, a CSS module file (`styles.module.css`) with styles meant to only be used on the "Support" page.
+ -->
+後者の方が、そのディレクトリ内にページに関連するファイルを置くことができるという利点があるので、好まれています。たとえば、「Support」ページのみで使用するスタイルの CSS モジュール・ファイル (`styles.module.css`) などです。
+
+:::note
+
+<!-- 
+This is merely a recommended directory structure, and you will still need to manually import the CSS module file within your component module (`support/index.js`).
+ -->
+これは単に推奨されるディレクトリ構造であり、また、コンポーネント・モジュール内で CSS モジュール・ファイルを手動でインポートする必要があります (`support/index.js`)。
+
+:::
+
+<!-- 
+By default, any Markdown or JavaScript file starting with `_` will be ignored and no routes will be created for that file (see the `exclude` option).
+ -->
+デフォルトでは、`_` で始まる Markdown または JavaScript ファイルは無視され、そのファイルに対するルートは作成されません (`exclude` オプションを参照)。
+
+```bash
+my-website
+├── src
+│   └── pages
+│       ├── styles.module.css
+│       ├── index.js
+│       ├── _ignored.js
+│       ├── _ignored-folder
+│       │   ├── Component1.js
+│       │   └── Component2.js
+│       └── support
+│           ├── index.js
+│           └── styles.module.css
+.
+```
+
+:::warning
+
+<!-- 
+All JavaScript/TypeScript files within the `src/pages/` directory will have corresponding website paths generated for them. If you want to create reusable components into that directory, use the `exclude` option (by default, files prefixed with `_`, test files(`.test.js`), and files in `__tests__` directory are not turned into pages).
+ -->
+`src/pages/` ディレクトリ内のすべての JavaScript/TypeScript ファイルは、対応する Web サイトのパスが生成されます。そのディレクトリに再利用可能なコンポーネントを作成したい場合は、`exclude` オプションを使用してください (デフォルトでは、接頭辞が `_` のファイル、テストファイル (`.test.js`)、`__tests__` ディレクトリのファイルは、ページにならない)。
+
+:::
+
+<!-- 
+### Duplicate Routes {#duplicate-routes}
+ -->
+### ルートの重複 {#duplicate-routes}
+
+<!-- 
+You may accidentally create multiple pages that are meant to be accessed on the same route. When this happens, Docusaurus will warn you about duplicate routes when you run `yarn start` or `yarn build` (behavior configurable through the [`onDuplicateRoutes`](../api/docusaurus.config.js.mdx#onDuplicateRoutes) config), but the site will still be built successfully. The page that was created last will be accessible, but it will override other conflicting pages. To resolve this issue, you should modify or remove any conflicting routes.
+ -->
+同じルートでアクセスするはずのページを、誤って複数作成してしまうことがあるでしょう。このような場合、`yarn start` または `yarn build` (挙動は、config の[`onDuplicateRoutes`](../api/docusaurus.config.js.mdx#onDuplicateRoutes)で設定可能) を実行すると、Docusaurus はルートの重複について警告を出しますが、サイトは正常にビルドされます。最後に作成されたページにはアクセスできますが、他の競合するページを上書きしてしまいます。この課題を解決するには、競合するルートを修正または削除する必要があります。

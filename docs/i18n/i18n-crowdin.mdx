@@ -1,0 +1,934 @@
+<!-- 
+---
+id: crowdin
+slug: /i18n/crowdin
+toc_max_heading_level: 4
+---
+ -->
+---
+id: crowdin
+slug: /i18n/crowdin
+toc_max_heading_level: 4
+---
+
+<!-- 
+# i18n - Using Crowdin
+ -->
+# 国際化 - Crowdin の使用
+
+<!-- 
+The i18n system of Docusaurus is **decoupled from any translation software**.
+ -->
+Docusaurus の国際化システムは、**いかなる翻訳ソフトウェアからも、切り離されています**。
+
+<!-- 
+You can integrate Docusaurus with the **tools and SaaS of your choice**, as long as you put the **translation files at the correct location**.
+ -->
+**正しい場所に翻訳ファイルを置く** 限り、Docusaurus を **好みのツールや SaaS** と統合できます。
+
+<!-- 
+We document the usage of [Crowdin](https://crowdin.com/), as **one** possible **integration example**.
+ -->
+考えられる **統合例** の **一つ** として、[Crowdin](https://crowdin.com/)の使い方を記録します。
+
+::: warning
+
+<!-- 
+This is **not an endorsement of Crowdin** as the unique choice to translate a Docusaurus site, but it is successfully used by Facebook to translate documentation projects such as [Jest](https://jestjs.io/), [Docusaurus](https://docusaurus.io/), and [ReasonML](https://reasonml.github.io/).
+ -->
+これは、Docusaurus サイトを翻訳するための唯一の選択肢として **Crowdin を推奨するものではありません** が、[Jest](https://jestjs.io/)、[Docusaurus](https://docusaurus.io/)、[ReasonML](https://reasonml.github.io/)等のドキュメント・プロジェクトを翻訳するために Facebook が使用しています。
+
+<!-- 
+Refer to the **[Crowdin documentation](https://support.crowdin.com/)** and **[Crowdin support](mailto:support@crowdin.com)** for help.
+ -->
+ヘルプについては、**[Crowdin ドキュメント](https://support.crowdin.com/)** や **[Crowdin サポート](mailto:support@crowdin.com)** を覧ください。
+
+:::
+
+::: tip
+
+<!-- 
+Use this **[community-driven GitHub discussion](https://github.com/facebook/docusaurus/discussions/4052)** to discuss anything related to Docusaurus + Crowdin.
+ -->
+Docusaurus + Crowdin に関することは、この **[コミュニティ主導の GitHub ディスカッション](https://github.com/facebook/docusaurus/discussions/4052)** を使って議論してください。
+
+:::
+
+<!-- 
+## Crowdin overview {#crowdin-overview}
+ -->
+## Crowdin 概要 {#crowdin-overview}
+
+<!-- 
+Crowdin is a translation SaaS, offering a [free plan for open-source projects](https://crowdin.com/page/open-source-project-setup-request).
+ -->
+Crowdin は、翻訳 SaaS で、[オープンソース・プロジェクト向けの無償プラン](https://crowdin.com/page/open-source-project-setup-request)を提供しています。
+
+<!-- 
+We recommend the following translation workflow:
+ -->
+以下の翻訳ワークフローをおすすめします:
+
+<!-- 
+- **Upload sources** to Crowdin (untranslated files)
+- Use Crowdin to **translate the content**
+- **Download translations** from Crowdin (localized translation files)
+ -->
+- Crowdin に **ソースをアップロードする** (未翻訳ファイル)
+- Crowdin を使って **コンテンツを翻訳する**
+- Crowdin から **翻訳をダウンロードする** (ローカライズされた翻訳ファイル)
+
+<!-- 
+Crowdin provides a [CLI](https://support.crowdin.com/cli-tool/) to **upload sources** and **download translations**, allowing you to automate the translation process.
+ -->
+Crowdin は、**ソースのアップロード** と **翻訳のダウンロード** のための [CLI](https://support.crowdin.com/cli-tool/) を提供し、翻訳プロセスを自動化できます。
+
+<!-- 
+The [`crowdin.yml` configuration file](https://support.crowdin.com/configuration-file/) is convenient for Docusaurus, and permits to **download the localized translation files at the expected location** (in `i18n/[locale]/..`).
+ -->
+[`crowdin.yml` 設定ファイル](https://support.crowdin.com/configuration-file/)は Docusaurus にとって便利で、**期待する場所に、ローカライズされた翻訳ファイルをダウンロード** できます (`i18n/[locale]/..` に)。
+
+<!-- 
+Read the **[official documentation](https://support.crowdin.com/)** to know more about advanced features and different translation workflows.
+ -->
+高度な機能やさまざまな翻訳ワークフローについて、詳しくは、**[公式ドキュメント](https://support.crowdin.com/)** をご覧ください。
+
+<!-- 
+## Crowdin tutorial {#crowdin-tutorial}
+ -->
+## Crowdin チュートリアル {#crowdin-tutorial}
+
+<!-- 
+This is a walk-through of using Crowdin to translate a newly initialized English Docusaurus website into French, and assume you already followed the [i18n tutorial](./i18n-tutorial.mdx).
+ -->
+これは、新しく初期化された英語の Docusaurus Web サイトをフランス語に翻訳するための Crowdin を使った手順で、すでに[国際化チュートリアル](./i18n-tutorial.mdx)に目を通しているものとします。
+
+<!-- 
+The end result can be seen at [docusaurus-crowdin-example.netlify.app](https://docusaurus-crowdin-example.netlify.app/) ([repository](https://github.com/slorber/docusaurus-crowdin-example)).
+ -->
+最終結果は、[docusaurus-crowdin-example.netlify.app](https://docusaurus-crowdin-example.netlify.app/) ([リポジトリ](https://github.com/slorber/docusaurus-crowdin-example)) でご覧いただけます。
+
+<!-- 
+### Prepare the Docusaurus site {#prepare-the-docusaurus-site}
+ -->
+### Docusaurus の準備 {#prepare-the-docusaurus-site}
+
+<!-- 
+Initialize a new Docusaurus site:
+ -->
+新しい Docusaurus サイトを初期化します:
+
+```bash
+npx create-docusaurus@latest website classic
+```
+
+<!-- 
+Add the site configuration for the French language:
+ -->
+フランス語用のサイト設定を追加します:
+
+```js title="docusaurus.config.js"
+export default {
+  i18n: {
+    defaultLocale: 'en',
+    locales: ['en', 'fr'],
+  },
+  themeConfig: {
+    navbar: {
+      items: [
+        // ...
+        {
+          type: 'localeDropdown',
+          position: 'left',
+        },
+        // ...
+      ],
+    },
+  },
+  // ...
+};
+```
+
+<!-- 
+Translate the homepage:
+ -->
+ホームページを翻訳します:
+
+```jsx title="src/pages/index.js"
+import React from 'react';
+import Translate from '@docusaurus/Translate';
+import Layout from '@theme/Layout';
+
+export default function Home() {
+  return (
+    <Layout>
+      <h1 style={{margin: 20}}>
+        <Translate description="The homepage main heading">
+          Welcome to my Docusaurus translated site!
+        </Translate>
+      </h1>
+    </Layout>
+  );
+}
+```
+
+<!-- 
+### Create a Crowdin project {#create-a-crowdin-project}
+ -->
+### Crowdin プロジェクトの作成 {#create-a-crowdin-project}
+
+<!-- 
+Sign up on [Crowdin](https://crowdin.com/), and create a project.
+ -->
+[Crowdin](https://crowdin.com/) にサインアップし、プロジェクトを作成します。
+
+<!-- 
+Use English as the source language, and French as the target language.
+ -->
+英語をソース言語とし、フランス語をターゲット言語とします。
+
+<!-- 
+![Create a Crowdin project with english as source language, and french as target language](/img/crowdin/crowdin-create-project.png)
+ -->
+![英語をソース言語、フランス語をターゲット言語として、Crowdin プロジェクトを作成する](/img/crowdin/crowdin-create-project.png)
+
+<!-- 
+Your project is created, but it is empty for now. We will upload the files to translate in the next steps.
+ -->
+プロジェクトは作成されましたが、今は空の状態です。次のステップで、翻訳するファイルをアップロードしましょう。
+
+<!-- 
+### Create the Crowdin configuration {#create-the-crowdin-configuration}
+ -->
+### Crowdin 設定の作成 {#create-the-crowdin-configuration}
+
+<!-- 
+This configuration ([doc](https://support.crowdin.com/configuration-file/)) provides a mapping for the Crowdin CLI to understand:
+ -->
+この設定 ([ドキュメント](https://support.crowdin.com/configuration-file/)) は、Crowdin CLI が理解するためのマッピングを提供します:
+
+<!-- 
+- Where to find the source files to upload (JSON and Markdown)
+- Where to download the files after translation (in `i18n/[locale]`)
+ -->
+- アップロードするソースファイルの場所 (JSON と Markdown)
+- 翻訳後のファイルをダウンロードする場所 (`i18n/[locale]` に)
+
+<!-- 
+Create `crowdin.yml` in `website`:
+ -->
+`website` に `crowdin.yml` を作成します:
+
+```yml title="crowdin.yml"
+project_id: '123456'
+api_token_env: CROWDIN_PERSONAL_TOKEN
+preserve_hierarchy: true
+files:
+  # JSON translation files
+  - source: /i18n/en/**/*
+    translation: /i18n/%two_letters_code%/**/%original_file_name%
+  # Docs Markdown files
+  - source: /docs/**/*
+    translation: /i18n/%two_letters_code%/docusaurus-plugin-content-docs/current/**/%original_file_name%
+  # Blog Markdown files
+  - source: /blog/**/*
+    translation: /i18n/%two_letters_code%/docusaurus-plugin-content-blog/**/%original_file_name%
+```
+
+<!-- 
+Crowdin has its own syntax for declaring source/translation paths:
+ -->
+Crowdin には、ソースパス/翻訳パスを宣言するための、独自の構文があります:
+
+<!-- 
+- `**/*`: everything in a subfolder
+- `%two_letters_code%`: the 2-letters variant of Crowdin target languages (`fr` in our case)
+- `**/%original_file_name%`: the translations will preserve the original folder/file hierarchy
+ -->
+- `**/*`: サブフォルダー内のすべて
+- `%two_letters_code%`: Crowdin のターゲット言語の2文字のバリエーション (ここでは `fr`)
+- `**/%original_file_name%`: 翻訳は、元のフォルダー/ファイル階層を保持する
+
+::: info
+
+<!-- 
+The Crowdin CLI warnings are not always easy to understand.
+ -->
+Crowdin CLI の警告は、必ずしも理解しやすいものではありません。
+
+<!-- 
+We advise to:
+ -->
+私たちは、こうアドバイスしています:
+
+<!-- 
+- change one thing at a time
+- re-upload sources after any configuration change
+- use paths starting with `/` (`./` does not work)
+- avoid fancy globbing patterns like `/docs/**/*.(md|mdx)` (does not work)
+ -->
+- 一度に一つずつ変更しよう
+- 何か設定を変更したら、ソースを再アップロードしよう
+- パスは `/` で始まるものを使おう (`./` は使えない)
+- `/docs/**/*.(md|mdx)` のような派手なグロブ・パターンを避けよう (機能しない)
+
+:::
+
+<!-- 
+#### Access token {#access-token}
+ -->
+#### アクセス・トークン {#access-token}
+
+<!-- 
+The `api_token_env` attribute defines the **env variable name** read by the Crowdin CLI.
+ -->
+`api_token_env` 属性は、Crowdin CLI が読み込む **env 変数名** を定義します。
+
+<!-- 
+You can obtain a `Personal Access Token` on [your personal profile page](https://crowdin.com/settings#api-key).
+ -->
+[あなたの個人プロフィールページ](https://crowdin.com/settings#api-key)で `Personal Access Token` を取得できます。
+
+::: tip
+
+<!-- 
+You can keep the default value `CROWDIN_PERSONAL_TOKEN`, and set this environment variable and on your computer and on the CI server to the generated access token.
+ -->
+デフォルト値 `CROWDIN_PERSONAL_TOKEN` はそのままにしておき、この環境変数と、あなたのコンピューターおよび CI サーバーに、生成されたアクセストークンを設定してください。
+
+:::
+
+::: warning
+
+<!-- 
+A Personal Access Tokens grant **read-write access to all your Crowdin projects**.
+ -->
+パーソナル・アクセストークンは、**あなたのすべての Crowdin プロジェクトへの読み書きアクセス権** を付与します。
+
+<!-- 
+You should **not commit** it, and it may be a good idea to create a dedicated **Crowdin profile for your company** instead of using a personal account.
+ -->
+それを **コミットすべきではない** し、また、個人アカウントを使用するのではなく、専用の **会社用 Crowdin プロフィール** を作成するのは良いアイデアでしょう。
+
+:::
+
+<!-- 
+#### Other configuration fields {#other-configuration-fields}
+ -->
+#### その他の設定フィールド {#other-configuration-fields}
+
+<!-- 
+- `project_id`: can be hardcoded, and is found on `https://crowdin.com/project/<MY_PROJECT_NAME>/settings#api`
+- `preserve_hierarchy`: preserve the folder's hierarchy of your docs on Crowdin UI instead of flattening everything
+ -->
+- `project_id`: ハードコードでき、`https://crowdin.com/project/<MY_PROJECT_NAME>/settings#api` にある
+- `preserve_hierarchy`: すべてをフラット化するのではなく、Crowdin UI 上でドキュメントのフォルダー階層を保持する
+
+<!-- 
+### Install the Crowdin CLI {#install-the-crowdin-cli}
+ -->
+### Crowdin CLI のインストール {#install-the-crowdin-cli}
+
+<!-- 
+This tutorial uses the CLI version `3.5.2`, but we expect `3.x` releases to keep working.
+ -->
+このチュートリアルでは CLI バージョン `3.5.2` を使用していますが、リリース `3.x` でも動作することを期待しています。
+
+<!-- 
+Install the Crowdin CLI as an npm package to your Docusaurus site:
+ -->
+npm パッケージとして、Crowdin CLI を Docusaurus サイトにインストールします:
+
+```bash npm2yarn
+npm install @crowdin/cli@3
+```
+
+<!-- 
+Add a `crowdin` script:
+ -->
+`crowdin` スクリプトを追加します:
+
+```json title="package.json"
+{
+  "scripts": {
+    // ...
+    "write-translations": "docusaurus write-translations",
+    "crowdin": "crowdin"
+  }
+}
+```
+
+<!-- 
+Test that you can run the Crowdin CLI:
+ -->
+Crowdin CLI を実行できることをテストします:
+
+```bash npm2yarn
+npm run crowdin -- --version
+```
+
+<!-- 
+Set the `CROWDIN_PERSONAL_TOKEN` env variable on your computer, to allow the CLI to authenticate with the Crowdin API.
+ -->
+CLI が Crowdin API で認証できるように、お使いのコンピューターに環境変数 `CROWDIN_PERSONAL_TOKEN` を設定します。
+
+::: tip
+
+<!-- 
+Temporarily, you can hardcode your personal token in `crowdin.yml` with `api_token: 'MY-TOKEN'`.
+ -->
+一時的に、`crowdin.yml` に `api_token: 'MY-TOKEN'` と個人トークンをハードコードできます。
+
+:::
+
+<!-- 
+### Upload the sources {#upload-the-sources}
+ -->
+### ソースのアップロード {#upload-the-sources}
+
+<!-- 
+Generate the JSON translation files for the default language in `website/i18n/en`:
+ -->
+`website/i18n/en` のデフォルト言語用の JSON 翻訳ファイルを生成します:
+
+```bash npm2yarn
+npm run write-translations
+```
+
+<!-- 
+Upload all the JSON and Markdown translation files:
+ -->
+すべての JSON および Markdown 翻訳ファイルをアップロードします:
+
+```bash npm2yarn
+npm run crowdin upload
+```
+
+<!-- 
+![Crowdin CLI uploading Docusaurus source files](/img/crowdin/crowdin-upload-sources-cli.png)
+ -->
+![Crowdin CLI で Docusaurus のソースファイルをアップロード](/img/crowdin/crowdin-upload-sources-cli.png)
+
+<!-- 
+Your source files are now visible on the Crowdin interface: `https://crowdin.com/project/<MY_PROJECT_NAME>/settings#files`
+ -->
+これでソースファイルが Crowdin のインターフェイスに表示されるようになりました: `https://crowdin.com/project/<MY_PROJECT_NAME>/settings#files`
+
+<!-- 
+![Crowdin UI showing Docusaurus source files](/img/crowdin/crowdin-source-files.png)
+ -->
+![Crowdin UI で Docusaurus のソースファイルを表示](/img/crowdin/crowdin-source-files.png)
+
+<!-- 
+### Translate the sources {#translate-the-sources}
+ -->
+### ソースの翻訳 {#translate-the-sources}
+
+<!-- 
+On `https://crowdin.com/project/<MY_PROJECT_NAME>`, click on the French target language.
+ -->
+`https://crowdin.com/project/<MY_PROJECT_NAME>` で、ターゲット言語のフランス語をクリックします。
+
+<!-- 
+![Crowdin UI showing French translation files](/img/crowdin/crowdin-french-translations.png)
+ -->
+![Crowdin UI でフランス語の翻訳ファイルを表示](/img/crowdin/crowdin-french-translations.png)
+
+<!-- 
+Translate some Markdown files.
+ -->
+いくつかの Markdown ファイルを翻訳します。
+
+<!-- 
+![Crowdin UI to translate a Markdown file](/img/crowdin/crowdin-translate-markdown.png)
+ -->
+![Crowdin UI で Markdown ファイルを翻訳](/img/crowdin/crowdin-translate-markdown.png)
+
+::: tip
+
+<!-- 
+Use `Hide String` to make sure translators **don't translate things that should not be**:
+ -->
+`Hide String` を使って、翻訳者が **翻訳すべきでないものを、翻訳しないようにしましょう**:
+
+<!-- 
+- Front matter: `id`, `slug`, `tags` ...
+- Admonitions: `:::`, `:::note`, `:::tip` ...
+ -->
+- フロントの項目: `id`、`slug`、`tags` …
+- 警告ラベル: `:::`、`:::note`、`:::tip` …
+
+<!-- 
+![Crowdin UI hide string](/img/crowdin/crowdin-hide-string.png)
+ -->
+![Crowdin UI の非表示文字列](/img/crowdin/crowdin-hide-string.png)
+
+:::
+
+<!-- 
+Translate some JSON files.
+ -->
+いくつかの JSON ファイルを翻訳します。
+
+<!-- 
+![Crowdin UI to translate a JSON file](/img/crowdin/crowdin-translate-json.png)
+ -->
+![Crowdin UI で JSON ファイルを翻訳](/img/crowdin/crowdin-translate-json.png)
+
+::: info
+
+<!-- 
+The `description` attribute of JSON translation files is visible on Crowdin to help translate the strings.
+ -->
+JSON 翻訳ファイルの `description` 属性は、文字列の翻訳を助けるために Crowdin 上で表示されます。
+
+:::
+
+::: tip
+
+<!-- 
+**[Pre-translate](https://support.crowdin.com/pre-translation-via-machine/)** your site, and **fix pre-translation mistakes manually** (enable the Global Translation Memory in settings first).
+ -->
+サイトを **[事前翻訳](https://support.crowdin.com/pre-translation-via-machine/)** し、**事前翻訳のミスを、手動で修正** します (最初に設定で「グローバル翻訳メモリ」を有効にする)。
+
+<!-- 
+Use the `Hide String` feature first, as Crowdin is pre-translating things too optimistically.
+ -->
+Crowdin は、事前に楽観的に翻訳し過ぎるので、まず `Hide String` 機能を使いましょう。
+
+:::
+
+<!-- 
+### Download the translations {#download-the-translations}
+ -->
+### 翻訳のダウンロード {#download-the-translations}
+
+<!-- 
+Use the Crowdin CLI to download the translated JSON and Markdown files.
+ -->
+Crowdin CLI を使用して、翻訳された JSON ファイルと Markdown ファイルをダウンロードします。
+
+```bash npm2yarn
+npm run crowdin download
+```
+
+<!-- 
+The translated content should be downloaded in `i18n/fr`.
+ -->
+翻訳されたコンテンツは、`i18n/fr` にダウンロードされます。
+
+<!-- 
+Start your site on the French locale:
+ -->
+フランスのロケールで、サイトを起動します:
+
+```bash npm2yarn
+npm run start -- --locale fr
+```
+
+<!-- 
+Make sure that your website is now translated in French at [`http://localhost:3000/fr/`](http://localhost:3000/fr/).
+ -->
+あなたの Web サイトが [`http://localhost:3000/fr/`](http://localhost:3000/fr/) でフランス語に翻訳されていることを確認してください。
+
+<!-- 
+### Automate with CI {#automate-with-ci}
+ -->
+### CI で自動化 {#automate-with-ci}
+
+<!-- 
+We will configure the CI to **download the Crowdin translations at build time** and keep them outside of Git.
+ -->
+**ビルド時に Crowdin の翻訳をダウンロード** し、Git の外に置いておくように CI を設定します。
+
+<!-- 
+Add `website/i18n` to `.gitignore`.
+ -->
+`.gitignore` に `website/i18n` を追加します。
+
+<!-- 
+Set the `CROWDIN_PERSONAL_TOKEN` env variable on your CI.
+ -->
+CI で環境変数 `CROWDIN_PERSONAL_TOKEN` を設定します。
+
+<!-- 
+Create an npm script to `sync` Crowdin (extract sources, upload sources, download translations):
+ -->
+Crowdin を `sync` するための npm スクリプトを作成します (ソースの抽出、ソースのアップロード、翻訳のダウンロード):
+
+```json title="package.json"
+{
+  "scripts": {
+    "crowdin:sync": "docusaurus write-translations && crowdin upload && crowdin download"
+  }
+}
+```
+
+<!-- 
+Call the `npm run crowdin:sync` script in your CI, just before building the Docusaurus site.
+ -->
+Docusaurus サイトをビルドする直前に、CI でスクリプト `npm run crowdin:sync` を呼び出します。
+
+::: tip
+
+<!-- 
+Keep your deploy-previews fast: don't download translations, and use `npm run build -- --locale en` for feature branches.
+ -->
+常に高速なデプロイ・プレビューを心掛けましょう: 翻訳をダウンロードせず、機能ブランチ用に `npm run build -- --locale en` を使いましょう。
+
+:::
+
+::: warning
+
+<!-- 
+Crowdin does not support well multiple concurrent uploads/downloads: it is preferable to only include translations to your production deployment, and keep deploy previews untranslated.
+ -->
+Crowdin は、複数の同時アップロード/ダウンロードをサポートしていません: 本番のデプロイには翻訳のみを含めるようにし、デプロイのプレビューは翻訳しないようにするのが望ましいです。
+
+:::
+
+<!-- 
+## Advanced Crowdin topics {#advanced-crowdin-topics}
+ -->
+## Crowdin の上級トピック {#advanced-crowdin-topics}
+
+<!-- 
+### MDX {#mdx}
+ -->
+### MDX {#mdx}
+
+::: warning
+
+<!-- 
+Pay special attention to the JSX fragments in MDX documents!
+ -->
+MDX ドキュメントの JSX フラグメントには、特に注意を払ってください !
+
+:::
+
+<!-- 
+Crowdin **does not support officially MDX**, but they added **support for the `.mdx` extension**, and interpret such files as Markdown (instead of plain text).
+ -->
+Crowdin は、**公式には MDX をサポートしていない** が、**拡張子 `.mdx` への対応** を追加し、そのようなファイルを (プレーンテキストではなく) Markdown として解釈するようになりました。
+
+<!-- 
+#### MDX problems {#mdx-problems}
+ -->
+#### MDX 問題 {#mdx-problems}
+
+<!-- 
+Crowdin thinks that the JSX syntax is embedded HTML and can mess up with the JSX markup when you download the translations, leading to a site that fails to build due to invalid JSX.
+ -->
+Crowdin は、JSX 構文は埋め込まれた HTML であり、翻訳をダウンロードする際に JSX マークアップを台なしにし、無効な JSX のためにビルドに失敗するサイトにつながる可能性があると考えています。
+
+<!-- 
+Simple JSX fragments using simple string props like `<Username name="Sebastien"/>` will work fine; more complex JSX fragments using object/array props like `<User person={{name: "Sebastien"}}/>` are more likely to fail due to a syntax that does not look like HTML.
+ -->
+`<Username name="Sebastien"/>` のようなシンプルな文字列 prop を使用したシンプルな JSX フラグメントは問題なく動作します; `<User person={{name: "Sebastien"}}/>` のようなオブジェクト/配列 prop を使用したより複雑な JSX フラグメントは、HTML のように見えない構文のために、失敗する可能性が高くなります。
+
+<!-- 
+#### MDX solutions {#mdx-solutions}
+ -->
+#### MDX 解決策 {#mdx-solutions}
+
+<!-- 
+We recommend extracting the complex embedded JSX code as separate standalone components. We also added an `mdx-code-block` escape hatch syntax:
+ -->
+複雑な埋め込み JSX コードは、独立したコンポーネントとして抽出することをおすすめします。また、エスケープハッチ構文 `mdx-code-block` も追加しました:
+
+`````text
+# How to deploy Docusaurus
+
+To deploy Docusaurus, run the following command:
+
+````mdx-code-block 
+
+import Tabs from '@theme/Tabs';
+
+import TabItem from '@theme/TabItem';
+
+<Tabs>
+  <TabItem value="bash" label="Bash">
+
+  ```bash
+  GIT_USER=<GITHUB_USERNAME> yarn deploy
+  ```
+
+  </TabItem>
+  <TabItem value="windows" label="Windows">
+
+  ```batch
+  cmd /C "set "GIT_USER=<GITHUB_USERNAME>" && yarn deploy"
+  ```
+
+  </TabItem>
+</Tabs>
+````
+`````
+
+<!-- 
+This will:
+ -->
+これは、以下のようになるでしょう:
+
+<!-- 
+- be interpreted by Crowdin as code blocks (and not mess-up with the markup on download)
+- be interpreted by Docusaurus as regular JSX (as if it was not wrapped by any code block)
+- unfortunately opt-out of MDX tooling (IDE syntax highlighting, Prettier...)
+ -->
+- Crowdin によってコードブロックとして解釈される (そして、ダウンロード時に、マークアップを混乱させない)
+- Docusaurus によって (コードブロックでラップされていないかのように) 通常の JSX として解釈される
+- 残念ながら MDX ツール (IDE の構文ハイライト、Prettier…) は使用できない
+
+<!-- 
+### Docs versioning {#docs-versioning}
+ -->
+### ドキュメントのバージョン管理 {#docs-versioning}
+
+<!-- 
+Configure translation files for the `website/versioned_docs` folder.
+ -->
+`website/versioned_docs` フォルダー用の翻訳ファイルを設定します。
+
+<!-- 
+When creating a new version, the source strings will generally be quite similar to the current version (`website/docs`), and you don't want to translate the new version docs again and again.
+ -->
+新バージョンを作成する場合、ソース文字列は現在のバージョン (`website/docs`) とかなり似ているのが一般的で、新バージョンの docs を何度も翻訳するのは避けたいですよね。
+
+<!-- 
+Crowdin provides a `Duplicate Strings` setting.
+ -->
+Crowdin は、`Duplicate Strings` 設定を提供しています。
+
+<!-- 
+![Crowdin Duplicate Strings option setting](/img/crowdin/crowdin-settings-duplicate-strings.png)
+ -->
+![Crowdin の Duplicate Strings オプション設定](/img/crowdin/crowdin-settings-duplicate-strings.png)
+
+<!-- 
+We recommend using `Hide`, but the ideal setting depends on how much your versions are different.
+ -->
+`Hide` を使用することをおすすめしますが、理想的な設定は、バージョンがどの程度違うかによります。
+
+::: warning
+
+<!-- 
+Not using `Hide` leads to a much larger amount of `source strings` in quotas, and will affect the pricing.
+ -->
+`Hide` を使用しないと、クォータ内の `source strings` の量が非常に多くなり、価格設定に影響することになります。
+
+:::
+
+<!-- 
+### Multi-instance plugins {#multi-instance-plugins}
+ -->
+### 複数インスタンス・プラグイン {#multi-instance-plugins}
+
+<!-- 
+You need to configure translation files for each plugin instance.
+ -->
+プラグインのインスタンス用に翻訳ファイルを設定する必要があります。
+
+<!-- 
+If you have a docs plugin instance with `id=ios`, you will need to configure those source files as well
+ -->
+`id=ios` の docs プラグイン・インスタンスがある場合は、これらのソースファイルも設定する必要があります。
+
+<!-- 
+- `website/ios`
+- `website/ios_versioned_docs` (if versioned)
+ -->
+- `website/ios`
+- `website/ios_versioned_docs` (バージョン管理されている場合)
+
+<!-- 
+### Maintaining your site {#maintaining-your-site}
+ -->
+### サイトのメンテナンス {#maintaining-your-site}
+
+<!-- 
+Sometimes, you will **remove or rename a source file** on Git, and Crowdin will display CLI warnings:
+ -->
+Git 上で **ソースファイルを削除したりリネームしたり** すると、Crowdin が CLI の警告を表示することがあります:
+
+<!-- 
+![Crowdin CLI: download translation warning](/img/crowdin/crowdin-download-translations-warning.png)
+ -->
+![Crowdin CLI: ダウンロード翻訳警告](/img/crowdin/crowdin-download-translations-warning.png)
+
+<!-- 
+When your sources are refactored, you should use the Crowdin UI to **update your Crowdin files manually**:
+ -->
+ソースがリファクタリングされたら、Crowdin UI を使用して **Crowdin ファイルを手動で更新してください**:
+
+<!-- 
+![Crowdin UI: renaming a file](/img/crowdin/crowdin-files-rename.png)
+ -->
+![Crowdin UI: ファイルの名前変更](/img/crowdin/crowdin-files-rename.png)
+
+<!-- 
+### VCS (Git) integrations {#vcs-git-integrations}
+ -->
+### VCS (Git) の統合 {#vcs-Git-integrations}
+
+<!-- 
+Crowdin has multiple VCS integrations for [GitHub](https://support.crowdin.com/github-integration/), GitLab, Bitbucket.
+ -->
+Crowdin は、[GitHub](https://support.crowdin.com/github-integration/)、GitLab、Bitbucket 用の複数の VCS 統合機能を持っています。 
+
+<!-- 
+:::warning TL;DR
+ -->
+::: warning 長過ぎるという方のための要約
+
+<!-- 
+We recommend avoiding them.
+ -->
+これらは使わないことをおすすめします。
+
+:::
+
+<!-- 
+It could have been helpful to be able to edit the translations in both Git and Crowdin, and have a **bi-directional sync** between the 2 systems.
+ -->
+Git と Crowdin の両方で翻訳を編集でき、2つのシステム間で **双方向同期** ができると便利だったかもしれません。
+
+<!-- 
+In practice, **it didn't work very reliably** for a few reasons:
+ -->
+実際には、いくつかの理由で **あまり信頼できるものでは、ありませんでした**:
+
+<!-- 
+- The Crowdin -> Git sync works fine (with a pull request)
+- The Git -> Crowdin sync is manual (you have to press a button)
+- The heuristics used by Crowdin to match existing Markdown translations to existing Markdown sources are not 100% reliable, and you have to verify the result on Crowdin UI after any sync from Git
+- 2 users concurrently editing on Git and Crowdin can lead to a translation loss
+- It requires the `crowdin.yml` file to be at the root of the repository
+ -->
+- Crowdin から Git への同期は、問題なく機能する (プル・リクエストで)
+- Git から Crowdin への同期は手動 (ボタンを押す必要がある)
+- Crowdin が既存の Markdown 翻訳を既存の Markdown ソースにマッチさせるために使用しているヒューリスティックは、100%信頼できるものではないので、Git からの同期後に Crowdin UI で結果を確認する必要がある
+- Git と Crowdin で2人のユーザーが同時に編集すると、翻訳が失われる可能性がある
+- `crowdin.yml` ファイルがリポジトリのルートにあることが必要
+
+<!-- 
+### In-Context localization {#in-context-localization}
+ -->
+### 文脈内ローカリゼーション {#in-context-localization}
+
+<!-- 
+Crowdin has an [In-Context localization](https://support.crowdin.com/in-context-localization/) feature.
+ -->
+Crowdin には、[文脈内ローカリゼーション](https://support.crowdin.com/in-context-localization/)機能があります。
+
+::: warning
+
+<!-- 
+Unfortunately, it does not work yet for technical reasons, but we have good hope it can be solved.
+ -->
+残念ながら、技術的な理由でまだ機能していませんが、解決できることを期待しています。
+
+<!-- 
+Crowdin replaces Markdown strings with technical IDs such as `crowdin:id12345`, but it does so too aggressively, including hidden strings, and messes up with front matter, admonitions, JSX...
+ -->
+Crowdin は、Markdown 文字列を `crowdin:id12345` のような技術的な ID に置き換えるが、隠し文字列も含めて積極的にやりすぎて、フロントの項目、警告、JSX…をめちゃくちゃにしてしまいます。
+
+:::
+
+<!-- 
+### Localize edit URLs {#localize-edit-urls}
+ -->
+### 編集 URL のローカライズ {#localize-edit-urls}
+
+<!-- 
+When the user is browsing a page at `/fr/doc1`, the edit button will link by default to the unlocalized doc at `website/docs/doc1.md`.
+ -->
+ユーザーが `/fr/doc1` のページを閲覧しているとき、編集ボタンはデフォルトで `website/docs/doc1.md` の未ローカライズ・ドキュメントにリンクします。
+
+<!-- 
+You may prefer the edit button to link to the Crowdin interface instead by using the `editUrl` function to customize the edit URLs on a per-locale basis.
+ -->
+`editUrl` 関数を使用し、ロケールごとに編集 URL をカスタマイズすることで、編集ボタンを Crowdin のインターフェイスにリンクさせることもできます。
+
+```js title="docusaurus.config.js"
+const DefaultLocale = 'en';
+
+export default {
+  presets: [
+    [
+      '@docusaurus/preset-classic',
+      {
+        docs: {
+          // highlight-start
+          editUrl: ({locale, versionDocsDirPath, docPath}) => {
+            // Link to Crowdin for French docs
+            if (locale !== DefaultLocale) {
+              return `https://crowdin.com/project/docusaurus-v2/${locale}`;
+            }
+            // Link to GitHub for English docs
+            return `https://github.com/facebook/docusaurus/edit/main/website/${versionDocsDirPath}/${docPath}`;
+          },
+          // highlight-end
+        },
+        blog: {
+          // highlight-start
+          editUrl: ({locale, blogDirPath, blogPath}) => {
+            if (locale !== DefaultLocale) {
+              return `https://crowdin.com/project/docusaurus-v2/${locale}`;
+            }
+            return `https://github.com/facebook/docusaurus/edit/main/website/${blogDirPath}/${blogPath}`;
+          },
+          // highlight-start
+        },
+      },
+    ],
+  ],
+};
+```
+
+::: note
+
+<!-- 
+It is currently **not possible to link to a specific file** in Crowdin.
+ -->
+現在のところ、Crowdin で**特定のファイルに対して、リンクを張ることはできません**。
+
+:::
+
+<!-- 
+### Example configuration {#example-configuration}
+ -->
+### 設定例 {#example-configuration}
+
+<!-- 
+The **Docusaurus configuration file** is a good example of using versioning and multi-instance:
+ -->
+**Docusaurus 設定ファイル** は、バージョン管理と複数インスタンスを使用する、良い例です:
+
+```mdx-code-block
+import CrowdinConfigV2 from '!!raw-loader!@site/../crowdin-v2.yaml';
+import CodeBlock from '@theme/CodeBlock';
+
+<CodeBlock className="language-yaml" title="crowdin.yml">
+  {CrowdinConfigV2.split('\n')
+    // remove comments
+    .map((line) => !line.startsWith('#') && line)
+    .filter(Boolean)
+    .join('\n')}
+</CodeBlock>
+```
+
+<!-- 
+### Machine Translation (MT) issue: links/image handling
+ -->
+### 機械翻訳 (MT) 課題: links/image handling
+
+<!-- 
+Crowdin recently rolled out some major changes to the markdown file format and now the links are treated differently than they were before. Before they were considered as tags, but now they appear as plain text. Because of these changes the plain text links are passed to the MT engine which attempts to translate the target, thus breaking the translation (for instance: this string `Allez voir [ma merveilleuse page](/ma-merveilleuse-page)` is translated `Check out [my wonderful page](/my-wonderful-page)`, and this breaks docusaurus i18n workflow as the page name should not be translated).
+ -->
+Crowdin は最近、Markdown ファイルフォーマットに大きな変更を加え、リンクの扱いが以前と変わりました。以前はタグとして扱われていましたが、現在はプレーンテキストとして表示されます。この変更により、プレーンテキストのリンクは MT エンジンに渡され、MT エンジンはターゲットを翻訳しようとするため、翻訳が壊れてしまいます (たとえば、この文字列 `Allez voir [ma merveilleuse page](/ma-merveilleuse-page)` は `Check out [my wonderful page](/my-wonderful-page)` と翻訳され、ページ名は翻訳されるべきではないので、これは docusaurus の国際化ワークフローを破綻させることになる)。
+
+<!-- 
+As of 2023 Dec.7, they are not planning to change the logic of how links are treated, so you should have this in mind if you plan to use Crowdin with MT.
+ -->
+2023年12月7日現在、Crowdin はリンクがどのように扱われるかのロジックを変更する予定はないとのことですので、MT で Crowdin を使用する予定がある場合は、このことを念頭に置いておく必要があります。

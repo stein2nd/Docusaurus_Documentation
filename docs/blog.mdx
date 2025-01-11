@@ -1,25 +1,48 @@
+<!-- 
 ---
 description: Deploy a full-featured blog in no time with Docusaurus.
 ---
+ -->
+---
+description: Docusaurus ですぐにフル機能のブログをデプロイ。
+---
 
+<!-- 
+# Blog
+ -->
 # Blog
 
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
+<!-- 
 The blog feature enables you to deploy a full-featured blog in no time.
+ -->
+ブログ機能を使えば、すぐにフル機能のブログをデプロイできます。
 
 :::info
 
+<!-- 
 Check the [Blog Plugin API Reference documentation](./api/plugins/plugin-content-blog.mdx) for an exhaustive list of options.
+ -->
+オプションの完全なリストについては、[blog プラグイン API リファレンス・ドキュメント](./api/plugins/plugin-content-blog.mdx)をご覧ください。
 
 :::
 
+<!-- 
 ## Initial setup {#initial-setup}
+ -->
+## 初期セットアップ {#initial-setup}
 
+<!-- 
 To set up your site's blog, start by creating a `blog` directory.
+ -->
+サイトのブログをセットアップするには、まず `blog` ディレクトリを作成します。
 
+<!-- 
 Then, add an item link to your blog within `docusaurus.config.js`:
+ -->
+次に、`docusaurus.config.js` 内にブログへのアイテムリンクを追加します:
 
 ```js title="docusaurus.config.js"
 export default {
@@ -36,11 +59,20 @@ export default {
 };
 ```
 
+<!-- 
 ## Adding posts {#adding-posts}
+ -->
+## 投稿の追加 {#adding-posts}
 
+<!-- 
 To publish in the blog, create a Markdown file within the blog directory.
+ -->
+ブログで公開するには、blog ディレクトリ内に Markdown ファイルを作成します。
 
+<!-- 
 For example, create a file at `website/blog/2019-09-05-hello-docusaurus.md`:
+ -->
+たとえば、`website/blog/2019-09-05-hello-docusaurus.md` にファイルを作成します:
 
 ```md title="website/blog/2019-09-05-hello-docusaurus.md"
 ---
@@ -76,13 +108,25 @@ This is my first post on Docusaurus 2.
 A whole bunch of exploration to follow.
 ```
 
+<!-- 
 The [front matter](./guides/markdown-features/markdown-features-intro.mdx#front-matter) is useful to add more metadata to your blog post, for example, author information, but Docusaurus will be able to infer all necessary metadata without the front matter. For all possible fields, see [the API documentation](api/plugins/plugin-content-blog.mdx#markdown-front-matter).
+ -->
+たとえば、著者情報などのメタデータを追加するために [front 項目](./guides/markdown-features/markdown-features-intro.mdx#front-matter)は便利ですが、Docusaurus は、front 項目がなくても必要なメタデータをすべて推測できます。利用可能なすべてのフィールドについては、[API ドキュメント](api/plugins/plugin-content-blog.mdx#markdown-front-matter)をご覧ください。
 
+<!-- 
 ## Blog list {#blog-list}
+ -->
+## ブログ・リスト {#blog-list}
 
+<!-- 
 The blog's index page (by default, it is at `/blog`) is the _blog list page_, where all blog posts are collectively displayed.
+ -->
+ブログのインデックスページ (デフォルトでは `/blog`) は _ブログ一覧ページ_ で、すべてのブログ投稿がまとめて表示されます。
 
+<!-- 
 Use the `<!--truncate-->` marker in your blog post to represent what will be shown as the summary when viewing all published blog posts. Anything above `<!--truncate-->` will be part of the summary. Note that the portion above the truncate marker must be standalone renderable Markdown. For example:
+ -->
+ブログ投稿内に `<!--truncate-->` マーカーを使用することで、公開されたすべてのブログ投稿を表示する際に、要約として表示される内容を表示できます。`<!--truncate-->` より上の部分は、要約の一部となります。truncate マーカーより上の部分は、スタンドアローンでレンダリング可能な Markdown でなければならないことに注意してください。たとえば:
 
 ```md title="website/blog/my-post.md" {7}
 ---
@@ -96,7 +140,10 @@ All these will be part of the blog post summary.
 But anything from here on down will not be.
 ```
 
+<!-- 
 For files using the `.mdx` extension, use a [MDX](https://mdxjs.com/) comment `{/* truncate */}` instead:
+ -->
+拡張子 `.mdx` を使用するファイルでは、代わりに [MDX](https://mdxjs.com/) コメント `{/* truncate */}` を使用してください:
 
 {/* prettier-ignore */}
 ```md title="website/blog/my-post.mdx" {7}
@@ -111,7 +158,10 @@ All these will be part of the blog post summary.
 But anything from here on down will not be.
 ```
 
+<!-- 
 By default, 10 posts are shown on each blog list page, but you can control pagination with the `postsPerPage` option in the plugin configuration. If you set `postsPerPage: 'ALL'`, pagination will be disabled and all posts will be displayed on the first page. You can also add a meta description to the blog list page for better SEO:
+ -->
+デフォルトでは、各ブログリストページに10投稿が表示されますが、プラグイン設定の `postsPerPage` オプションで ページネーションをコントロールできます。`postsPerPage: 'ALL'` を設定すると、ページネーションが無効になり、すべての投稿が最初のページに表示されます。また、ブログ一覧ページに meta description を追加することで、SEO 対策にもなります:
 
 ```js title="docusaurus.config.js"
 export default {
@@ -133,11 +183,20 @@ export default {
 };
 ```
 
+<!-- 
 ## Blog sidebar {#blog-sidebar}
+ -->
+## ブログ・サイドバー {#blog-sidebar}
 
+<!-- 
 The blog sidebar displays recent blog posts. The default number of items shown is 5, but you can customize with the `blogSidebarCount` option in the plugin configuration. By setting `blogSidebarCount: 0`, the sidebar will be completely disabled, with the container removed as well. This will increase the width of the main container. Specially, if you have set `blogSidebarCount: 'ALL'`, _all_ posts will be displayed.
+ -->
+ブログ・サイドバーは、最近のブログ投稿を表示します。デフォルトのアイテム数は5件ですが、プラグイン設定の `blogSidebarCount` オプションでカスタマイズできます。`blogSidebarCount: 0` を設定することで、サイドバーは完全に無効になり、コンテナも削除されます。これはメインコンテナの幅を大きくします。特に、`blogSidebarCount: 'ALL'` を設定した場合は、_すべての_ 投稿が表示されます。
 
+<!-- 
 You can also alter the sidebar heading text with the `blogSidebarTitle` option. For example, if you have set `blogSidebarCount: 'ALL'`, instead of the default "Recent posts", you may rather make it say "All posts":
+ -->
+また、`blogSidebarTitle` オプションでサイドバーの見出しテキストを変更できます。たとえば、`blogSidebarCount: 'ALL'` を設定した場合、デフォルトの「Recent posts」の代わりに「All posts」と表示できます:
 
 ```js title="docusaurus.config.js"
 export default {
@@ -157,13 +216,23 @@ export default {
 };
 ```
 
+<!-- 
 ## Blog post date {#blog-post-date}
+ -->
+## ブログ投稿日 {#blog-post-date}
 
+<!-- 
 Docusaurus will extract a `YYYY-MM-DD` date from many patterns such as `YYYY-MM-DD-my-blog-post-title.md` or `YYYY/MM/DD/my-blog-post-title.md`. This enables you to easily group blog posts by year, by month, or to use a flat structure.
+ -->
+Docusaurus は、`YYYY-MM-DD-my-blog-post-title.md` または `YYYYY/MM/DD/my-blog-post-title.md` のような多くのパターンから `YYYY-MM-DD` の日付を抽出します。これにより、ブログ投稿を年ごと、月ごと、またはフラットな構造で簡単にグループ化できます。
 
 <details>
+<!-- 
 <summary>Supported date extraction patterns</summary>
+ -->
+<summary>対応する日付抽出パターン</summary>
 
+<!-- 
 | Pattern | Example |
 | --- | --- |
 | Single file | `2021-05-28-my-blog-post-title.md` |
@@ -174,18 +243,38 @@ Docusaurus will extract a `YYYY-MM-DD` date from many patterns such as `YYYY-MM-
 | Partially nested folders by date | `2021/05-28-my-blog-post-title.md` |
 | Nested folders + `index.md` | `2021/05/28/my-blog-post-title/index.md` |
 | Date in the middle of path | `category/2021/05-28-my-blog-post-title.md` |
+ -->
+| パターン | 例 |
+| --- | --- |
+| 単一ファイル | `2021-05-28-my-blog-post-title.md` |
+| MDX ファイル | `2021-05-28-my-blog-post-title.mdx` |
+| 単一フォルダー + `index.md` | `2021-05-28-my-blog-post-title/index.md` |
+| 日付による、フォルダー名 | `2021-05-28/my-blog-post-title.md` |
+| 日付でネストされたフォルダー | `2021/05/28/my-blog-post-title.md` |
+| 部分的に日付でネストされたフォルダー | `2021/05-28-my-blog-post-title.md` |
+| ネストされたフォルダー + `index.md` | `2021/05/28/my-blog-post-title/index.md` |
+| パスの途中の日付 | `category/2021/05-28-my-blog-post-title.md` |
 
+<!-- 
 Docusaurus can extract the date from the posts using any of the naming patterns above. It is advisable to choose one pattern and apply it to all posts to avoid confusion.
+ -->
+Docusaurus は、上記のいずれかの命名パターンを使用して投稿から日付を抽出できます。混乱を避けるため、1つのパターンを選択し、すべての投稿に適用することをおすすめします。
 
 </details>
 
 :::tip
 
+<!-- 
 Using a folder can be convenient to co-locate blog post images alongside the Markdown file.
+ -->
+フォルダーを使用すると、ブログ投稿の画像を Markdown ファイルと一緒に配置できて便利です。
 
 :::
 
+<!-- 
 This naming convention is optional, and you can also provide the date as front matter. Since the front matter follows YAML syntax where the datetime notation is supported, you can use front matter if you need more fine-grained publish dates. For example, if you have multiple posts published on the same day, you can order them according to the time of the day:
+ -->
+この命名規則は任意であり、front 項目として日付も指定できます。front 項目は datetime 記法に対応した YAML 構文に従うので、より細かい公開日が必要な場合、front 項目を使うことができます。たとえば、同じ日に複数の投稿が公開されている場合、その投稿を時刻順に並べることができます:
 
 ```md title="earlier-post.md"
 ---
@@ -199,13 +288,25 @@ date: 2021-09-13T18:00
 ---
 ```
 
+<!-- 
 ## Blog post authors {#blog-post-authors}
+ -->
+## ブログ投稿の作者 {#blog-post-authors}
 
+<!-- 
 Use the `authors` front matter field to declare blog post authors. An author should have at least a `name` or an `image_url`. Docusaurus uses information like `url`, `email`, and `title`, but any other information is allowed.
+ -->
+ブログ投稿の作者を宣言するには `authors` front 項目フィールドを使用します。作者には少なくとも `name` または `image_url` が必要です。Docusaurus では `url`、`email`、`title` のような情報を使用しますが、他の情報でもかまいません。
 
+<!-- 
 ### Inline authors {#inline-authors}
+ -->
+### インラインの作者 {#inline-authors}
 
+<!-- 
 Blog post authors can be declared directly inside the front matter:
+ -->
+ブログ投稿の作者は、front 項目の中で直接宣言できます:
 
 ```mdx-code-block
 <Tabs groupId="author-front-matter">
@@ -259,13 +360,19 @@ authors:
 
 :::tip
 
+<!-- 
 This option works best to get started, or for casual, irregular authors.
+ -->
+このオプションは、始めたばかりの作者や、気軽に書いたり、不定期に書いたりする作者には最適でしょう。
 
 :::
 
 :::info
 
+<!-- 
 Prefer using the `authors` front matter, but the legacy `author_*` front matter remains supported:
+ -->
+front 項目 `authors` の使用を優先するが、従来の front 項目 `author_*` も引き続き対応します:
 
 ```md title="my-blog-post.md"
 ---
@@ -278,11 +385,20 @@ author_image_url: https://github.com/JoelMarcey.png
 
 :::
 
+<!-- 
 ### Global authors {#global-authors}
+ -->
+### グローバルの作者 {#global-authors}
 
+<!-- 
 For regular blog post authors, it can be tedious to maintain authors' information inlined in each blog post.
+ -->
+定期的なブログ投稿の作者にとって、各ブログ投稿に作者の情報をインラインで維持するのは面倒なことでしょう。
 
+<!-- 
 It is possible to declare those authors globally in a configuration file:
+ -->
+設定ファイルで、これらの作者をグローバルに宣言できます:
 
 ```yml title="website/blog/authors.yml"
 jmarcey:
@@ -307,11 +423,17 @@ slorber:
 
 :::tip
 
+<!-- 
 Use the `authorsMapPath` plugin option to configure the path. JSON is also supported.
+ -->
+プラグイン・オプション `authorsMapPath` を使ってパスを設定します。JSON も対応しています。
 
 :::
 
+<!-- 
 In blog posts front matter, you can reference the authors declared in the global configuration file:
+ -->
+ブログ投稿の front 項目では、グローバル設定ファイルで宣言された作者たちを参照できます:
 
 ```mdx-code-block
 <Tabs groupId="author-front-matter">
@@ -342,12 +464,21 @@ authors: [jmarcey, slorber]
 
 :::info
 
+<!-- 
 The `authors` system is very flexible and can suit more advanced use-case:
+ -->
+`authors` システムは非常に柔軟性があり、より高度なユースケースにも対応できます:
 
 <details>
+<!-- 
   <summary>Mix inline authors and global authors</summary>
+ -->
+  <summary>インライン作者とグローバル作者を、ミックス</summary>
 
+<!-- 
 You can use global authors most of the time, and still use inline authors:
+ -->
+ほとんどの場合、グローバル作者を使用しながら、インライン作者も使用できます:
 
 ```md title="my-blog-post.md"
 ---
@@ -364,9 +495,15 @@ authors:
 </details>
 
 <details>
+<!-- 
   <summary>Local override of global authors</summary>
+ -->
+  <summary>グローバル作者のローカル・オーバーライド</summary>
 
+<!-- 
 You can customize the global author's data on per-blog-post basis:
+ -->
+グローバル作者データを、ブログ投稿ごとにカスタマイズできます:
 
 ```md title="my-blog-post.md"
 ---
@@ -381,9 +518,15 @@ authors:
 </details>
 
 <details>
+<!-- 
   <summary>Localize the author's configuration file</summary>
+ -->
+  <summary>作者の設定ファイルのローカライズ</summary>
 
+<!-- 
 The configuration file can be localized, just create a localized copy of it at:
+ -->
+設定ファイルはローカライズできるので、ローカライズされたコピーを以下に作成するだけです:
 
 ```bash
 website/i18n/[locale]/docusaurus-plugin-content-blog/authors.yml
@@ -393,19 +536,37 @@ website/i18n/[locale]/docusaurus-plugin-content-blog/authors.yml
 
 :::
 
+<!-- 
 An author, either declared through front matter or through the authors map, needs to have a name or an avatar, or both. If all authors of a post don't have names, Docusaurus will display their avatars compactly. See [this test post](/tests/blog/2022/01/20/image-only-authors) for the effect.
+ -->
+作者は、front 項目または作者マップから宣言され、名前かアバター、またはその両方が必要です。投稿のすべての作者に名前がない場合、Docusaurus は彼らのアバターをコンパクトに表示します。効果については[このテスト投稿](/tests/blog/2022/01/20/image-only-authors)をご覧ください。
 
+<!-- 
 :::warning Feed generation
+ -->
+:::warning フィード生成
 
+<!-- 
 [RSS feeds](#feed) require the author's email to be set for the author to appear in the feed.
+ -->
+[RSS フィード](#feed)は、フィードに作者を表示するために、作者のメールアドレスが設定されている必要があります。
 
 :::
 
+<!-- 
 ### Authors pages {#authors-pages}
+ -->
+### 作者ページ {#authors-pages}
 
+<!-- 
 The authors pages feature is optional, and mainly useful for multi-author blogs.
+ -->
+作者ページ機能は任意であり、主に複数の作者がいるブログに便利なものです。
 
+<!-- 
 You can activate it independently for each author by adding a `page: true` attribute to the [global author configuration](#global-authors):
+ -->
+[グローバル作者設定](#global-authors)に属性 `page: true` を追加することで、作者ごとに独立して有効にできます:
 
 ```yml title="website/blog/authors.yml"
 slorber:
@@ -423,27 +584,56 @@ jmarcey:
   // highlight-end
 ```
 
+<!-- 
 The blog plugin will now generate:
+ -->
+これで blog プラグインが生成されます:
 
+<!-- 
 - a dedicated author page for each author ([example](/blog/authors/slorber)) listing all the blog posts they contributed to
 - an authors index page ([example](/blog/authors)) listing all these authors, in the order they appear in `authors.yml`
+ -->
+- 各作者専用の作者ページ ([例](/blog/authors/slorber)) で、その作者が貢献したすべてのブログ投稿をリストアップする
+- `authors.yml` に表示されている順にすべての作者をリストアップした、作者インデックスページ ([例](/blog/authors))
 
+<!-- 
 :::warning About inline authors
+ -->
+:::warning インライン作者について
 
+<!-- 
 Only [global authors](#global-authors) can activate this feature. [Inline authors](#inline-authors) are not supported.
+ -->
+この機能を有効にできるのは、[グローバル作者](#global-authors)のみです。[インライン作者](#inline-authors)は対応していません。
 
 :::
 
+<!-- 
 ## Blog post tags {#blog-post-tags}
+ -->
+## ブログ投稿タグ {#blog-post-tags}
 
+<!-- 
 Tags are declared in the front matter and introduce another dimension of categorization.
+ -->
+タグは front 項目で宣言され、カテゴリー分けの別の次元を導入するものです。
 
+<!-- 
 It is possible to define tags inline, or to reference predefined tags declared in a [`tags file`](api/plugins/plugin-content-blog.mdx#tags-file) (optional, usually `blog/tags.yml`).
+ -->
+タグをインラインで定義したり、[`tags file`](api/plugins/plugin-content-blog.mdx#tags-file) (任意、通常は `blog/tags.yml` ) で宣言された定義済みのタグを参照できます。
 
+<!-- 
 In the following example:
+ -->
+次の例では:
 
+<!-- 
 - `docusaurus` references a predefined tag key declared in `blog/tags.yml`
 - `Releases` is an inline tag, because it does not exist in `blog/tags.yml`
+ -->
+- `docusaurus` は `blog/tags.yml` で宣言された、定義済みのタグキーを参照
+- `Releases` は `blog/tags.yml` に存在しないので、インラインタグ
 
 ```md title="blog/my-post.md"
 ---
@@ -463,9 +653,15 @@ docusaurus:
   description: 'Blog posts related to the Docusaurus framework'
 ```
 
+<!-- 
 ## Reading time {#reading-time}
+ -->
+## 読書時間 {#reading-time}
 
+<!-- 
 Docusaurus generates a reading time estimation for each blog post based on word count. We provide an option to customize this.
+ -->
+Docusaurus は、単語数にもとづいて各ブログ投稿の読書の推定時間を生成します。これをカスタマイズするオプションも提供しています。
 
 ```js title="docusaurus.config.js"
 export default {
@@ -486,20 +682,32 @@ export default {
 };
 ```
 
+<!-- 
 The `readingTime` callback receives three parameters: the blog content text as a string, front matter as a record of string keys and their values, and the default reading time function. It returns a number (reading time in minutes) or `undefined` (disable reading time for this page).
+ -->
+コールバック `readingTime` は、3つのパラメータを受け取ります: 文字列としてのブログコンテンツ、文字列キー・値ペアのレコードとしての front 項目、そしてデフォルトの読書時間の関数です。数値 (分単位の読書時間) または `undefined` (このページの読書時間を無効にする) を返します。
 
+<!-- 
 The default reading time is able to accept additional options: `wordsPerMinute` as a number (default: 300), and `wordBound` as a function from string to boolean. If the string passed to `wordBound` should be a word bound (spaces, tabs, and line breaks by default), the function should return `true`.
+ -->
+デフォルトの読書時間は、追加のオプションを受け付けることができます: `wordsPerMinute` は数値 (デフォルト: 300)、`wordBound` は文字列からブール値への関数です。`wordBound` に渡された文字列が「単語の区切り」(デフォルトではスペース、タブ、改行) である場合、この関数は `true` を返します。
 
 :::tip
 
+<!-- 
 Use the callback for all your customization needs:
+ -->
+すべてのカスタマイズのニーズに、コールバックを使いましょう:
 
 ```mdx-code-block
 <Tabs>
 <TabItem value="disable-per-post" label="Per-post disabling">
 ```
 
+<!-- 
 **Disable reading time on one page:**
+ -->
+**あるページの読書時間を、無効にする:**
 
 ```js title="docusaurus.config.js"
 export default {
@@ -522,7 +730,10 @@ export default {
 };
 ```
 
+<!-- 
 Usage:
+ -->
+使い方:
 
 ```md "my-blog-post.md"
 ---
@@ -537,7 +748,10 @@ This page will no longer display the reading time stats!
 <TabItem value="passing-options" label="Passing options">
 ```
 
+<!-- 
 **Pass options to the default reading time function:**
+ -->
+**デフォルトの読書時間の関数にオプションを渡す:**
 
 ```js title="docusaurus.config.js"
 export default {
@@ -562,7 +776,10 @@ export default {
 <TabItem value="using-custom-algo" label="Using custom algorithms">
 ```
 
+<!-- 
 **Use a custom implementation of reading time:**
+ -->
+**読書時間のカスタム実装を使用する:**
 
 ```js title="docusaurus.config.js"
 import myReadingTime from './myReadingTime';
@@ -589,9 +806,15 @@ export default {
 
 :::
 
+<!-- 
 ## Feed {#feed}
+ -->
+## フィード {#feed}
 
+<!-- 
 You can generate RSS / Atom / JSON feed by passing `feedOptions`. By default, RSS and Atom feeds are generated. To disable feed generation, set `feedOptions.type` to `null`.
+ -->
+`feedOptions` を渡すことで、RSS/Atom/JSON フィードを生成できます。デフォルトでは、RSS と Atom のフィードが生成されます。フィード生成を無効にするには、`feedOptions.type` を `null` に設定します。
 
 ```ts
 type FeedType = 'rss' | 'atom' | 'json';
@@ -628,7 +851,10 @@ type BlogOptions = {
 };
 ```
 
+<!-- 
 Example usage:
+ -->
+使い方の例:
 
 ```js title="docusaurus.config.js"
 export default {
@@ -659,7 +885,10 @@ export default {
 };
 ```
 
+<!-- 
 The feeds can be found at:
+ -->
+フィードは、以下で見ることができます:
 
 <Tabs>
 <TabItem value="RSS">
@@ -685,11 +914,20 @@ https://example.com/blog/feed.json
 </TabItem>
 </Tabs>
 
+<!-- 
 ## Advanced topics {#advanced-topics}
+ -->
+## 上級トピック {#advanced-topics}
 
+<!-- 
 ### Blog-only mode {#blog-only-mode}
+ -->
+### blog 限定モード {#blog-only-mode}
 
+<!-- 
 You can run your Docusaurus site without a dedicated landing page and instead have your blog's post list page as the index page. Set the `routeBasePath` to be `'/'` to serve the blog through the root route `example.com/` instead of the subroute `example.com/blog/`.
+ -->
+Docusaurus サイトでは、専用のランディングページを作成せずに、ブログの投稿一覧ページをインデックスページとして使用できます。サブ route `example.com/blog/` の代わりにルート route `example.com/` を使ってブログを提供するには、`routeBasePath` を `'/'` に設定します。
 
 ```js title="docusaurus.config.js"
 export default {
@@ -713,29 +951,50 @@ export default {
 
 :::warning
 
+<!-- 
 Don't forget to delete the existing homepage at `./src/pages/index.js` or else there will be two files mapping to the same route!
+ -->
+`./src/pages/index.js` にある既存のホームページを削除するのを、忘れないでください。そうしないと、同じ route にマッピングされるファイルが2つ存在することになります !
 
 :::
 
 :::warning
 
+<!-- 
 If you disable the docs plugin, don't forget to delete references to the docs plugin elsewhere in your configuration file. Notably, make sure to remove the docs-related navbar items.
+ -->
+docs プラグインを無効にする場合は、設定ファイルの他の場所で docs プラグインへの参照を削除することを忘れないでください。特に、docs 関連の navbar アイテムは必ず削除してください。
 
 :::
 
 :::tip
 
+<!-- 
 There's also a "Docs-only mode" for those who only want to use the docs. Read [Docs-only mode](./guides/docs/docs-introduction.mdx) for detailed instructions or a more elaborate explanation of `routeBasePath`.
+ -->
+また、ドキュメントだけを使いたい人のために、「docs 限定モード」も用意されています。`routeBasePath` に関する丁寧な解説や詳しい説明については、[docs 限定モード](./guides/docs/docs-introduction.mdx)をご覧ください。
 
 :::
 
+<!-- 
 ### Multiple blogs {#multiple-blogs}
+ -->
+### 複数ブログ {#multiple-blogs}
 
+<!-- 
 By default, the classic theme assumes only one blog per website and hence includes only one instance of the blog plugin. If you would like to have multiple blogs on a single website, it's possible too! You can add another blog by specifying another blog plugin in the `plugins` option for `docusaurus.config.js`.
+ -->
+デフォルトでは、classic テーマは、Web サイトごとに1つのブログのみを想定しているため、blog プラグインのインスタンスが1つだけ含まれています。1つの Web サイトに複数のブログを追加したい場合も可能です ! `docusaurus.config.js` の `plugins` オプションで別の blog プラグインを指定することで、別のブログを追加できます。
 
+<!-- 
 Set the `routeBasePath` to the URL route that you want your second blog to be accessed on. Note that the `routeBasePath` here has to be different from the first blog or else there could be a collision of paths! Also, set `path` to the path to the directory containing your second blog's entries.
+ -->
+`routeBasePath` に2つ目のブログにアクセスさせたい URL ルートを設定します。`routeBasePath` は最初のブログとは異なるものでなければならないし、そうでなければパスが衝突する可能性があることに注意してください ! また、`path` には2つ目のブログのエントリーがあるディレクトリへのパスを設定しましょう。
 
+<!-- 
 As documented for [multi-instance plugins](./using-plugins.mdx#multi-instance-plugins-and-plugin-ids), you need to assign a unique ID to the plugins.
+ -->
+[マルチインスタンス・プラグイン](./using-plugins.mdx#multi-instance-plugins-and-plugin-ids)のドキュメントにあるように、プラグインに一意の ID を割り当てる必要があります。
 
 ```js title="docusaurus.config.js"
 export default {
@@ -763,4 +1022,7 @@ export default {
 };
 ```
 
+<!-- 
 As an example, we host a second blog [here](/tests/blog).
+ -->
+例として、私たちは[こちら](/tests/blog)で2つ目のブログをホストしています。

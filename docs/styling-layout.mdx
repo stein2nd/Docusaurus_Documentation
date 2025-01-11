@@ -1,27 +1,53 @@
+<!-- 
 ---
 description: A Docusaurus site is a pre-rendered single-page React application. You can style it the way you style React apps.
+---
+ -->
+---
+description: Docusaurus サイトは、事前レンダリングされたシングルページの React アプリケーションです。React アプリケーションと同じ方法でスタイルを設定できます。
 ---
 
 import ColorGenerator from '@site/src/components/ColorGenerator';
 import IframeWindow from '@site/src/components/BrowserWindow/IframeWindow';
 
+<!-- 
 # Styling and Layout
+ -->
+# スタイリングとレイアウト
 
 :::tip
 
+<!-- 
 This section is focused on styling through stylesheets. For more advanced customizations (DOM structure, React code...), refer to the [swizzling guide](./swizzling.mdx).
+ -->
+このセクションでは、スタイルシートを通じてのスタイリングに焦点を当てています。より高度なカスタマイズ (DOM 構造、React コード…) については、[swizzling ガイド](./swizzling.mdx)をご覧ください。
 
 :::
 
+<!-- 
 A Docusaurus site is a single-page React application. You can style it the way you style React apps.
+ -->
+A Docusaurus サイトは、シングルページの React アプリケーションです。React アプリケーションと同じ方法でスタイルを設定できます。
 
+<!-- 
 There are a few approaches/frameworks which will work, depending on your preferences and the type of website you are trying to build. Websites that are highly interactive and behave more like web apps will benefit from more modern styling approaches that co-locate styles with the components. Component styling can also be particularly useful when you wish to customize or swizzle a component.
+ -->
+あなたの好みや構築しようとしている Web サイトのタイプに応じて、有効なアプローチ／フレームワークがいくつかあります。インタラクティブ性が高く、Web アプリケーションのように挙動する Web サイトでは、スタイルをコンポーネントと一緒に配置する、より現代的なスタイリング・アプローチが役立ちます。コンポーネントのスタイリングは、コンポーネントをカスタマイズしたり、swizzle したい場合にも特に役立ちます。
 
+<!-- 
 ## Global styles {#global-styles}
+ -->
+## グローバル・スタイル {#global-styles}
 
+<!-- 
 This is the most traditional way of styling that most developers (including non-front-end developers) would be familiar with. It works fine for small websites that do not have much customization.
+ -->
+これは、(フロントエンド開発者以外も含め) ほとんどの開発者が慣れ親しんでいる、最も伝統的なスタイリングの方法です。カスタマイズをあまりしない小規模な Web サイトには適しています。
 
+<!-- 
 If you're using `@docusaurus/preset-classic`, you can create your own CSS files (e.g. `/src/css/custom.css`) and import them globally by passing them as an option of the classic theme.
+ -->
+`@docusaurus/preset-classic` を使用している場合は、独自の CSS ファイル (例 `/src/css/custom.css`) を作成し、classic テーマのオプションとして渡すことでグローバルにインポートできます。
 
 ```js title="docusaurus.config.js"
 export default {
@@ -41,7 +67,10 @@ export default {
 };
 ```
 
+<!-- 
 Any CSS you write within that file will be available globally and can be referenced directly using string literals.
+ -->
+そのファイル内に記述した CSS はすべてグローバルに利用でき、文字列リテラルを使って直接参照できます。
 
 ```css title="/src/css/custom.css"
 .purple-text {
@@ -59,25 +88,45 @@ function MyComponent() {
 }
 ```
 
+<!-- 
 If you want to add CSS to any element, you can open the DevTools in your browser to inspect its class names. Class names come in several kinds:
+ -->
+任意の要素に CSS を追加したい場合、ブラウザで DevTools を開いてクラス名を調べることができます。クラス名にはいくつかの種類があります:
 
+<!-- 
 - **Theme class names**. These class names are listed exhaustively in [the next subsection](#theme-class-names). They don't have any default properties. You should always prioritize targeting those stable class names in your custom CSS.
 - **Infima class names**. These class names are found in the classic theme and usually follow the [BEM convention](http://getbem.com/naming/) of `block__element--modifier`. They are usually stable but are still considered implementation details, so you should generally avoid targeting them. However, you can [modify Infima CSS variables](#styling-your-site-with-infima).
 - **CSS module class names**. These class names end with a hash which may change over time (`codeBlockContainer_RIuc`). They are considered implementation details and you should almost always avoid targeting them in your custom CSS. If you must, you can use an [attribute selector](https://developer.mozilla.org/en-US/docs/Web/CSS/Attribute_selectors) (`[class*='codeBlockContainer']`) that ignores the hash.
+ -->
+- **テーマ・クラス名**。これらのクラス名は、[次のサブセクション](#theme-class-names)に網羅的に列挙されています。これらのクラス名には、デフォルトのプロパティはありません。カスタム CSS では、常にこれらの安定したクラス名をターゲットにすることを優先してください。
+- **Infima クラス名**。これらのクラス名は classic テーマにあり、通常は `block__element--modifier` の [BEM 規約](http://getbem.com/naming/) に従います。これらは通常安定していますが、まだ実装の詳細とみなされているため、一般的にはこれらをターゲットにすることは避けるべきです。しかし、[Infima CSS 変数の変更](#styling-your-site-with-infima)は可能です。
+- **CSS モジュール・クラス名**。これらのクラス名はハッシュで終わっており、時間の経過とともに変更される可能性があります (`codeBlockContainer_RIuc`)。これらは実装の詳細とみなされるため、カスタム CSS でこれらをターゲットにすることは基本的に避けるべきです。どうしても必要な場合は、ハッシュを無視する[属性セレクタ](https://developer.mozilla.org/en-US/docs/Web/CSS/Attribute_selectors) (`[class*='codeBlockContainer']`) を使用できます。
 
+<!-- 
 ### Theme Class Names {#theme-class-names}
+ -->
+### テーマ・クラス名 {#theme-class-names}
 
+<!-- 
 We provide some stable CSS class names for robust and maintainable global layout styling. These names are theme-agnostic and meant to be targeted by custom CSS.
+ -->
+堅牢でメンテナンス可能なグローバルレイアウトのスタイリングのために、安定した CSS クラス名をいくつか提供することにしました。これらのクラス名はテーマに関係なく、カスタム CSS の対象となるものです。
 
 :::tip
 
+<!-- 
 If you can't find a way to create a robust CSS selector, please [report your customization use-case](https://github.com/facebook/docusaurus/discussions/5468) and we will consider adding new class names.
+ -->
+堅牢な CSS セレクタを作成する方法が見つからない場合は、[カスタマイズの使用例を報告](https://github.com/facebook/docusaurus/discussions/5468)してくだされば、新しいクラス名の追加を検討します。
 
 :::
 
 <details>
 
+<!-- 
 <summary>Exhaustive list of stable class names</summary>
+ -->
+<summary>安定クラス名の網羅的リスト</summary>
 
 ```mdx-code-block
 import ThemeClassNamesCode from '!!raw-loader!@site/../packages/docusaurus-theme-common/src/utils/ThemeClassNames.ts';
@@ -94,11 +143,20 @@ import CodeBlock from '@theme/CodeBlock';
 
 </details>
 
+<!-- 
 ### Styling your site with Infima {#styling-your-site-with-infima}
+ -->
+### Infima でサイトのスタイリング {#styling-your-site-with-infima}
 
+<!-- 
 `@docusaurus/preset-classic` uses [Infima](https://infima.dev/) as the underlying styling framework. Infima provides a flexible layout and common UI components styling suitable for content-centric websites (blogs, documentation, landing pages). For more details, check out the [Infima website](https://infima.dev/).
+ -->
+`@docusaurus/preset-classic` は、スタイリング・フレームワークとして [Infima](https://infima.dev/) を使用しています。Infima は、コンテンツ中心の Web サイト (ブログ、ドキュメント、ランディングページ) に適した柔軟なレイアウトと共通の UI コンポーネントのスタイリングを提供します。詳しくは[Infima Web サイト](https://infima.dev/)をご覧ください。
 
+<!-- 
 When you scaffold your Docusaurus project with `create-docusaurus`, the website will be generated with basic Infima stylesheets and default styling. You can override Infima CSS variables globally.
+ -->
+`create-docusaurus` で Docusaurus プロジェクトをひな型化すると、基本的な Infima スタイルシートとデフォルトのスタイルで Web サイトが生成されます。Infima CSS 変数をグローバルに上書きできます。
 
 ```css title="/src/css/custom.css"
 :root {
@@ -107,15 +165,27 @@ When you scaffold your Docusaurus project with `create-docusaurus`, the website 
 }
 ```
 
+<!-- 
 Infima uses 7 shades of each color. We recommend using [ColorBox](https://www.colorbox.io/) to find the different shades of colors for your chosen primary color.
+ -->
+Infima は各色7階調を使用しています。[ColorBox](https://www.colorbox.io/) を使用して、選択した原色の異なる階調を見つけることをおすすめします。
 
+<!-- 
 Alternatively, use the following tool to generate the different shades for your website and copy the variables into `/src/css/custom.css`.
+ -->
+あるいは、以下のツールを使って、あなたの Web サイト用にさまざまな階調を生成し、その変数を `/src/css/custom.css` にコピーしてください。
 
 <ColorGenerator />
 
+<!-- 
 ### Dark Mode {#dark-mode}
+ -->
+### ダーク・モード {#dark-mode}
 
+<!-- 
 In light mode, the `<html>` element has a `data-theme="light"` attribute; in dark mode, it's `data-theme="dark"`. Therefore, you can scope your CSS to dark-mode-only by targeting `html` with a specific attribute.
+ -->
+ライト・モードでは `<html>` 要素は属性 `data-theme="light"` を持ちます; ダーク・モードでは `data-theme="dark"` となります。したがって、特定の属性を持つ `html` をターゲットにすることで、CSS をダークモード専用にできます。
 
 ```css
 /* Overriding root Infima variables */
@@ -130,9 +200,15 @@ In light mode, the `<html>` element has a `data-theme="light"` attribute; in dar
 
 :::tip
 
+<!-- 
 It is possible to initialize the Docusaurus theme directly from a `docusaurus-theme` query string parameter.
+ -->
+クエリー文字列パラメータ `docusaurus-theme` から直接 Docusaurus テーマを初期化できます。
 
+<!-- 
 Examples:
+ -->
+例:
 
 <IframeWindow url="/docs/?docusaurus-theme=dark" />
 
@@ -140,11 +216,20 @@ Examples:
 
 :::
 
+<!-- 
 ### Data Attributes {#data-attributes}
+ -->
+### Data 属性 {#data-attributes}
 
+<!-- 
 It is possible to inject `<html>` data attributes with query string parameters following the `docusaurus-data-<key>` pattern. This gives you the flexibility to style a page differently based on the query string.
+ -->
+`docusaurus-data-<key>` パターンに従ったクエリー文字列パラメータで `<html>` に data 属性を注入できます。これにより、クエリー文字列に応じて異なるページスタイルを柔軟に設定できます。
 
+<!-- 
 For example, let's render one of our pages with a red border and no navbar:
+ -->
+たとえば、あるページを赤い枠で囲み、navbar なしでレンダリングしてみましょう:
 
 ```css title="/src/css/custom.css"
 html[data-navbar='false'] .navbar {
@@ -158,15 +243,27 @@ html[data-red-border] div#__docusaurus {
 
 <IframeWindow url="/docs/?docusaurus-data-navbar=false&docusaurus-data-red-border" />
 
+<!-- 
 :::tip Iframe Mode
+ -->
+:::tip Iframe モード
 
+<!-- 
 If you plan to embed some Docusaurus pages on another site though an iframe, it can be useful to create an alternative display mode and use iframe urls such as `https://mysite.com/docs/myDoc?docusaurus-data-mode=iframe`. It is your responsibility to provide the additional styles and decide which UI elements you want to keep or hide.
+ -->
+iframe を介し、他のサイトに Docusaurus のページを埋め込むことを計画している場合、代替の表示モードを作成し、`https://mysite.com/docs/myDoc?docusaurus-data-mode=iframe` のような iframe URL を使用すると便利です。追加スタイルを提供し、どの UI 要素を残すか隠すかを決定するのはあなたの責任です。
 
 :::
 
+<!-- 
 ### Mobile View {#mobile-view}
+ -->
+### モバイル表示 {#mobile-view}
 
+<!-- 
 Docusaurus uses `996px` as the cutoff between mobile screen width and desktop. If you want your layout to be different in the mobile view, you can use media queries.
+ -->
+Docusaurus では、`996px` をモバイル画面幅とデスクトップ画面幅の境界として使用しています。レイアウトをモバイル表示と異なるものにしたい場合は、メディアクエリーを使用できます。
 
 ```css
 .banner {
@@ -180,15 +277,27 @@ Docusaurus uses `996px` as the cutoff between mobile screen width and desktop. I
 }
 ```
 
+<!-- 
 :::tip Customizing the breakpoint
+ -->
+:::tip ブレークポイントのカスタマイズ
 
+<!-- 
 Some React components, such as the header and the sidebar, implement different JavaScript logic when in mobile view. If you change the breakpoint value in your custom CSS, you probably also want to update the invocations of the `useWindowSize` hook by [swizzling](./swizzling.mdx) the components it's used in and passing an explicit option argument.
+ -->
+ヘッダーやサイドバーのようないくつかの React コンポーネントは、モバイル表示時に異なる JavaScript ロジックを実装します。カスタム CSS でブレークポイントの値を変更する場合は、使用するコンポーネントを [swizzling](./swizzling.mdx) することで、そして明示的なオプション引数を渡すことで、フック `useWindowSize` の呼び出しも更新したいでしょう。
 
 :::
 
+<!-- 
 ## CSS modules {#css-modules}
+ -->
+## CSS モジュール {#css-modules}
 
+<!-- 
 To style your components using [CSS Modules](https://github.com/css-modules/css-modules), name your stylesheet files with the `.module.css` suffix (e.g. `welcome.module.css`). Webpack will load such CSS files as CSS modules and you have to reference the class names as properties of the imported CSS module (as opposed to using plain strings). This is similar to the convention used in [Create React App](https://facebook.github.io/create-react-app/docs/adding-a-css-modules-stylesheet).
+ -->
+[CSS モジュール](https://github.com/css-modules/css-modules)を使用してコンポーネントをスタイリングするには、スタイルシートファイルの名前に接尾辞として `.module.css` を付けます (例 `welcome.module.css`)。webpack はこのような CSS ファイルを CSS モジュールとして読み込みますので、インポートされた CSS モジュールのプロパティとしてクラス名を参照する必要があります (プレーンな文字列を使用するのとは異なります)。これは、[React アプリケーションの作成](https://facebook.github.io/create-react-app/docs/adding-a-css-modules-stylesheet)で使用されている規約に似ています。
 
 ```css title="styles.module.css"
 .main {
@@ -217,27 +326,48 @@ function MyComponent() {
 }
 ```
 
+<!-- 
 The class names will be processed by webpack into a globally unique class name during build.
+ -->
+クラス名は、ビルド時に webpack によってグローバルに一意なクラス名へと処理されます。
 
+<!-- 
+## CSS-in-JS {#css-in-js}
+ -->
 ## CSS-in-JS {#css-in-js}
 
 :::warning
 
+<!-- 
 CSS-in-JS support is a work in progress, so libs like MUI may have display quirks. [Welcoming PRs](https://github.com/facebook/docusaurus/issues/1640).
+ -->
+CSS-in-JS 対応は進行中ですので、MUI のようなライブラリには表示の癖があるかもしれません。[プルリクエスト歓迎](https://github.com/facebook/docusaurus/issues/1640)。
 
 :::
 
+<!-- 
+## Sass/SCSS {#sassscss}
+ -->
 ## Sass/SCSS {#sassscss}
 
+<!-- 
 To use Sass/SCSS as your CSS preprocessor, install the unofficial Docusaurus plugin [`docusaurus-plugin-sass`](https://github.com/rlamana/docusaurus-plugin-sass). This plugin works for both global styles and the CSS modules approach:
+ -->
+Sass/SCSS を CSS プリプロセッサとして使用するには、非公式の Docusaurus プラグイン [`docusaurus-plugin-sass`](https://github.com/rlamana/docusaurus-plugin-sass) をインストールしてください。このプラグインはグローバル・スタイルと CSS モジュールの両方のアプローチで動作します:
 
+<!-- 
 1. Install [`docusaurus-plugin-sass`](https://github.com/rlamana/docusaurus-plugin-sass):
+ -->
+1. [`docusaurus-plugin-sass`](https://github.com/rlamana/docusaurus-plugin-sass) をインストールします:
 
 ```bash npm2yarn
 npm install --save docusaurus-plugin-sass sass
 ```
 
+<!-- 
 2. Include the plugin in your `docusaurus.config.js` file:
+ -->
+2. `docusaurus.config.js` ファイルにプラグインをインクルードします:
 
 ```js title="docusaurus.config.js"
 export default {
@@ -248,11 +378,20 @@ export default {
 };
 ```
 
+<!-- 
 3. Write and import your stylesheets in Sass/SCSS as normal.
+ -->
+3. スタイルシートは通常通り Sass/SCSS で記述し、インポートします。
 
+<!-- 
+### Global styles using Sass/SCSS {#global-styles-using-sassscss}
+ -->
 ### Global styles using Sass/SCSS {#global-styles-using-sassscss}
 
+<!-- 
 You can now set the `customCss` property of `@docusaurus/preset-classic` to point to your Sass/SCSS file:
+ -->
+これで `@docusaurus/preset-classic` のプロパティ `customCss` を設定して、Sass/SCSS ファイルを指すようにできます:
 
 ```js title="docusaurus.config.js"
 export default {
@@ -272,9 +411,15 @@ export default {
 };
 ```
 
+<!-- 
 ### Modules using Sass/SCSS {#modules-using-sassscss}
+ -->
+### Sass/SCSS を使用したモジュール {#modules-using-sassscss}
 
+<!-- 
 Name your stylesheet files with the `.module.scss` suffix (e.g. `welcome.module.scss`) instead of `.css`. Webpack will use `sass-loader` to preprocess your stylesheets and load them as CSS modules.
+ -->
+スタイルシートファイルには `.css` の代わりに `.module.scss` という接尾辞を付けてください (例 `welcome.module.scss`)。webpack は `sass-loader` を使ってスタイルシートをプリプロセスし、CSS モジュールとして読み込みます。
 
 ```scss title="styles.module.scss"
 .main {
@@ -298,9 +443,15 @@ function MyComponent() {
 }
 ```
 
+<!-- 
 #### TypeScript support
+ -->
+#### TypeScript 対応
 
+<!-- 
 To enable TypeScript support for Sass/SCSS modules, the TypeScript configuration should be updated to add the `docusaurus-plugin-sass` type definitions. This can be done in the `tsconfig.json` file:
+ -->
+Sass/SCSS モジュールの TypeScript 対応を有効にするには、TypeScript の設定を更新して `docusaurus-plugin-sass` 型定義を追加する必要があります。これは `tsconfig.json` ファイルで行うことができます:
 
 ```diff
 {

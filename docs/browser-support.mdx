@@ -1,22 +1,45 @@
+<!-- 
 ---
 description: How to keep a reasonable bundle size while ensuring sufficient browser support.
 ---
+ -->
+---
+description: 十分なブラウザ対応を確保しつつ、適度なバンドルサイズを保つ方法。
+---
 
+<!-- 
 # Browser support
+ -->
+# ブラウザ対応
 
+<!-- 
 Docusaurus allows sites to define the list of supported browsers through a [browserslist configuration](https://github.com/browserslist/browserslist).
+ -->
+Docusaurus では、[browserslist 設定](https://github.com/browserslist/browserslist)を通して、サイトが対応するブラウザのリストを定義できます。
 
+<!-- 
 ## Purpose {#purpose}
+ -->
+## 目的 {#purpose}
 
+<!-- 
 Websites need to balance between backward compatibility and bundle size. As old browsers do not support modern APIs or syntax, more code is needed to implement the same functionality.
+ -->
+Web サイトは、後方互換性とバンドル・サイズのバランスを取る必要があります。古いブラウザは最新の API や 構文に対応していないため、同じ機能を実装するためにはより多くのコードが必要になります。
 
+<!-- 
 For example, you may use the [optional chaining syntax](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Optional_chaining):
+ -->
+たとえば、[optional 連鎖構文](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Optional_chaining)を使うことができます:
 
 ```js
 const value = obj?.prop?.val;
 ```
 
+<!-- 
 ...which unfortunately is only recognized by browser versions released after 2020. To be compatible with earlier browser versions, when building your site for production, our JS loader will transpile your code to a more verbose syntax:
+ -->
+…これは残念ながら、2020年以降にリリースされたブラウザのバージョンでしか認識されません。それ以前のブラウザバージョンと互換性を保つため、本番用にサイトをビルドする際、私たちの JS ローダはあなたのコードをより冗長な構文にトランスパイルします:
 
 ```js
 var _obj, _obj$prop;
@@ -29,19 +52,34 @@ const value =
     : _obj$prop.val;
 ```
 
+<!-- 
 However, this penalizes all other users with increased site load time because the 29-character line now becomes 168 characters—a 6-fold increase! (In practice, it will be better because the names used will be shorter.) As a tradeoff, the JS loader only transpiles the syntax to the degree that's supported by all browser versions defined in the browser list.
+ -->
+しかし、29文字の行が168文字と6倍になるため、サイトのロード時間が長くなり、他のすべてのユーザーにペナルティを与えることになります (実践的には、使用される名前がより短くなるため、その方が良いでしょう) ! トレードオフとして、JS ローダは、ブラウザ・リストで定義されたすべてのブラウザ・バージョンで対応する程度までしか構文をトランスパイルしません。
 
+<!-- 
 The browser list by default is provided through the `package.json` file as a root `browserslist` field.
+ -->
+デフォルトのブラウザリストは、`package.json` ファイルのルート `browserslist` フィールドとして提供されます。
 
 :::warning
 
+<!-- 
 On old browsers, the compiled output will use unsupported (too recent) JS syntax, causing React to fail to initialize and end up with a static website with only HTML/CSS and no JS.
+ -->
+古いブラウザでは、コンパイルされた出力に対応していない (新しすぎる) JS 構文が使用されるため、React の初期化に失敗し、HTML/CSS のみで JS がない静的な Web サイトになってしまいます。
 
 :::
 
+<!-- 
 ## Default values {#default-values}
+ -->
+## デフォルト値 {#default-values}
 
+<!-- 
 Websites initialized with the default classic template has the following in `package.json`:
+ -->
+デフォルトの classic テンプレートで初期化された Web サイトは、`package.json` に以下のように記述されています:
 
 ```json title="package.json"
 {
@@ -61,23 +99,43 @@ Websites initialized with the default classic template has the following in `pac
 }
 ```
 
+<!-- 
 Explained in natural language, the browsers supported in production are those:
+ -->
+ナチュラルな言葉で説明すると、本番で対応しているブラウザは以下の通りです:
 
+<!-- 
 - With more than 0.5% of market share; _and_
 - Has official support or updates in the past 24 months (the opposite of "dead"); _and_
 - Is not Opera Mini.
+ -->
+- 市場シェアが0.5%以上である; _且つ_
+- 過去24ヵ月間に公式対応やアップデートがあった (「死んだ」の反対) ; _且つ_
+- Opera Mini ではない
 
+<!-- 
 And browsers used in development are:
+ -->
+そして、開発で使用されるブラウザは、以下の通りです:
 
+<!-- 
 - The latest version of Chrome _or_ Firefox _or_ Safari.
+ -->
+- Chrome _または_ Firefox _または_ Safari の最新バージョン。
 
+<!-- 
 You can "evaluate" any config with the `browserslist` CLI to obtain the actual list:
+ -->
+`browserslist` CLI を使えば、どんな設定でも「評価」して実際のリストを得ることができます:
 
 ```bash
 npx browserslist --env="production"
 ```
 
+<!-- 
 The output is all browsers supported in production. Below is the output in January 2022:
+ -->
+出力は、本番で対応しているすべてのブラウザです。下記は2022年1月の出力です:
 
 ```text
 and_chr 96
@@ -101,6 +159,12 @@ safari 14.1
 safari 13.1
 ```
 
+<!-- 
 ## Read more {#read-more}
+ -->
+## さらに詳しく {#read-more}
 
+<!-- 
 You may wish to visit the [browserslist documentation](https://github.com/browserslist/browserslist/blob/main/README.md) for more specifications, especially the accepted [query values](https://github.com/browserslist/browserslist/blob/main/README.md#queries) and [best practices](https://github.com/browserslist/browserslist/blob/main/README.md#best-practices).
+ -->
+より詳細な仕様、特に受け入れられている[クエリー値](https://github.com/browserslist/browserslist/blob/main/README.md#queries)と[ベスト・プラクティス](https://github.com/browserslist/browserslist/blob/main/README.md#best-practices)については、[browserslist ドキュメント](https://github.com/browserslist/browserslist/blob/main/README.md)をご覧ください。

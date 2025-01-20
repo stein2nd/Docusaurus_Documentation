@@ -1,66 +1,144 @@
+<!-- 
 ---
 id: introduction
 description: Docusaurus uses MDX. Find out more about Docusaurus-specific features when writing Markdown.
 slug: /markdown-features
 ---
+ -->
+---
+id: introduction
+description: Docusaurus は MDX を使用しています。Markdown を記述する際の Docusaurus 固有の機能については、こちらをご覧ください。
+slug: /markdown-features
+---
 
+<!-- 
 # Markdown Features
+ -->
+# Markdown 機能
 
 import BrowserWindow from '@site/src/components/BrowserWindow';
 
+<!-- 
 Docusaurus uses **[Markdown](https://commonmark.org/)** as its main content authoring format.
+ -->
+Docusaurus は、**[Markdown](https://commonmark.org/)** を主なコンテンツ・オーサリングフォーマットとして使用しています。
 
+<!-- 
 :::tip Learn Markdown
+ -->
+:::tip Markdown を学ぶ
 
+<!-- 
 You can [learn Markdown in 10 minutes](https://commonmark.org/help/).
+ -->
+[Markdown は10分で学べます](https://commonmark.org/help/)。
 
 :::
 
+<!-- 
 Docusaurus uses modern tooling to help you create **interactive documentation**.
+ -->
+Docusaurus は、最新のツールを使って **インタラクティブ・ドキュメント** の作成を支援します。
 
+<!-- 
 The **[MDX](https://mdxjs.com/)** compiler transforms **Markdown files to React components**, and allows you to use JSX in your Markdown content. This enables you to easily interleave React components within your content, and create delightful learning experiences.
+ -->
+**[MDX](https://mdxjs.com/)** コンパイラーは、**Markdown ファイルを React コンポーネント** に変換し、Markdown コンテンツで JSX を使用できるようにします。これにより、コンテンツ内に React コンポーネントを簡単に組み込むことができ、楽しい学習体験を生み出すことができます。
 
+<!-- 
 :::tip Use the MDX Playground
+ -->
+:::tip MDX Playground の使用
 
+<!-- 
 The **[MDX playground](https://mdxjs.com/playground/)** is your new best friend!
+ -->
+**[MDX playground](https://mdxjs.com/playground/)** は、あなたの新しい親友です !
 
+<!-- 
 It is a very helpful debugging tool that shows how the MDX compiler transforms Markdown to React.
+ -->
+MDX コンパイラーがどのように Markdown を React に変換するかを示す、非常に便利なデバッグ・ツールです。
 
+<!-- 
 **Options**: select the right format (MDX or CommonMark) and the following plugins Docusaurus uses: `remark-gfm`, `remark-directive`, `rehype-raw`.
+ -->
+**選択肢**: 適切なフォーマット (MDX または CommonMark) と、Docusaurus が使用する以下のプラグインを選択してください: `remark-gfm`、`remark-directive`、`rehype-raw`。
 
 :::
 
+<!-- 
 ## MDX vs. CommonMark {#mdx-vs-commonmark}
+ -->
+## MDX と CommonMark の比較 {#mdx-vs-commonmark}
 
+<!-- 
 Docusaurus compiles both `.md` and `.mdx` files to React components using the MDX compiler, but **the syntax can be interpreted differently** depending on your settings.
+ -->
+Docusaurus は、MDX コンパイラーを使って `.md` ファイルと `.mdx` ファイルの両方を React コンポーネントにコンパイルしますが、設定によっては **構文が異なって解釈される** ことがあります。
 
+<!-- 
 The MDX compiler supports [2 formats](https://mdxjs.com/packages/mdx/#optionsformat):
+ -->
+MDX コンパイラーは、[2つのフォーマット](https://mdxjs.com/packages/mdx/#optionsformat)に対応しています:
 
+<!-- 
 - The [MDX format](https://mdxjs.com/docs/what-is-mdx/): a powerful parser allowing the usage of JSX
 - The [CommonMark format](https://commonmark.org/): a standard-compliant Markdown parser that does not allow the usage of JSX
+ -->
+- [MDX フォーマット](https://mdxjs.com/docs/what-is-mdx/): JSX の利用を可能にする、強力なパーサー
+- [CommonMark フォーマット](https://commonmark.org/): JSX の使用を不可能にする、標準準拠の Markdown パーサー
 
+<!-- 
 By default, **Docusaurus v3 uses the MDX format for all files** (including `.md` files) for historical reasons.
+ -->
+デフォルトでは、歴史的な理由により、**Docusaurus v3は、すべてのファイルに MDX フォーマットを使用します** (`.md` ファイルを含む)。
 
+<!-- 
 It is possible to **opt-in for CommonMark** using the [`siteConfig.markdown.format`](../../api/docusaurus.config.js.mdx#markdown) setting or the `mdx.format: md` front matter.
+ -->
+[`siteConfig.markdown.format`](../../api/docusaurus.config.js.mdx#markdown) 設定または front 項目 `mdx.format: md` を使用して **CommonMark にオプトイン** できます。
 
+<!-- 
 :::tip how to use CommonMark
+ -->
+:::tip CommonMark の使い方
 
+<!-- 
 If you plan to use CommonMark, we recommend the [`siteConfig.markdown.format: 'detect'`](../../api/docusaurus.config.js.mdx#markdown) setting. The appropriate format will be selected automatically, based on file extensions:
+ -->
+CommonMark を使用する予定がある場合は、[`siteConfig.markdown.format: 'detect'`](../../api/docusaurus.config.js.mdx#markdown) 設定をおすすめします。ファイル拡張子にもとづいて、適切なフォーマットが自動的に選択されます:
 
+<!-- 
 - `.md` files will use the CommonMark format
 - `.mdx` files will use the MDX format
+ -->
+- `.md` ファイルは、CommonMark フォーマットを使用する。
+- `.mdx` ファイルは、MDX フォーマットを使用する。
 
 :::
 
+<!-- 
 :::danger Experimental CommonMark support
+ -->
+:::danger 実験的な CommonMark 対応
 
+<!-- 
 The CommonMark support is **experimental** and currently has a few [limitations](https://github.com/facebook/docusaurus/issues/9092).
+ -->
+CommonMark 対応は **実験的** なもので、現在のところいくつかの[制限](https://github.com/facebook/docusaurus/issues/9092)があります。
 
 :::
 
+<!-- 
 ## Standard features {#standard-features}
+ -->
+## 標準機能 {#standard-features}
 
+<!-- 
 Markdown is a syntax that enables you to write formatted content in a readable syntax.
+ -->
+Markdown は、フォーマットされたコンテンツを、読みやすい構文で書くことを可能にする構文です。
 
 ```md
 ### My Doc Section
@@ -84,21 +162,42 @@ Hello world message with some **bold** text, some _italic_ text and a [link](/)
 
 <details>
 
-<summary>Markdown is declarative</summary>
+<!-- 
+  <summary>Markdown is declarative</summary>
+ -->
+  <summary>Markdown は宣言的</summary>
 
+<!-- 
 Some may assume a 1-1 correlation between Markdown and HTML, e.g., `![Preview](/img/docusaurus.png)` will always become `<img src="/img/docusaurus.png" alt="Preview" />`, as-is. However, _that is not the case_.
+ -->
+Markdown と HTML の間には1対1の相関関係があると思い込んでいる人もいるかもしれません。たとえば、`![Preview](/img/docusaurus.png)` は必ずそのまま `<img src="/img/docusaurus.png" alt="Preview" />` になります。しかし、_そうではない_ のです。
 
+<!-- 
 The Markdown syntax `![message](url)` only declaratively tells Docusaurus that an image needs to be inserted here, but we may do other things like transforming a [file path to URL path](./markdown-features-assets.mdx#images), so the generated markup may differ from the output of other Markdown renderers, or a naïve hand-transcription to the equivalent JSX/HTML code.
+ -->
+Markdown 構文 `![message](url)` は、Docusaurus に「ここに画像を挿入する必要がある」と宣言的に伝えるだけですが、[ファイルパスを URL パスに変換する](./markdown-features-assets.mdx#images)などの他の処理を行うこともあるので、生成されるマークアップは、他の Markdown レンダラーの出力や、同等の JSX/HTML コードへの素朴な手書き変換とは異なる場合があります。
 
+<!-- 
 In general, you should only assume the _semantics_ of the markup (` ``` ` fences become [code blocks](./markdown-features-code-blocks.mdx); `>` becomes [quotes](#quotes), etc.), but not the actual compiled output.
+ -->
+一般的に、マークアップの「セマンティクス」(` ``` ` 柵は[コードブロック]になり、`>` は[引用符]になる、等) を想定するだけで、実際にコンパイルされた出力を想定すべきではありません。
 
 </details>
 
+<!-- 
 ## Front matter {#front-matter}
+ -->
+## front 項目 {#front-matter}
 
+<!-- 
 Front matter is used to add metadata to your Markdown file. All content plugins have their own front matter schema, and use the front matter to enrich the default metadata inferred from the content or other configuration.
+ -->
+front 項目は Markdown ファイルにメタデータを追加するために使用されます。すべてのコンテンツ・プラグインは独自の front 項目スキーマを持ち、コンテンツやその他の設定から推測されるデフォルトのメタデータを充実させるために front 項目を使用します。
 
+<!-- 
 Front matter is provided at the very top of the file, enclosed by three dashes `---`. The content is parsed as [YAML](https://yaml.org/spec/1.2.2/).
+ -->
+front 項目はファイルの一番上にあり、3連ダッシュ `---` で囲まれています。コンテンツは [YAML](https://yaml.org/spec/1.2.2/) としてパースされます。
 
 ```md
 ---
@@ -112,19 +211,36 @@ more_data:
 
 :::info
 
+<!-- 
 The API documentation of each official plugin lists the supported attributes:
+ -->
+各公式プラグインの API ドキュメントには、対応している属性が記載されています:
 
+<!-- 
 - [Docs front matter](../../api/plugins/plugin-content-docs.mdx#markdown-front-matter)
 - [Blog front matter](../../api/plugins/plugin-content-blog.mdx#markdown-front-matter)
 - [Pages front matter](../../api/plugins/plugin-content-pages.mdx#markdown-front-matter)
+ -->
+- [Docs front 項目](../../api/plugins/plugin-content-docs.mdx#markdown-front-matter)
+- [Blog front 項目](../../api/plugins/plugin-content-blog.mdx#markdown-front-matter)
+- [Pages front 項目](../../api/plugins/plugin-content-pages.mdx#markdown-front-matter)
 
 :::
 
+<!-- 
 :::tip enhance your front matter
+ -->
+:::tip front 項目の拡張
 
+<!-- 
 Use the [Markdown config `parseFrontMatter` function](../../api/docusaurus.config.js.mdx#markdown) to provide your own front matter parser, or to enhance the default parser.
+ -->
+独自の front 項目パーサーを提供したり、デフォルトのパーサーを拡張するには、[Markdown 設定の `parseFrontMatter` 関数](../../api/docusaurus.config.js.mdx#markdown)を使用してください。
 
+<!-- 
 It is possible to reuse the default parser to wrap it with your own custom proprietary logic. This makes it possible to implement convenient front matter transformations, shortcuts, or to integrate with external systems using front matter that Docusaurus plugins do not support.
+ -->
+デフォルトのパーサーを再利用して、独自のカスタムロジックでラップできます。これにより、便利な front 項目の変換やショートカットを実装したり、Docusaurus プラグインがサポートしていない front 項目を使用する外部システムと統合したりできます。
 
 ```js title="docusaurus.config.js"
 export default {
@@ -159,9 +275,15 @@ export default {
 
 :::
 
+<!-- 
 ## Quotes {#quotes}
+ -->
+## 引用 {#quotes}
 
+<!-- 
 Markdown quotes are beautifully styled:
+ -->
+Markdown の引用は、美しくスタイリングされます:
 
 ```md
 > Easy to maintain open source documentation websites.
@@ -171,15 +293,26 @@ Markdown quotes are beautifully styled:
 
 <BrowserWindow>
 
+<!-- 
 > Easy to maintain open source documentation websites.
+>
+> — Docusaurus
+ -->
+> メンテナンスが容易な、オープンソースのドキュメントサイト
 >
 > — Docusaurus
 
 </BrowserWindow>
 
+<!-- 
 ## Details {#details}
+ -->
+## 詳細 {#details}
 
+<!-- 
 Markdown can embed HTML elements, and [`details`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/details) HTML elements are beautifully styled:
+ -->
+Markdown は HTML 要素を埋め込めるので、[`details`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/details) HTML 要素は、美しくスタイリングされます:
 
 {/* prettier-ignore */}
 ````md
@@ -230,6 +363,9 @@ Markdown can embed HTML elements, and [`details`](https://developer.mozilla.org/
 
 :::info
 
+<!-- 
 You may want to keep your `<summary>` on a single line. Keep in mind that [MDX creates extra HTML `<p>` paragraphs for line breaks.](https://mdxjs.com/migrating/v2/#jsx). When in doubt, use the [MDX playground](https://mdxjs.com/playground/) to troubleshoot `<details>` rendering problems.
+ -->
+`<summary>` は1行にまとめたいところですね。[MDX は改行のために、余分な HTML の `<p>` 段落を作成する](https://mdxjs.com/migrating/v2/#jsx)ことに留意してください。疑わしい場合は、[MDX playground](https://mdxjs.com/playground/) を使って `<details>` レンダリングの問題をトラブルシュートしてください。
 
 :::

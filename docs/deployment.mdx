@@ -1,63 +1,128 @@
+<!-- 
 ---
 description: Deploy your Docusaurus app for production on a range of static site hosting services.
 ---
+ -->
+---
+description: さまざまな静的サイト・ホスティングサービスで、Docusaurus アプリケーションを本番用にデプロイできます。
+---
 
+<!-- 
 # Deployment
+ -->
+# デプロイ
 
+<!-- 
 To build the static files of your website for production, run:
+ -->
+本番用に Web サイトの静的ファイルをビルドするには、以下を実行します:
 
 ```bash npm2yarn
 npm run build
 ```
 
+<!-- 
 Once it finishes, the static files will be generated within the `build` directory.
+ -->
+これが終了すると、静的ファイルが `build` ディレクトリに生成されます。
 
 :::note
 
+<!-- 
 The only responsibility of Docusaurus is to build your site and emit static files in `build`.
+ -->
+Docusaurus の唯一の責任は、サイトをビルドして `build` に静的ファイルを出力することです。
 
+<!-- 
 It is now up to you to choose how to host those static files.
+ -->
+これらの静的ファイルをどのようにホストするかは、あなた次第です。
 
 :::
 
+<!-- 
 You can deploy your site to static site hosting services such as [Vercel](https://vercel.com/), [GitHub Pages](https://pages.github.com/), [Netlify](https://www.netlify.com/), [Render](https://render.com/docs/static-sites), and [Surge](https://surge.sh/help/getting-started-with-surge).
+ -->
+[Vercel](https://vercel.com/)、[GitHub Pages](https://pages.github.com/)、[Netlify](https://www.netlify.com/)、[Render](https://render.com/docs/static-sites)、[Surge](https://surge.sh/help/getting-started-with-surge) などの静的サイト・ホスティングサービスにサイトをデプロイできます。
 
+<!-- 
 A Docusaurus site is statically rendered, and it can generally work without JavaScript!
+ -->
+Docusaurus サイトは静的にレンダリングされ、通常 JavaScript なしで動作します !
 
+<!-- 
 ## Configuration {#configuration}
+ -->
+## 設定 {#configuration}
 
+<!-- 
 The following parameters are required in `docusaurus.config.js` to optimize routing and serve files from the correct location:
+ -->
+`docusaurus.config.js` では、ルーティングを最適化し、正しい場所からファイルを提供するために、以下のパラメータが必要です:
 
+<!-- 
 | Name | Description |
 | --- | --- |
 | `url` | URL for your site. For a site deployed at `https://my-org.com/my-project/`, `url` is `https://my-org.com/`. |
 | `baseUrl` | Base URL for your project, with a trailing slash. For a site deployed at `https://my-org.com/my-project/`, `baseUrl` is `/my-project/`. |
+ -->
+| 名称 | 説明 |
+| --- | --- |
+| `url` | サイト用の URL。`https://my-org.com/my-project/` にデプロイされたサイトの場合、`url` は `https://my-org.com/`。 |
+| `baseUrl` | 末尾にスラッシュを付けた、プロジェクト用のベース URL。`https://my-org.com/my-project/` にデプロイされたサイトの場合、`baseUrl` は `/my-project/`。 |
 
+<!-- 
 ## Testing your Build Locally {#testing-build-locally}
+ -->
+## ビルドをローカルでテスト {#testing-build-locally}
 
+<!-- 
 It is important to test your build locally before deploying it for production. Docusaurus provides a [`docusaurus serve`](cli.mdx#docusaurus-serve-sitedir) command for that:
+ -->
+ビルドを本番環境にデプロイする前に、ローカルでテストすることは重要です。そのために、Docusaurus は [`docusaurus serve`](cli.mdx#docusaurus-serve-sitedir) コマンドを用意しています:
 
 ```bash npm2yarn
 npm run serve
 ```
 
+<!-- 
 By default, this will load your site at [`http://localhost:3000/`](http://localhost:3000/).
+ -->
+デフォルトでは、[`http://localhost:3000/`](http://localhost:3000/) にサイトがロードされます。
 
+<!-- 
 ## Trailing slash configuration {#trailing-slashes}
+ -->
+## 末尾スラッシュの設定 {#trailing-slashes}
 
+<!-- 
 Docusaurus has a [`trailingSlash` config](./api/docusaurus.config.js.mdx#trailingSlash) to allow customizing URLs/links and emitted filename patterns.
+ -->
+Docusaurus には、URL/リンクや、出力されるファイル名のパターンをカスタマイズするための [`trailingSlash` 設定](./api/docusaurus.config.js.mdx#trailingSlash)があります。
 
+<!-- 
 The default value generally works fine. Unfortunately, each static hosting provider has a **different behavior**, and deploying the exact same site to various hosts can lead to distinct results. Depending on your host, it can be useful to change this config.
+ -->
+通常、デフォルト値で問題なく動作します。残念ながら、静的ホスティング・プロバイダによって **挙動が異なる** ため、まったく同じサイトをさまざまなホストにデプロイすると、異なる結果になることがあります。ホストによっては、この設定を変更すると便利なことがあります。
 
 :::tip
 
+<!-- 
 Use [slorber/trailing-slash-guide](https://github.com/slorber/trailing-slash-guide) to understand better the behavior of your host and configure `trailingSlash` appropriately.
+ -->
+[slorber/trailing-slash-guide](https://github.com/slorber/trailing-slash-guide) を使ってホストの挙動をよく理解し、`trailingSlash` を適切に設定しましょう。
 
 :::
 
+<!-- 
 ## Using environment variables {#using-environment-variables}
+ -->
+## 環境変数の使用 {#using-environment-variables}
 
+<!-- 
 Putting potentially sensitive information in the environment is common practice. However, in a typical Docusaurus website, the `docusaurus.config.js` file is the only interface to the Node.js environment (see [our architecture overview](advanced/architecture.mdx)), while everything else (MDX pages, React components, etc.) are client side and do not have direct access to the `process` global variable. In this case, you can consider using [`customFields`](api/docusaurus.config.js.mdx#customFields) to pass environment variables to the client side.
+ -->
+潜在的にセンシティブな情報を環境に置くことは、よくあることです。しかし、典型的な Docusaurus Web サイトでは、`docusaurus.config.js` ファイルが Node.js 環境 ([我々のアーキテクチャーの概要](advanced/architecture.mdx)参照) に対する唯一のインターフェースであり、それ以外のもの (MDX ページ、React コンポーネント、等) はクライアントサイドで、グローバル変数 `process` に直接アクセスできません。この場合、[`customFields`](api/docusaurus.config.js.mdx#customFields) を使用して環境変数をクライアントサイドに渡すことを検討できます。
 
 ```js title="docusaurus.config.js"
 // If you are using dotenv (https://www.npmjs.com/package/dotenv)
@@ -86,53 +151,104 @@ export default function Home() {
 }
 ```
 
+<!-- 
 ## Choosing a hosting provider {#choosing-a-hosting-provider}
+ -->
+## ホスティング・プロバイダの選択 {#choosing-a-hosting-provider}
 
+<!-- 
 There are a few common hosting options:
+ -->
+一般的なホスティング選択肢が、いくつかあります:
 
+<!-- 
 - [Self hosting](#self-hosting) with an HTTP server like Apache2 or Nginx.
 - Jamstack providers (e.g. [Netlify](#deploying-to-netlify) and [Vercel](#deploying-to-vercel)). We will use them as references, but the same reasoning can apply to other providers.
 - [GitHub Pages](#deploying-to-github-pages) (by definition, it is also Jamstack, but we compare it separately).
+ -->
+- Apache2 や nginx 等の HTTP サーバーを使った、[自己ホスティング](#self-hosting)。
+- Jamstack プロバイダ ([Netlify](#deploying-to-netlify) や [Vercel](#deploying-to-vercel) 等)。ここではこれらを参考にするが、同じ理由は他のプロバイダにも適用できる。
+- [GitHub Pages](#deploying-to-github-pages) (定義上は Jamstack でもあるが、ここでは別に比較する)。
 
+<!-- 
 If you are unsure of which one to choose, ask the following questions:
+ -->
+どれを選んだらいいかわからない場合は、以下の質問をしてみてください:
 
 <details>
 
 <summary>
+<!-- 
   How many resources (money, person-hours, etc.) am I willing to invest in this?
+ -->
+  そのためにどれだけのリソース (資金、工数など) を投じられるか?
 </summary>
 
+<!-- 
 - 🔴 Self-hosting requires experience in networking as well as Linux and web server administration. It's the most difficult option, and would require the most time to manage successfully. Expense-wise, cloud services are almost never free, and purchasing/deploying an onsite server can be even more costly.
 - 🟢 Jamstack providers can help you set up a working website in almost no time and offer features like server-side redirects that are easily configurable. Many providers offer generous build-time quotas even for free plans that you would almost never exceed. However, free plans have limits, and you would need to pay once you hit those limits. Check the pricing page of your provider for details.
 - 🟡 The GitHub Pages deployment workflow can be tedious to set up. (Evidence: see the length of [Deploying to GitHub Pages](#deploying-to-github-pages)!) However, this service (including build and deployment) is always free for public repositories, and we have detailed instructions to help you make it work.
+ -->
+- 🔴 自己ホスティングには、Linux や Web サーバーの管理だけでなく、ネットワーキングの経験も必要です。最も難しい選択肢であり、うまく管理するには最も時間が掛かります。費用面では、クラウドサービスが無料になることはほとんどなく、オンサイト・サーバーの購入/デプロイにはさらに費用が掛かります。
+- 🟢 Jamstack プロバイダは、ほとんど時間をかけずに Web サイトを立ち上げることができ、サーバーサイド・リダイレクトのような簡単に設定できる機能を提供しています。多くのプロバイダは、無償プランであっても、ほとんど超過することがないような余裕のあるビルド時間枠を提供しています。ただし、無償プランには上限があり、上限に達したら料金を支払う必要があります。詳細については、プロバイダの価格ページをご覧ください。
+- 🟡 GitHub Pages デプロイ・ワークフローは設定が面倒です (証拠: [GitHub Pages へのデプロイ](#deploying-to-github-pages)の長さをご覧あれ !)。しかし、このサービス (ビルドとデプロイを含む) は、公開リポジトリに対しては常に無償で、うまく機能させるための詳しい手順があります。
 
 </details>
 
 <details>
 
-<summary>How much server-side customization do I need?</summary>
+<summary>
+<!-- 
+  How much server-side customization do I need?
+ -->
+  サーバーサイドのカスタマイズは、どの程度必要?
+</summary>
 
+<!-- 
 - 🟢 With self-hosting, you have access to the entire server's configuration. You can configure the virtual host to serve different content based on the request URL, you can do complicated server-side redirects, you can implement authentication, and so on. If you need a lot of server-side features, self-host your website.
 - 🟡 Jamstack usually offers some server-side configuration (e.g. URL formatting (trailing slashes), server-side redirects, etc.).
 - 🔴 GitHub Pages doesn't expose server-side configuration besides enforcing HTTPS and setting CNAME records.
+ -->
+- 🟢 自己ホストでは、サーバー設定全体にアクセスできます。リクエスト URL にもとづいて異なるコンテンツを提供するようにバーチャルホストを設定したり、複雑なサーバーサイドリダイレクトを行ったり、認証を実装したり、といったことができます。多くのサーバーサイド機能が必要な場合は、あなたの Web サイトを自己ホストしてください。
+- 🟡 Jamstack は通常、サーバーサイドの設定 (URL フォーマット (末尾のスラッシュ)、サーバーサイド・リダイレクト、等) を提供しています。
+- 🔴 GitHub Pages は、HTTPS の強制と CNAME レコードの設定以外にサーバーサイドの設定は公開されていません。
 
 </details>
 
 <details>
 
-<summary>Do I need collaboration-friendly deployment workflows?</summary>
+<summary>
+<!-- 
+  Do I need collaboration-friendly deployment workflows?
+ -->
+  コラボレーションに適したデプロイ・ワークフローは必要?
+</summary>
 
+<!-- 
 - 🟡 Self-hosted services can leverage continuous deployment functionality like Netlify, but more heavy-lifting is involved. Usually, you would designate a specific person to manage the deployment, and the workflow wouldn't be very git-based as opposed to the other two options.
 - 🟢 Netlify and Vercel have deploy previews for every pull request, which is useful for a team to review work before merging to production. You can also manage a team with different member access to the deployment.
 - 🟡 GitHub Pages cannot do deploy previews in a non-convoluted way. One repo can only be associated with one site deployment. On the other hand, you can control who has write access to the site's deployment.
+ -->
+- 🟡 自己ホスト型のサービスでは、Netlify のような継続的デプロイ機能を活用できるが、より多くの手間が必要となります。通常、デプロイを管理する特定の担当者を指定することになり、他の2つのオプションとは対照的に、ワークフローはあまり Git ベースにはならないでしょう。
+- 🟢 Netlify と Vercel には、すべてのプル・リクエストに対してデプロイ・プレビューがあり、本番環境にマージする前にチームが作業をレビューするのに便利です。また、デプロイに対して異なるアクセス権を持つメンバーでチームを管理できます。
+- 🟡 GitHub Pages は、デプロイのプレビューを複雑な方法で行うことはできません。一つのリポジトリは、一つのサイト・デプロイにしか関連付けられません。一方、サイトのデプロイに対する書き込み権限を持つ人を制御できます。
 
 </details>
 
+<!-- 
 There isn't a silver bullet. You need to weigh your needs and resources before making a choice.
+ -->
+「銀の弾丸」はありません。選択する前に、自分のニーズとリソースを天秤にかける必要があります。
 
+<!-- 
 ## Self-Hosting {#self-hosting}
+ -->
+## 自己ホスト {#self-hosting}
 
+<!-- 
 Docusaurus can be self-hosted using [`docusaurus serve`](cli.mdx#docusaurus-serve-sitedir). Change port using `--port` and `--host` to change host.
+ -->
+Docusaurus は [`docusaurus serve`](cli.mdx#docusaurus-serve-sitedir) を使って自己ホストにできます。`--port` と `--host` を使用してポートを変更し、ホストを変更します。
 
 ```bash npm2yarn
 npm run serve -- --build --port 80 --host 0.0.0.0
@@ -140,21 +256,36 @@ npm run serve -- --build --port 80 --host 0.0.0.0
 
 :::warning
 
+<!-- 
 It is not the best option, compared to a static hosting provider / CDN.
+ -->
+静的ホスティング・プロバイダ/CDN と比較すると、最良の選択肢とは言えません。
 
 :::
 
 :::warning
 
+<!-- 
 In the following sections, we will introduce a few common hosting providers and how they should be configured to deploy Docusaurus sites most efficiently. Docusaurus is not affiliated with any of these services, and this information is provided for convenience only. Some of the write-ups are provided by third-parties, and recent API changes may not be reflected on our side. If you see outdated content, PRs are welcome.
+ -->
+以下のセクションでは、いくつかの一般的なホスティング・プロバイダと、Docusaurus サイトを最も効率的に展開するための設定方法を紹介します。Docusaurus はこれらのサービスと提携しておらず、この情報は便宜上提供しているものです。また、これらの情報の一部はサードパーティによって提供されており、最近の API の変更が反映されていない場合があります。もし内容が古い場合は、プル・リクエストを歓迎します。
 
+<!-- 
 Because we can only provide this content on a best-effort basis only, we have stopped accepting PRs adding new hosting options. You can, however, publish your writeup on a separate site (e.g. your blog, or the provider's official website), and ask us to include a link to your writeup.
+ -->
+このコンテンツはベストエフォートでしか提供できないため、新しいホスティング選択肢を追加するプル・リクエストの受け付けは停止しています。しかし、別のサイト (たとえば、あなたのブログやプロバイダの公式 Web サイト) であなたの記事を公開し、私たちにあなたの記事へのリンクを含めるように依頼できます。
 
 :::
 
+<!-- 
 ## Deploying to Netlify {#deploying-to-netlify}
+ -->
+## Netlify へのデプロイ {#deploying-to-netlify}
 
+<!-- 
 To deploy your Docusaurus sites to [Netlify](https://www.netlify.com/), first make sure the following options are properly configured:
+ -->
+[Netlify](https://www.netlify.com/) に Docusaurus サイトをデプロイするには、まず以下のオプションが正しく設定されていることを確認してください:
 
 ```js title="docusaurus.config.js"
 export default {
@@ -166,20 +297,39 @@ export default {
 };
 ```
 
+<!-- 
 Then, [create your site with Netlify](https://app.netlify.com/start).
+ -->
+そして、[Netlify でサイトを作成します](https://app.netlify.com/start)。
 
+<!-- 
 While you set up the site, specify the build commands and directories as follows:
+ -->
+サイトをセットアップする間に、ビルド・コマンドとディレクトリを以下のように指定します:
 
+<!-- 
 - build command: `npm run build`
 - publish directory: `build`
+ -->
+- ビルド・コマンド: `npm run build`
+- 公開ディレクトリ: `build`
 
+<!-- 
 If you did not configure these build options, you may still go to "Site settings" -> "Build & deploy" after your site is created.
+ -->
+これらのビルド・オプションを設定しなかった場合でも、サイト作成後に「サイト設定」→「ビルド & デプロイ」に進むことができます。
 
+<!-- 
 Once properly configured with the above options, your site should deploy and automatically redeploy upon merging to your deploy branch, which defaults to `main`.
+ -->
+上記のオプションを適切に設定すると、サイトがデプロイされ、デプロイ・ブランチ (デフォルトは `main`) にマージされると自動的に再デプロイされます。
 
 :::warning
 
+<!-- 
 Some Docusaurus sites put the `docs` folder outside of `website` (most likely former Docusaurus v1 sites):
+ -->
+一部の Docusaurus サイト (旧 Docusaurus v1サイトの可能性が高い) では、`docs` フォルダーを `website` の外側に置いています:
 
 ```bash
 repo           # git root
@@ -187,7 +337,10 @@ repo           # git root
 └── website    # Docusaurus root
 ```
 
+<!-- 
 If you decide to use the `website` folder as Netlify's base directory, Netlify will not trigger builds when you update the `docs` folder, and you need to configure a [custom `ignore` command](https://docs.netlify.com/configure-builds/common-configurations/ignore-builds/):
+ -->
+`website` フォルダーを Netlify のベース・ディレクトリとして使用する場合、`docs` フォルダーを更新しても、Netlify はビルドをトリガーしないため、[カスタム `ignore` コマンド](https://docs.netlify.com/configure-builds/common-configurations/ignore-builds/)を設定する必要があります:
 
 ```toml title="website/netlify.toml"
 [build]
@@ -198,69 +351,148 @@ If you decide to use the `website` folder as Netlify's base directory, Netlify w
 
 :::warning
 
+<!-- 
 By default, Netlify adds trailing slashes to Docusaurus URLs.
+ -->
+デフォルトでは、Netlify は Docusaurus URL に末尾のスラッシュを追加します。
 
+<!-- 
 It is recommended to disable the Netlify setting `Post Processing > Asset Optimization > Pretty Urls` to prevent lowercase URLs, unnecessary redirects, and 404 errors.
+ -->
+小文字 URL、不要なリダイレクト、404エラーを防ぐために、Netlify 設定 `Post Processing > Asset Optimization > Pretty Urls` を無効にすることをおすすめします。
 
+<!-- 
 **Be very careful**: the `Disable asset optimization` global checkbox is broken and does not really disable the `Pretty URLs` setting in practice. Please make sure to **uncheck it independently**.
+ -->
+**十分注意してください**: グローバル・チェックボックス `Disable asset optimization` は壊れており、実際には `Pretty URLs` の設定を無効にするものではありません。必ず **単独でチェックを外す** ようにしてください。
 
+<!-- 
 If you want to keep the `Pretty Urls` Netlify setting on, adjust the `trailingSlash` Docusaurus config appropriately.
+ -->
+Netlify の設定 `Pretty Urls` をオンのままにしたい場合は、Docusaurus の設定 `trailingSlash` を適切に調整してください。
 
+<!-- 
 Refer to [slorber/trailing-slash-guide](https://github.com/slorber/trailing-slash-guide) for more information.
+ -->
+詳しくは [slorber/trailing-slash-guide](https://github.com/slorber/trailing-slash-guide) をご覧ください。
 
 :::
 
+<!-- 
 ## Deploying to Vercel {#deploying-to-vercel}
+ -->
+## Vercel へのデプロイ {#deploying-to-vercel}
 
+<!-- 
 Deploying your Docusaurus project to [Vercel](https://vercel.com/) will provide you with [various benefits](https://vercel.com/) in the areas of performance and ease of use.
+ -->
+Docusaurus プロジェクトを [Vercel](https://vercel.com/) にデプロイすることで、パフォーマンスや使いやすさの面で[さまざまな利点](https://vercel.com/)が得られます。
 
+<!-- 
 To deploy your Docusaurus project with a [Vercel for Git Integration](https://vercel.com/docs/concepts/git), make sure it has been pushed to a Git repository.
+ -->
+[Vercel for Git 統合](https://vercel.com/docs/concepts/git)で Docusaurus プロジェクトをデプロイするには、プロジェクトが Git リポジトリにプッシュされていることを確認してください。
 
+<!-- 
 Import the project into Vercel using the [Import Flow](https://vercel.com/import/git). During the import, you will find all relevant options preconfigured for you; however, you can choose to change any of these [options](https://vercel.com/docs/build-step#build-&-development-settings).
+ -->
+[Import Flow](https://vercel.com/import/git) を使ってプロジェクトを Vercel にインポートします。インポート中、すべての関連オプションがあらかじめ設定されています; しかし、あなたはこれらの[オプション](https://vercel.com/docs/build-step#build-&-development-settings)のいずれかを変更できます。
 
+<!-- 
 After your project has been imported, all subsequent pushes to branches will generate [Preview Deployments](https://vercel.com/docs/platform/deployments#preview), and all changes made to the [Production Branch](https://vercel.com/docs/git-integrations#production-branch) (usually "main" or "master") will result in a [Production Deployment](https://vercel.com/docs/platform/deployments#production).
+ -->
+プロジェクトがインポートされると、それ以降のブランチへのプッシュは、すべて[プレビュー・デプロイ](https://vercel.com/docs/platform/deployments#preview)を生成し、[本番ブランチ](https://vercel.com/docs/git-integrations#production-branch) (通常は「main」または「master」) に加えられたすべての変更は、[本番環境デプロイ](https://vercel.com/docs/platform/deployments#production)になります。
 
+<!-- 
 ## Deploying to GitHub Pages {#deploying-to-github-pages}
+ -->
+## GitHub Pages へのデプロイ {#deploying-to-github-pages}
 
+<!-- 
 Docusaurus provides an easy way to publish to [GitHub Pages](https://pages.github.com/), which comes free with every GitHub repository.
+ -->
+Docusaurus は、[GitHub Pages](https://pages.github.com/) に公開する簡単な方法を提供しています。
 
+<!-- 
 ### Overview {#github-pages-overview}
+ -->
+### 概要 {#github-pages-overview}
 
+<!-- 
 Usually, there are two repositories (at least two branches) involved in a publishing process: the branch containing the source files, and the branch containing the build output to be served with GitHub Pages. In the following tutorial, they will be referred to as **"source"** and **"deployment"**, respectively.
+ -->
+通常、公開プロセスには2つのリポジトリ (少なくとも2つのブランチ) が関係します: ソースファイルを含むブランチと、GitHub Pages で提供するビルド出力を含むブランチです。以下のチュートリアルでは、これらをそれぞれ **「ソース」** と **「デプロイ」** と呼びます。
 
+<!-- 
 Each GitHub repository is associated with a GitHub Pages service. If the deployment repository is called `my-org/my-project` (where `my-org` is the organization name or username), the deployed site will appear at `https://my-org.github.io/my-project/`. If the deployment repository is called `my-org/my-org.github.io` (the _organization GitHub Pages repo_), the site will appear at `https://my-org.github.io/`.
+ -->
+各 GitHub リポジトリは GitHub Pages サービスに関連付けられています。デプロイ・リポジトリの名前が `my-org/my-project` (`my-org` は組織名またはユーザー名) の場合、デプロイされたサイトは `https://my-org.github.io/my-project/` に表示されます。デプロイ・リポジトリの名前が `my-org/my-org.github.io` (「組織 GitHub Pages リポジトリ」) の場合、サイトは `https://my-org.github.io/` に表示されます。
 
 :::info
 
+<!-- 
 In case you want to use your custom domain for GitHub Pages, create a `CNAME` file in the `static` directory. Anything within the `static` directory will be copied to the root of the `build` directory for deployment. When using a custom domain, you should be able to move back from `baseUrl: '/projectName/'` to `baseUrl: '/'`, and also set your `url` to your custom domain.
+ -->
+GitHub Pages に独自ドメインを使いたい場合は、`static` ディレクトリに `CNAME` ファイルを作成します。`static` ディレクトリ内にあるものは、デプロイ用に `build` ディレクトリのルートにコピーされます。独自ドメインを使用する場合は、`baseUrl: '/projectName/'` から `baseUrl: '/'` に戻し、`url` を独自ドメインに設定します。
 
+<!-- 
 You may refer to GitHub Pages' documentation [User, Organization, and Project Pages](https://help.github.com/en/articles/user-organization-and-project-pages) for more details.
+ -->
+詳しくは GitHub Pages のドキュメント、[ユーザー、組織、プロジェクトのページ](https://help.github.com/en/articles/user-organization-and-project-pages)をご覧ください。
 
 :::
 
+<!-- 
 GitHub Pages picks up deploy-ready files (the output from `docusaurus build`) from the default branch (`master` / `main`, usually) or the `gh-pages` branch, and either from the root or the `/docs` folder. You can configure that through `Settings > Pages` in your repository. This branch will be called the "deployment branch".
+ -->
+GitHub Pages は、デフォルトのブランチ (通常は `master` / `main`) か `gh-pages` ブランチ、ルートか `/docs` フォルダーからデプロイ準備ファイル (`docusaurus build` からの出力) を取得します。リポジトリの `Settings > Pages` から設定できます。このブランチは「デプロイ・ブランチ」と呼ばれます。
 
+<!-- 
 We provide a `docusaurus deploy` command that helps you deploy your site from the source branch to the deployment branch in one command: clone, build, and commit.
+ -->
+`docusaurus deploy` コマンドは、ソース・ブランチからデプロイ・ブランチまで、1つのコマンドでサイトをデプロイするのに役立ちます: clone、build、commit。
 
+<!-- 
 ### `docusaurus.config.js` settings {#docusaurusconfigjs-settings}
+ -->
+### `docusaurus.config.js` 設定 {#docusaurusconfigjs-settings}
 
+<!-- 
 First, modify your `docusaurus.config.js` and add the following params:
+ -->
+まず、`docusaurus.config.js` を修正し、以下のパラメータを追加します:
 
+<!-- 
 | Name | Description |
 | --- | --- |
 | `organizationName` | The GitHub user or organization that owns the deployment repository. |
 | `projectName` | The name of the deployment repository. |
 | `deploymentBranch` | The name of the deployment branch. It defaults to `'gh-pages'` for non-organization GitHub Pages repos (`projectName` not ending in `.github.io`). Otherwise, it needs to be explicit as a config field or environment variable. |
+ -->
+| 名称 | 説明 |
+| --- | --- |
+| `organizationName` | デプロイ・リポジトリを所有する GitHub ユーザーまたは組織。|
+| `projectName` | デプロイ・リポジトリの名前。|
+| `deploymentBranch` | デプロイ・ブランチの名前。組織以外の GitHub Pages リポジトリのデフォルトは `'gh-pages'` (`.github.io` で終わらない `projectName`)。それ以外の場合は、設定フィールドまたは環境変数として明示的に指定する必要がある。|
 
+<!-- 
 These fields also have their environment variable counterparts which have a higher priority: `ORGANIZATION_NAME`, `PROJECT_NAME`, and `DEPLOYMENT_BRANCH`.
+ -->
+これらのフィールドには、より優先順位の高い環境変数もあります: `ORGANIZATION_NAME`、`PROJECT_NAME`、`DEPLOYMENT_BRANCH`。
 
 :::warning
 
+<!-- 
 GitHub Pages adds a trailing slash to Docusaurus URLs by default. It is recommended to set a `trailingSlash` config (`true` or `false`, not `undefined`).
+ -->
+GitHub Pages では、Docusaurus URL にはデフォルトで末尾にスラッシュが追加されます。`trailingSlash` を設定する (`undefined` ではなく `true` または `false`) ことをおすすめします。
 
 :::
 
+<!-- 
 Example:
+ -->
+例:
 
 ```js title="docusaurus.config.js"
 export default {
@@ -278,12 +510,19 @@ export default {
 
 :::warning
 
+<!-- 
 By default, GitHub Pages runs published files through [Jekyll](https://jekyllrb.com/). Since Jekyll will discard any files that begin with `_`, it is recommended that you disable Jekyll by adding an empty file named `.nojekyll` file to your `static` directory.
+ -->
+デフォルトでは、GitHub Pages は [Jekyll](https://jekyllrb.com/) を通して公開ファイルを実行します。Jekyll は `_` で始まるファイルを破棄するので、`static` ディレクトリに `.nojekyll` ファイルという空のファイルを追加して Jekyll を無効にすることをおすすめします。
 
 :::
 
+<!-- 
 ### Environment settings {#environment-settings}
+ -->
+### 環境設定 {#environment-settings}
 
+<!-- 
 | Name | Description |
 | --- | --- |
 | `USE_SSH` | Set to `true` to use SSH instead of the default HTTPS for the connection to the GitHub repo. If the source repo URL is an SSH URL (e.g. `git@github.com:facebook/docusaurus.git`), `USE_SSH` is inferred to be `true`. |
@@ -292,17 +531,41 @@ By default, GitHub Pages runs published files through [Jekyll](https://jekyllrb.
 | `CURRENT_BRANCH` | The source branch. Usually, the branch will be `main` or `master`, but it could be any branch except for `gh-pages`. If nothing is set for this variable, then the current branch from which `docusaurus deploy` is invoked will be used. |
 | `GIT_USER_NAME` | The `git config user.name` value to use when pushing to the deployment repo |
 | `GIT_USER_EMAIL` | The `git config user.email` value to use when pushing to the deployment repo |
+ -->
+| 名称 | 説明 |
+| --- | --- |
+| `USE_SSH` | GitHub リポジトリへの接続にデフォルトの HTTPS ではなく SSH を使う場合は、`true` を設定します。接続元リポジトリの URL が SSH URL (例: `git@github.com:facebook/docusaurus.git`) の場合、`USE_SSH` は `true` と推測されます。|
+| `GIT_USER` | **デプロイ・リポジトリにプッシュアクセスできる** GitHub アカウントのユーザー名です。独自リポジトリの場合、通常は GitHub のユーザー名となります。SSH を使用しない場合は必須で、それ以外の場合は無視されます。|
+| `GIT_PASS` | 非対話型デプロイ (継続的デプロイ、等) を容易にするための、(`GIT_USER` によって指定された) Git ユーザーの個人アクセストークンです。|
+| `CURRENT_BRANCH` | ソース・ブランチです。通常は `main` または `master` となるが、`gh-pages` 以外であれば、どのブランチでもかまいません。この変数に何も設定されていない場合は、`docusaurus deploy` が呼び出された現在のブランチが使用されます。|
+| `GIT_USER_NAME` | デプロイ・リポジトリにプッシュする際に使用する `git config user.name` 値です。|
+| `GIT_USER_EMAIL` | デプロイ・リポジトリにプッシュする際に使用する `git config user.email` 値です。|
 
+<!-- 
 GitHub enterprise installations should work in the same manner as github.com; you only need to set the organization's GitHub Enterprise host as an environment variable:
+ -->
+GitHub Enterprise のインストールは、GitHub.com と同じ方法で動作するはずです; GitHub Enterprise をインストールする場合は、組織の GitHub Enterprise ホストを環境変数に設定するだけです:
 
+<!-- 
 | Name          | Description                                     |
 | ------------- | ----------------------------------------------- |
 | `GITHUB_HOST` | The domain name of your GitHub enterprise site. |
 | `GITHUB_PORT` | The port of your GitHub enterprise site.        |
+ -->
+| 名称 | 説明 |
+| --- | --- |
+| `GITHUB_HOST` | GitHub Enterprise サイトのドメイン名。|
+| `GITHUB_PORT` | GitHub Enterprise サイトのポート。|
 
+<!-- 
 ### Deploy {#deploy}
+ -->
+### デプロイ {#deploy}
 
+<!-- 
 Finally, to deploy your site to GitHub Pages, run:
+ -->
+最後に、サイトを GitHub Pages にデプロイするには、次のコマンドを実行します:
 
 ```mdx-code-block
 <Tabs>
@@ -338,45 +601,94 @@ cmd /C 'set "GIT_USER=<GITHUB_USERNAME>" && yarn deploy'
 
 :::warning
 
+<!-- 
 Beginning in August 2021, GitHub requires every command-line sign-in to use the **personal access token** instead of the password. When GitHub prompts for your password, enter the PAT instead. See the [GitHub documentation](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token) for more information.
+ -->
+2021年8月より、GitHub はすべてのコマンドライン・サインインでパスワードの代わりに **パーソナル・アクセストークン (PAT)** を使用するようになりました。GitHub がパスワードの入力を求めたら、代わりに PAT を入力してください。詳しくは [GitHub ドキュメント](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token)をご覧ください。
 
+<!-- 
 Alternatively, you can use SSH (`USE_SSH=true`) to log in.
+ -->
+または、SSH (`USE_SSH=true`) を使ってログインできます。
 
 :::
 
+<!-- 
 ### Triggering deployment with GitHub Actions {#triggering-deployment-with-github-actions}
+ -->
+### GitHub Actions でデプロイをトリガーする {#triggering-deployment-with-github-actions}
 
+<!-- 
 [GitHub Actions](https://help.github.com/en/actions) allow you to automate, customize, and execute your software development workflows right in your repository.
+ -->
+[GitHub Actions](https://help.github.com/en/actions) を使えば、ソフトウェア開発のワークフローをリポジトリ上で正しく自動化、カスタマイズ、実行できます。
 
+<!-- 
 The workflow examples below assume your website source resides in the `main` branch of your repository (the _source branch_ is `main`), and your [publishing source](https://help.github.com/en/github/working-with-github-pages/configuring-a-publishing-source-for-your-github-pages-site) is configured for [publishing with a custom GitHub Actions Workflow](https://docs.github.com/en/pages/getting-started-with-github-pages/configuring-a-publishing-source-for-your-github-pages-site#publishing-with-a-custom-github-actions-workflow).
+ -->
+以下のワークフローの例では、Web サイトのソースがリポジトリの `main` ブランチにあり (_ソース・ブランチ_ は `main` です)、[公開ソース](https://help.github.com/en/github/working-with-github-pages/configuring-a-publishing-source-for-your-github-pages-site)が [GitHub Actions Workflow のカスタム設定による公開](https://docs.github.com/en/pages/getting-started-with-github-pages/configuring-a-publishing-source-for-your-github-pages-site#publishing-with-a-custom-github-actions-workflow)に設定されていることを想定しています。
 
+<!-- 
 Our goal is that:
+ -->
+私たちの目標は:
 
+<!-- 
 1. When a new pull request is made to `main`, there's an action that ensures the site builds successfully, without actually deploying. This job will be called `test-deploy`.
 2. When a pull request is merged to the `main` branch or someone pushes to the `main` branch directly, it will be built and deployed to GitHub Pages. This job will be called `deploy`.
+ -->
+1. 新しいプル・リクエストが `main` に提出されると、実際にデプロイすることなく、サイトが正常にビルドされるようにするアクションがあります。このジョブは `test-deploy` と呼ばれます。
+2. プル・リクエストが `main` ブランチにマージされたとき、あるいは誰かが直接 `main` ブランチにプッシュしたとき、そのブランチはビルドされて GitHub Pages にデプロイされます。このジョブは `deploy` と呼ばれます。
 
+<!-- 
 Here are two approaches to deploying your docs with GitHub Actions. Based on the location of your deployment repository, choose the relevant tab below:
+ -->
+ここでは、GitHub Actions を使って docs をデプロイするための2つのアプローチを紹介します。デプロイするリポジトリの場所にもとづいて、以下にある関連するタブを選びましょう:
 
+<!-- 
 - Source repo and deployment repo are the **same** repository.
 - The deployment repo is a **remote** repository, different from the source. Instructions for this scenario assume [publishing source](https://help.github.com/en/github/working-with-github-pages/configuring-a-publishing-source-for-your-github-pages-site) is the `gh-pages` branch.
+ -->
+- ソース・リポジトリとデプロイ・リポジトリは、**同じ** リポジトリです。
+- デプロイ・リポジトリは、**リモート** リポジトリであり、ソースとは異なります。このシナリオでは、[公開ソース](https://help.github.com/en/github/working-with-github-pages/configuring-a-publishing-source-for-your-github-pages-site)が `gh-pages` ブランチであると仮定して説明します。
 
 ```mdx-code-block
 <Tabs>
 <TabItem value="same" label="Same">
 ```
 
+<!-- 
 While you can have both jobs defined in the same workflow file, the original `deploy` workflow will always be listed as skipped in the PR check suite status, which is not indicative of the actual status and provides no value to the review process. We therefore propose to manage them as separate workflows instead.
+ -->
+同じワークフロー・ファイルに両方のジョブを定義できますが、オリジナルの `deploy` ワークフローは、プル・リクエストのチェック・スイートのステータスに常に「スキップ」と表示されます。したがって、代わりに別々のワークフローとして管理することを提案します。
 
 <details>
-<summary>GitHub action files</summary>
+<summary>
+<!-- 
+  GitHub action files
+ -->
+  GitHub アクション・ファイル
+</summary>
 
+<!-- 
 Add these two workflow files:
+ -->
+これら2つのワークフロー・ファイルを追加します:
 
+<!-- 
 :::warning Tweak the parameters for your setup
+ -->
+:::warning あなたのセットアップに合わせて、パラメータを調整
 
+<!-- 
 These files assume you are using Yarn. If you use npm, change `cache: yarn`, `yarn install --frozen-lockfile`, `yarn build` to `cache: npm`, `npm ci`, `npm run build` accordingly.
+ -->
+これらのファイルは Yarn を使用していることを前提としています。npm を使用している場合は、`cache: yarn`、`yarn install --frozen-lockfile`、`yarn build` を適宜 `cache: npm`、`npm ci`、`npm run build` に置き換えてください。
 
+<!-- 
 If your Docusaurus project is not at the root of your repo, you may need to configure a [default working directory](https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions#example-set-the-default-shell-and-working-directory), and adjust the paths accordingly.
+ -->
+Docusaurus プロジェクトがリポジトリのルートにない場合は、[デフォルト作業ディレクトリ](https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions#example-set-the-default-shell-and-working-directory)を設定し、それに応じてパスを調整する必要があります。
 
 :::
 
@@ -470,29 +782,58 @@ jobs:
 <TabItem value="remote" label="Remote">
 ```
 
+<!-- 
 A cross-repo publish is more difficult to set up because you need to push to another repo with permission checks. We will be using SSH to do the authentication.
+ -->
+クロスリポジトリ・パブリッシュは、パーミッション・チェックを行いながら別のリポジトリにプッシュする必要があるため、設定がより難しくなります。認証には SSH を使用します。
 
+<!-- 
 1. Generate a new [SSH key](https://help.github.com/en/github/authenticating-to-github/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent). Since this SSH key will be used in CI, make sure to not enter any passphrase.
 2. By default, your public key should have been created in `~/.ssh/id_rsa.pub`; otherwise, use the name you've provided in the previous step to add your key to [GitHub deploy keys](https://developer.github.com/v3/guides/managing-deploy-keys/).
 3. Copy the key to clipboard with `pbcopy < ~/.ssh/id_rsa.pub` and paste it as a [deploy key](https://developer.github.com/v3/guides/managing-deploy-keys/#deploy-keys) in the deployment repository. Copy the file content if the command line doesn't work for you. Check the box for `Allow write access` before saving your deployment key.
 4. You'll need your private key as a [GitHub secret](https://help.github.com/en/actions/configuring-and-managing-workflows/creating-and-storing-encrypted-secrets) to allow Docusaurus to run the deployment for you.
 5. Copy your private key with `pbcopy < ~/.ssh/id_rsa` and paste a GitHub secret with the name `GH_PAGES_DEPLOY` on your source repository. Copy the file content if the command line doesn't work for you. Save your secret.
 6. Create your [documentation workflow](https://docs.github.com/en/actions/use-cases-and-examples/creating-an-example-workflow) in the `.github/workflows/` directory. In this example it's the `deploy.yml` file.
+ -->
+1. 新しい[SSH キー](https://help.github.com/en/github/authenticating-to-github/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent)を生成します。この SSH 鍵は CI で使用されるので、パスフレーズは入力しないようにしてください。
+2. デフォルトでは、公開鍵は `~/.ssh/id_rsa.pub` で作成されているはずです; そうでない場合は、前のステップで指定した名前を使って [GitHub デプロイ鍵](https://developer.github.com/v3/guides/managing-deploy-keys/)に鍵を追加します。
+3. `pbcopy < ~/.ssh/id_rsa.pub` でキーをクリップボードにコピーし、デプロイ・リポジトリの[デプロイ鍵](https://developer.github.com/v3/guides/managing-deploy-keys/#deploy-keys)としてペーストします。コマンドラインでうまくいかない場合は、ファイルの内容をコピーしてください。デプロイ鍵を保存する前に `Allow write access` のボックスをチェック ON してください。
+4. Docusaurus にデプロイを実行させるには、[GitHub secret](https://help.github.com/en/actions/configuring-and-managing-workflows/creating-and-storing-encrypted-secrets) として秘密鍵が必要です。
+5. 秘密鍵を `pbcopy < ~/.ssh/id_rsa` でコピーし、ソース・リポジトリに `GH_PAGES_DEPLOY` という名前で GitHub secret をペーストします。コマンドラインでうまくいかない場合は、ファイルの内容をコピーしてください。secret を保存します。
+6. `.github/workflows/` ディレクトリに[ドキュメント・ワークフロー](https://docs.github.com/en/actions/use-cases-and-examples/creating-an-example-workflow)を作成します。この例では `deploy.yml` ファイルです。
 
+<!-- 
 At this point, you should have:
+ -->
+この時点で、以下のようになっているはずです:
 
+<!-- 
 - the source repo with the GitHub workflow set with the private SSH key as the GitHub Secret, and
 - your deployment repo set with the public SSH key in GitHub Deploy Keys.
+ -->
+- ソース・リポジトリの GitHub ワークフローでは、SSH 秘密鍵を GitHub secret として設定する。
+- GitHub デプロイ鍵に公開 SSH 鍵を設定した、デプロイ・リポジトリ。
 
 <details>
 
-<summary>GitHub action file</summary>
+<summary>
+<!-- 
+  GitHub action file
+ -->
+  GitHub アクション・ファイル
+</summary>
 
 :::warning
 
+<!-- 
 Please make sure that you replace `actions@github.com` with your GitHub email and `gh-actions` with your name.
+ -->
+`actions@github.com` は GitHub のメールアドレス、`gh-actions` はあなたの名前に置き換えてください。
 
+<!-- 
 This file assumes you are using Yarn. If you use npm, change `cache: yarn`, `yarn install --frozen-lockfile`, `yarn build` to `cache: npm`, `npm ci`, `npm run build` accordingly.
+ -->
+このファイルは Yarn を使用していることを前提としています。npm を使用している場合は、`cache: yarn`、`yarn install --frozen-lockfile`、`yarn build` を適宜 `cache: npm`、`npm ci`、`npm run build` に置き換えてください。
 
 :::
 
@@ -557,30 +898,63 @@ jobs:
 
 <details>
 
-<summary>Site not deployed properly?</summary>
+<summary>
+<!-- 
+  Site not deployed properly?
+ -->
+  サイトが正しくデプロイされていない?
+</summary>
 
+<!-- 
 After pushing to main, if you don't see your site published at the desired location (for example, it says "There isn't a GitHub Pages site here", or it's showing your repo's README.md file), try the following:
+ -->
+main にプッシュした後、目的の場所にサイトが公開されていない場合は (たとえば、「ここには GitHub Pages のサイトは、ありません」と表示されたり、リポジトリの README.md ファイルが表示されたり)、以下を試してみてください:
 
+<!-- 
 - Wait about three minutes and refresh. It may take a few minutes for GitHub pages to pick up the new files.
 - Check your repo's landing page for a little green tick next to the last commit's title, indicating the CI has passed. If you see a cross, it means the build or deployment failed, and you should check the log for more debugging information.
 - Click on the tick and make sure you see a "Deploy to GitHub Pages" workflow. Names like "pages build and deployment / deploy" are GitHub's default workflows, indicating your custom deployment workflow failed to be triggered at all. Make sure the YAML files are placed under the `.github/workflows` folder, and that the trigger condition is set correctly (e.g., if your default branch is "master" instead of "main", you need to change the `on.push` property).
 - Under your repo's Settings > Pages, make sure the "Source" (which is the source for the _deployment_ files, not "source" as in our terminology) is set to "gh-pages" + "/ (root)", since we are using `gh-pages` as the deployment branch.
+ -->
+- 3分ほど待ってから更新してください。GitHub Pages に新しいファイルが反映されるまで、数分かかるかもしれません。
+- リポジトリのランディングページで、最後のコミットのタイトルの横に CI が通過したことを示す、小さな緑色のチェックマークが表示されていないか確認してください。バツ印が表示されている場合は、ビルドやデプロイが失敗したことを意味するので、ログをチェックしてデバッグ情報を確認してください。
+- チェックマークをクリックし、「GitHub Pages にデプロイ」ワークフローが表示されていることを確認しましょう。「Pages のビルドとデプロイ / デプロイ」のような名前は、カスタム・デプロイワークフローがまったく起動しなかったことを表す、GitHub のデフォルトのワークフローです。YAML ファイルが `.github/workflows` フォルダーの下に置かれていること、トリガー条件が正しく設定されていることを確認してください (たとえば、デフォルトのブランチが「main」ではなく「master」の場合、`on.push` プロパティを変更する必要があります)。
+- 私たちは `gh-pages` をデプロイ・ブランチとして使用しているので、あなたのリポジトリの Settings > Pages の下で、「Source」(私たちの用語でいう「source」ではなく、_デプロイ_ファイルのソースです) が「gh-pages」+「/ (root)」に設定されていることを確認してください。
 
+<!-- 
 If you are using a custom domain:
+ -->
+独自ドメインを使用している場合:
 
+<!-- 
 - Verify that you have the correct DNS records set up if you're using a custom domain. See [GitHub pages documentation on configuring custom domains](https://docs.github.com/en/pages/configuring-a-custom-domain-for-your-github-pages-site/about-custom-domains-and-github-pages). Also, please be aware that it may take up to 24 hours for DNS changes to propagate through the internet.
+ -->
+- 独自ドメインを使用している場合は、正しい DNS レコードが設定されていることを確認してください。[独自ドメインの設定に関する、GitHub Pages のドキュメント](https://docs.github.com/en/pages/configuring-a-custom-domain-for-your-github-pages-site/about-custom-domains-and-github-pages)をご覧ください。また、DNS の変更がインターネットを通じて伝搬されるまでに最大24時間かかる場合があることに注意してください。
 
 </details>
 
+<!-- 
 ### Triggering deployment with Travis CI {#triggering-deployment-with-travis-ci}
+ -->
+### Travis CI でデプロイをトリガーする {#triggering-deployment-with-travis-ci}
 
+<!-- 
 Continuous integration (CI) services are typically used to perform routine tasks whenever new commits are checked in to source control. These tasks can be any combination of running unit tests and integration tests, automating builds, publishing packages to npm, and deploying changes to your website. All you need to do to automate the deployment of your website is to invoke the `yarn deploy` script whenever your website is updated. The following section covers how to do just that using [Travis CI](https://travis-ci.com/), a popular continuous integration service provider.
+ -->
+継続的インテグレーション (CI) サービスは、典型的には、新しいコミットがソース・コントロールにチェックインされる都度、ルーチン・タスクを実行するために使用されます。これらのタスクは、ユニットテストや統合テストの実行、ビルドの自動化、npm へのパッケージの公開、Web サイトへの変更のデプロイなど、どのような組み合わせでも可能です。Web サイトの自動デプロイに必要なのは、Web サイトが更新される都度 `yarn deploy` スクリプトを呼び出すことだけです。次のセクションでは、ポピュラーな継続的インテグレーションサービスプロバイダである [Travis CI](https://travis-ci.com/) を使用した方法について説明します。
 
+<!-- 
 1. Go to https://github.com/settings/tokens and generate a new [personal access token](https://help.github.com/articles/creating-a-personal-access-token-for-the-command-line/). When creating the token, grant it the `repo` scope so that it has the permissions it needs.
 2. Using your GitHub account, [add the Travis CI app](https://github.com/marketplace/travis-ci) to the repository you want to activate.
 3. Open your Travis CI dashboard. The URL looks like `https://travis-ci.com/USERNAME/REPO`, and navigate to the `More options > Setting > Environment Variables` section of your repository.
 4. Create a new environment variable named `GH_TOKEN` with your newly generated token as its value, then `GH_EMAIL` (your email address) and `GH_NAME` (your GitHub username).
 5. Create a `.travis.yml` on the root of your repository with the following:
+ -->
+1. `https://github.com/settings/tokens` にアクセスし、新しい[パーソナル・アクセストークン (PAT)](https://help.github.com/articles/creating-a-personal-access-token-for-the-command-line/) を生成します。トークンを作成する際、`repo` スコープを付与し、必要な権限を持たせてください。
+2. GitHub アカウントを使って、有効化したいリポジトリに [Travis CI アプリケーションを追加します](https://github.com/marketplace/travis-ci)。
+3. Travis CI ダッシュボードを開きます。URL は `https://travis-ci.com/USERNAME/REPO` のようになり、リポジトリの `More options > Setting > Environment Variables` セクションに移動します。
+4. 新しく生成したトークンをその値とする、`GH_TOKEN` という名前の新しい環境変数を作成し、次に `GH_EMAIL` (あなたのメールアドレス) と `GH_NAME` (GitHub ユーザー名) を作成します。
+5. リポジトリのルートに、以下の内容で `.travis.yml` を作成します:
 
 ```yml title=".travis.yml"
 language: node_js
@@ -599,14 +973,27 @@ script:
   - GIT_USER="${GH_NAME}" yarn deploy
 ```
 
+<!-- 
 Now, whenever a new commit lands in `main`, Travis CI will run your suite of tests and if everything passes, your website will be deployed via the `yarn deploy` script.
+ -->
+これで、新しいコミットが `main` に入る都度、Travis CI はあなたのテスト一式を実行し、すべてがパスすれば、あなたの Web サイトは `yarn deploy` スクリプト経由でデプロイさ れます。
 
+<!-- 
 ### Triggering deployment with Buddy {#triggering-deployment-with-buddy}
+ -->
+### Buddy でデプロイをトリガーする {#triggering-deployment-with-buddy}
 
+<!-- 
 [Buddy](https://buddy.works/) is an easy-to-use CI/CD tool that allows you to automate the deployment of your portal to different environments, including GitHub Pages.
+ -->
+[Buddy](https://buddy.works/) は GitHub Pages を含むさまざまな環境へのポータルのデプロイを自動化できる、使いやすい CI/CD ツールです。
 
+<!-- 
 Follow these steps to create a pipeline that automatically deploys a new version of your website whenever you push changes to the selected branch of your project:
+ -->
+プロジェクトの選択したブランチに変更をプッシュする都度、Web サイトの新バージョンを自動的にデプロイするパイプラインを作成するには、以下の手順に従ってください:
 
+<!-- 
 1. Go to https://github.com/settings/tokens and generate a new [personal access token](https://help.github.com/articles/creating-a-personal-access-token-for-the-command-line/). When creating the token, grant it the `repo` scope so that it has the permissions it needs.
 2. Sign in to your Buddy account and create a new project.
 3. Choose GitHub as your git hosting provider and select the repository with the code of your website.
@@ -614,6 +1001,14 @@ Follow these steps to create a pipeline that automatically deploys a new version
 5. Create a new pipeline. Define its name, set the trigger mode to `On push`, and select the branch that triggers the pipeline execution.
 6. Add a `Node.js` action.
 7. Add these commands in the action's terminal:
+ -->
+1. `https://github.com/settings/tokens` にアクセスし、新しい[パーソナル・アクセストークン (PAT)](https://help.github.com/articles/creating-a-personal-access-token-for-the-command-line/) を生成します。トークンを作成する際は、`repo` スコープを付与し、必要な権限を持たせてください。
+2. Buddy アカウントにサインインし、新しいプロジェクトを作成します。
+3. Git ホスティングプロバイダとして GitHub を選択し、Web サイトのコードを含むリポジトリを選択します。
+4. 左のナビゲーションパネルを使って、`Pipelines` ビューに切り替えます。
+5. 新しいパイプラインを作成します。名前を定義し、トリガーモードを `On push` に設定し、パイプライン実行のトリガーとなるブランチを選択します。
+6. `Node.js` アクションを追加します。
+7. アクションのターミナルに以下のコマンドを追加します:
 
 ```bash
 GIT_USER=<GH_PERSONAL_ACCESS_TOKEN>
@@ -622,14 +1017,26 @@ git config --global user.name "<YOUR_GH_USERNAME>"
 yarn deploy
 ```
 
+<!-- 
 After creating this simple pipeline, each new commit pushed to the branch you selected deploys your website to GitHub Pages using `yarn deploy`. Read [this guide](https://buddy.works/guides/react-docusaurus) to learn more about setting up a CI/CD pipeline for Docusaurus.
+ -->
+このシンプルなパイプラインを作成すると、選択したブランチに新しいコミットがプッシュされる都度、`yarn deploy` を使って GitHub Pages に Web サイトがデプロイされます。Docusaurus の CI/CD パイプラインの設定については、[このガイド](https://buddy.works/guides/react-docusaurus)をご覧ください。
 
+<!-- 
 ### Using Azure Pipelines {#using-azure-pipelines}
+ -->
+### Azure Pipelines の使用 {#using-azure-pipelines}
 
+<!-- 
 1. Sign Up at [Azure Pipelines](https://azure.microsoft.com/en-us/services/devops/pipelines/) if you haven't already.
 2. Create an organization. Within the organization, create a project and connect your repository from GitHub.
 3. Go to https://github.com/settings/tokens and generate a new [personal access token](https://help.github.com/articles/creating-a-personal-access-token-for-the-command-line/) with the `repo` scope.
 4. In the project page (which looks like `https://dev.azure.com/ORG_NAME/REPO_NAME/_build`), create a new pipeline with the following text. Also, click on edit and add a new environment variable named `GH_TOKEN` with your newly generated token as its value, then `GH_EMAIL` (your email address) and `GH_NAME` (your GitHub username). Make sure to mark them as secret. Alternatively, you can also add a file named `azure-pipelines.yml` at your repository root.
+ -->
+1. まだなら、[Azure Pipelines](https://azure.microsoft.com/en-us/services/devops/pipelines/) にサインアップしてください。
+2. 組織を作成します。組織内でプロジェクトを作成し、GitHub からリポジトリを接続します。
+3. `https://github.com/settings/tokens` にアクセスし、`repo` スコープで新しい[パーソナル・アクセストークン (PAT)](https://help.github.com/articles/creating-a-personal-access-token-for-the-command-line/) を生成します。
+4. (`https://dev.azure.com/ORG_NAME/REPO_NAME/_build` のように見える) プロジェクト・ページで、以下のテキストで新しいパイプラインを作成します。また、edit をクリックし、新しく生成したトークンをその値とする、`GH_TOKEN` という名前の新しい環境変数を作成し、次に `GH_EMAIL` (あなたのメールアドレス) と `GH_NAME` (GitHub ユーザー名) を作成します。必ずシークレットにしてください。あるいは、リポジトリのルートに `azure-pipelines.yml` というファイルを追加できます。
 
 ```yml title="azure-pipelines.yml"
 trigger:
@@ -661,14 +1068,25 @@ steps:
     displayName: Install and build
 ```
 
+<!-- 
 ### Using Drone {#using-drone}
+ -->
+### Drone の使用 {#using-drone}
 
+<!-- 
 1. Create a new SSH key that will be the [deploy key](https://docs.github.com/en/free-pro-team@latest/developers/overview/managing-deploy-keys#deploy-keys) for your project.
 2. Name your private and public keys to be specific and so that it does not overwrite your other [SSH keys](https://docs.github.com/en/free-pro-team@latest/github/authenticating-to-github/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent).
 3. Go to `https://github.com/USERNAME/REPO/settings/keys` and add a new deploy key by pasting in the public key you just generated.
 4. Open your Drone.io dashboard and log in. The URL looks like `https://cloud.drone.io/USERNAME/REPO`.
 5. Click on the repository, click on activate repository, and add a secret called `git_deploy_private_key` with your private key value that you just generated.
 6. Create a `.drone.yml` on the root of your repository with the below text.
+ -->
+1. プロジェクトの[デプロイ鍵](https://docs.github.com/en/free-pro-team@latest/developers/overview/managing-deploy-keys#deploy-keys)となる、新しい SSH 鍵を作成します。
+2. 他の [SSH 鍵](https://docs.github.com/en/free-pro-team@latest/github/authenticating-to-github/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent)を上書きしないように、秘密鍵と公開鍵にそれぞれ名前を付けてください。
+3. `https://github.com/USERNAME/REPO/settings/keys` にアクセスし、先ほど生成した公開鍵をペーストして、新しいデプロイ鍵を追加します。
+4. Drone.io のダッシュボードを開き、ログインします。URL は `https://cloud.drone.io/USERNAME/REPO` のようになります。
+5. リポジトリをクリックし、activate repository をクリックし、`git_deploy_private_key` というシークレットに、先ほど生成した秘密鍵の値を追加します。
+6. リポジトリのルートに以下のテキストで `.drone.yml` を作成します。
 
 ```yml title=".drone.yml"
 kind: pipeline
@@ -692,26 +1110,57 @@ trigger:
       from_secret: git_deploy_private_key
 ```
 
+<!-- 
 Now, whenever you push a new tag to GitHub, this trigger will start the drone CI job to publish your website.
+ -->
+これで、新しいタグを GitHub にプッシュする都度、このトリガーが drone CI ジョブを起動し、Web サイトを公開します。
 
+<!-- 
 ## Deploying to Flightcontrol {#deploying-to-flightcontrol}
+ -->
+## Flightcontrol へのデプロイ {#deploying-to-flightcontrol}
 
+<!-- 
 [Flightcontrol](https://www.flightcontrol.dev/?ref=docusaurus) is a service that automatically builds and deploys your web apps to AWS Fargate directly from your Git repository. It gives you full access to inspect and make infrastructure changes without the limitations of a traditional PaaS.
+ -->
+[Flightcontrol](https://www.flightcontrol.dev/?ref=docusaurus) は、あなたの Git リポジトリから直接 AWS Fargate にあなたの Web アプリケーションを自動的にビルドしてデプロイするサービスです。従来の PaaS の制限を受けることなく、インフラストラクチャの検査や変更するためのフルアクセスを提供します。
 
+<!-- 
 Get started by following [Flightcontrol's step-by-step Docusaurus guide](https://www.flightcontrol.dev/docs/reference/examples/docusaurus/?ref=docusaurus).
+ -->
+[Flightcontrol のステップバイステップ・Docusaurus ガイド](https://www.flightcontrol.dev/docs/reference/examples/docusaurus/?ref=docusaurus)に従って始めましょう。
 
+<!-- 
 ## Deploying to Koyeb {#deploying-to-koyeb}
+ -->
+## Koyeb へのデプロイ {#deploying-to-koyeb}
 
+<!-- 
 [Koyeb](https://www.koyeb.com) is a developer-friendly serverless platform to deploy apps globally. The platform lets you seamlessly run Docker containers, web apps, and APIs with git-based deployment, native autoscaling, a global edge network, and built-in service mesh and discovery. Check out the [Koyeb's Docusaurus deployment guide](https://www.koyeb.com/tutorials/deploy-docusaurus-on-koyeb) to get started.
+ -->
+[Koyeb](https://www.koyeb.com) は、グローバルにアプリケーションをデプロイするための開発者フレンドリーなサーバーレス・プラットフォームです。プラットフォームでは、Git ベースのデプロイ、ネイティブのオートスケール、グローバル・エッジ・ネットワーク、ビルトインのサービス・メッシュとディスカバリーを使用して、Docker コンテナ、Web アプリケーション、API をシームレスに実行できます。[Koyeb の Docusaurus デプロイ・ガイド](https://www.koyeb.com/tutorials/deploy-docusaurus-on-koyeb)をご覧いただき、始めましょう。
 
+<!-- 
 ## Deploying to Render {#deploying-to-render}
+ -->
+## Render へのデプロイ {#deploying-to-render}
 
+<!-- 
 [Render](https://render.com) offers [free static site hosting](https://render.com/docs/static-sites) with fully managed SSL, custom domains, a global CDN, and continuous auto-deploy from your Git repo. Get started in just a few minutes by following [Render's guide to deploying Docusaurus](https://render.com/docs/deploy-docusaurus).
+ -->
+[Render](https://render.com) は、フル・マネージド SSL、独自ドメイン、グローバル CDN、Git リポジトリからの継続的な自動デプロイを備えた[無償の静的サイト・ホスティング](https://render.com/docs/static-sites)を提供しています。[Renderの Docusaurus デプロイ・ガイド](https://render.com/docs/deploy-docusaurus)に従って数分で始めましょう。
 
+<!-- 
 ## Deploying to Qovery {#deploying-to-qovery}
+ -->
+## Qovery へのデプロイ {#deploying-to-qovery}
 
+<!-- 
 [Qovery](https://www.qovery.com) is a fully-managed cloud platform that runs on your AWS, Digital Ocean, and Scaleway account where you can host static sites, backend APIs, databases, cron jobs, and all your other apps in one place.
+ -->
+[Qovery](https://www.qovery.com) は、AWS、Digital Ocean、Scaleway アカウント上で動作するフル・マネージドなクラウド・プラットフォームで、静的サイト、バックエンド API、データベース、cron ジョブ、その他すべてのアプリケーションを一ヵ所でホストできます。
 
+<!-- 
 1. Create a Qovery account. Visit the [Qovery dashboard](https://console.qovery.com) to create an account if you don't already have one.
 2. Create a project.
    - Click on **Create project** and give a name to your project.
@@ -727,15 +1176,44 @@ Get started by following [Flightcontrol's step-by-step Docusaurus guide](https:/
    - Add port used by your Docusaurus application
 5. Deploy
    - All you have to do now is to navigate to your application and click on **Deploy**.
+ -->
+1. Qovery アカウントを作成します。まだお持ちでない場合は、[Qovery ダッシュボード](https://console.qovery.com)にアクセスして、アカウントを作成してください。
+2. プロジェクトを作成します。
+   - **Create project** をクリックし、プロジェクトに名前を付けます。
+   - **Next** をクリックします。
+3. 新しい環境を作成します。
+   - **Create environment** をクリックし、名前を付けます (例 staging、production)。
+4. アプリケーションを追加します。
+   - **Create an application** をクリックし、名前を付けて、Docusaurus アプリケーションがある GitHub または GitLab リポジトリを選択します。
+   - メイン・ブランチ名とルート・アプリケーションパスを定義します。
+   - **Create** をクリックします。アプリケーションが作成されたら:
+   - アプリケーションの **Settings** に移動します。
+   - **Port** を選択します。
+   - Docusaurus アプリケーションで使用するポートを追加します。
+5. デプロイします。
+   - アプリケーションに移動し、**Deploy** をクリックするだけです。
 
+<!-- 
 ![Deploy the app](https://hub.qovery.com/img/heroku/heroku-1.png)
+ -->
+![アプリケーションのデプロイ](https://hub.qovery.com/img/heroku/heroku-1.png)
 
+<!-- 
 That's it. Watch the status and wait till the app is deployed. To open the application in your browser, click on **Action** and **Open** in your application overview.
+ -->
+以上です。ステータスを確認し、アプリケーションがデプロイされるまで待ちましょう。ブラウザでアプリケーションを開くには、アプリケーションの概要で **Action** と **Open** をクリックしてください。
 
+<!-- 
 ## Deploying to Hostman {#deploying-to-hostman}
+ -->
+## Hostman へのデプロイ {#deploying-to-hostman}
 
+<!-- 
 [Hostman](https://hostman.com/) allows you to host static websites for free. Hostman automates everything, you just need to connect your repository and follow these easy steps:
+ -->
+[Hostman](https://hostman.com/) を使用すると、無償で静的な Web サイトをホストできます。Hostman はすべてを自動化するので、リポジトリを接続し、以下の簡単なステップに従うだけです:
 
+<!-- 
 1. Create a service.
 
    - To deploy a Docusaurus static website, click **Create** in the top-left corner of your [Dashboard](https://dashboard.hostman.com/) and choose **Front-end app or static website**.
@@ -771,13 +1249,59 @@ That's it. Watch the status and wait till the app is deployed. To open the appli
    - Once it starts, you will enter the deployment log. If there are any issues with the code, you will get warning or error messages in the log specifying the cause of the problem. Usually, the log contains all the debugging data you'll need.
 
    - When the deployment is complete, you will receive an email notification and also see a log entry. All done! Your project is up and ready.
+ -->
+1. サービスを作成します。
 
+   - Docusaurus の静的 Web サイトをデプロイするには、[ダッシュボード](https://dashboard.hostman.com/)の左上にある **作成** をクリックし、**フロントエンド・アプリケーションまたは静的 Web サイト** を選択します。
+
+2. デプロイするプロジェクトを選択します。
+
+   - GitHub、GitLab、Bitbucket アカウントで Hostman にログインしている場合、プライベートなものも含めて、プロジェクトのあるリポジトリが表示されます。
+
+   - デプロイしたいプロジェクトを選びます。プロジェクトのファイルがあるディレクトリが、含まれている必要があります (例 `website`)。
+
+   - 別のリポジトリにアクセスするには、**別のリポジトリに接続** をクリックします。
+
+   - Git アカウントの認証情報を使ってログインしていない場合は、まず必要なアカウントにアクセスして、それからプロジェクトを選択します。
+
+3. ビルド設定を構成します。
+
+   - 次に、**Web サイトのカスタマイズ** ウィンドウが表示されます。フレームワークのリストからオプション **静的 Web サイト** を選択します。
+
+   - **アプリケーションのあるディレクトリ** は、ビルド後にプロジェクトのファイルを格納する、ディレクトリを指します。ステップ2で Web サイト (または `my_website`) ディレクトリのコンテンツを含むリポジトリを選択した場合は、空のままでかまいません。
+
+   - Docusaurus の標準ビルド・コマンドは:
+
+     ```bash npm2yarn
+     npm run build
+     ```
+
+   - 必要に応じてビルド・コマンドを変更できます。複数のコマンドを `&&` で区切って入力できます。
+
+4. デプロイします。
+
+   - **デプロイ** をクリックして、ビルド・プロセスを開始します。
+
+   -  開始すると、デプロイのログが表示されます。コードに課題がある場合、問題の原因を特定する警告またはエラーメッセージがログに表示されます。通常、ログには必要なすべてのデバッグデータが含まれています。
+
+   - デプロイが完了すると、電子メール通知が届き、ログ・エントリーも表示されます。これで完了です ! プロジェクトがアップされ、準備が整いました。
+
+<!-- 
 ## Deploying to Surge {#deploying-to-surge}
+ -->
+## Surge へのデプロイ {#deploying-to-surge}
 
+<!-- 
 Surge is a [static web hosting platform](https://surge.sh/help/getting-started-with-surge) that you can use to deploy your Docusaurus project from the command line in seconds. Deploying your project to Surge is easy and free (including custom domains and SSL certs).
+ -->
+Surge はコマンドラインから数秒で Docusaurus プロジェクトをデプロイできる、[静的 Web ホスティング・プラットフォーム](https://surge.sh/help/getting-started-with-surge)です。Surge へのプロジェクトのデプロイは、簡単で無償です (独自ドメインと SSL 証明書を含む)。
 
+<!-- 
 Deploy your app in a matter of seconds using Surge with the following steps:
+ -->
+以下の手順で Surge を使用すれば、ほんの数秒でアプリケーションをデプロイできます:
 
+<!-- 
 1. First, install Surge using npm by running the following command:
    ```bash npm2yarn
    npm install -g surge
@@ -790,37 +1314,84 @@ Deploy your app in a matter of seconds using Surge with the following steps:
    ```bash
    surge build/
    ```
+ -->
+1. まず、以下のコマンドを実行し、npm を使用して Surge をインストールします:
+   ```bash npm2yarn
+   npm install -g surge
+   ```
+2. プロジェクトのルート・ディレクトリに、本番用サイトの静的ファイルをビルドするには、次のコマンドを実行します:
+   ```bash npm2yarn
+   npm run build
+   ```
+3. 次に、プロジェクトのルート・ディレクトリ内で、次のコマンドを実行します:
+   ```bash
+   surge build/
+   ```
 
+<!-- 
 First-time users of Surge would be prompted to create an account from the command line (which happens only once).
+ -->
+Surge を初めて使うユーザーは、(一度だけ) コマンドラインからアカウントを作成するよう促されます。
 
+<!-- 
 Confirm that the site you want to publish is in the `build` directory. A randomly generated subdomain `*.surge.sh subdomain` is always given (which can be edited).
+ -->
+公開したいサイトが `build` ディレクトリにあることを確認してください。ランダムに生成されるサブドメイン `*.surge.sh subdomain` は常に与えられます (編集可能)。
 
+<!-- 
 ### Using your domain {#using-your-domain}
+ -->
+### ドメインの使用 {#using-your-domain}
 
+<!-- 
 If you have a domain name you can deploy your site using the command:
+ -->
+ドメイン名があれば、コマンドを使ってサイトをデプロイできます:
 
 ```bash
 surge build/ your-domain.com
 ```
 
+<!-- 
 Your site is now deployed for free at `subdomain.surge.sh` or `your-domain.com` depending on the method you chose.
+ -->
+あなたのサイトは、あなたが選択した方法に応じて、`subdomain.surge.sh` または `your-domain.com` で無償でデプロイされます。
 
+<!-- 
 ### Setting up CNAME file {#setting-up-cname-file}
+ -->
+### CNAME ファイルの設定 {#setting-up-cname-file}
 
+<!-- 
 Store your domain in a CNAME file for future deployments with the following command:
+ -->
+将来のデプロイに備えて、以下のコマンドでドメインを CNAME ファイルに保存します:
 
 ```bash
 echo subdomain.surge.sh > CNAME
 ```
 
+<!-- 
 You can deploy any other changes in the future with the command `surge`.
+ -->
+将来、`surge` コマンドで他の変更をデプロイできます。
 
+<!-- 
 ## Deploying to Stormkit {#deploying-to-stormkit}
+ -->
+## Stormkit へのデプロイ {#deploying-to-stormkit}
 
+<!-- 
 You can deploy your Docusaurus project to [Stormkit](https://www.stormkit.io), a deployment platform for static websites, single-page applications (SPAs), and serverless functions. For detailed instructions, refer to this [guide](https://www.stormkit.io/blog/how-to-deploy-docusarous).
+ -->
+静的 Web サイト、シングルページ・アプリケーション (SPA)、サーバーレス関数用のデプロイ・プラットフォームである [Stormkit](https://www.stormkit.io) に、Docusaurus プロジェクトをデプロイできます。詳細な手順については、この[ガイド](https://www.stormkit.io/blog/how-to-deploy-docusarous)をご覧ください。
 
+<!-- 
 ## Deploying to QuantCDN {#deploying-to-quantcdn}
+ -->
+## QuantCDN へのデプロイ {#deploying-to-quantcdn}
 
+<!-- 
 1. Install [Quant CLI](https://docs.quantcdn.io/docs/cli/get-started)
 2. Create a QuantCDN account by [signing up](https://dashboard.quantcdn.io/register)
 3. Initialize your project with `quant init` and fill in your credentials:
@@ -831,23 +1402,64 @@ You can deploy your Docusaurus project to [Stormkit](https://www.stormkit.io), a
    ```bash
    quant deploy
    ```
+ -->
+1. [Quant CLI](https://docs.quantcdn.io/docs/cli/get-started) をインストールします。
+2. [サインアップ](https://dashboard.quantcdn.io/register)して、QuantCDN アカウントを作成します。
+3. `quant init` でプロジェクトを初期化し、認証情報を入力します:
+   ```bash
+   quant init
+   ```
+4. サイトをデプロイします。
+   ```bash
+   quant deploy
+   ```
 
+<!-- 
 See [docs](https://docs.quantcdn.io/docs/cli/continuous-integration) and [blog](https://www.quantcdn.io/blog) for more examples and use cases for deploying to QuantCDN.
+ -->
+QuantCDN へのデプロイに関する、より多くの例とユースケースについては、[docs](https://docs.quantcdn.io/docs/cli/continuous-integration) と [blog](https://www.quantcdn.io/blog) をご覧ください。
 
+<!-- 
 ## Deploying to Layer0 {#deploying-to-layer0}
+ -->
+## Layer0 へのデプロイ {#deploying-to-layer0}
 
+<!-- 
 [Layer0](https://www.layer0.co) is an all-in-one platform to develop, deploy, preview, experiment on, monitor, and run your headless frontend. It is focused on large, dynamic websites and best-in-class performance through EdgeJS (a JavaScript-based Content Delivery Network), predictive prefetching, and performance monitoring. Layer0 offers a free tier. Get started in just a few minutes by following [Layer0's guide to deploying Docusaurus](https://docs.layer0.co/guides/docusaurus).
+ -->
+[Layer0](https://www.layer0.co) は、ヘッドレスな フロントエンドを開発、デプロイ、プレビュー、実験、監視、実行するための、オールインワンのプラットフォームです。EdgeJS (JavaScript ベースのコンテンツ・デリバリ・ネットワーク)、予測プリフェッチ、パフォーマンス・モニタリングを通して、大規模でダイナミックな Web サイトとクラス最高のパフォーマンスに焦点を当てています。Layer0 は無償ティアを提供しています。[Layer0 の Docusaurus デプロイ・ガイド](https://docs.layer0.co/guides/docusaurus)に従って、数分で始めましょう。
 
+<!-- 
 ## Deploying to Cloudflare Pages {#deploying-to-cloudflare-pages}
+ -->
+## CloudFlare Pages へのデプロイ {#deploying-to-cloudflare-pages}
 
+<!-- 
 [Cloudflare Pages](https://pages.cloudflare.com/) is a Jamstack platform for frontend developers to collaborate and deploy websites. Get started within a few minutes by following [this article](https://dev.to/apidev234/deploying-docusaurus-to-cloudflare-pages-565g).
+ -->
+[Cloudflare Pages](https://pages.cloudflare.com/) は、フロントエンド開発者が Web サイトをコラボレーションしてデプロイするための Jamstack プラットフォームです。[この記事](https://dev.to/apidev234/deploying-docusaurus-to-cloudflare-pages-565g)に従って、数分で始めましょう。
 
+<!-- 
 ## Deploying to Azure Static Web Apps {#deploying-to-azure-static-web-apps}
+ -->
+## Azure Static Web Apps へのデプロイ {#deploying-to-azure-static-web-apps}
 
+<!-- 
 [Azure Static Web Apps](https://docs.microsoft.com/en-us/azure/static-web-apps/overview) is a service that automatically builds and deploys full-stack web apps to Azure directly from the code repository, simplifying the developer experience for CI/CD. Static Web Apps separates the web application's static assets from its dynamic (API) endpoints. Static assets are served from globally-distributed content servers, making it faster for clients to retrieve files using servers nearby. Dynamic APIs are scaled with serverless architectures using an event-driven functions-based approach that is more cost-effective and scales on demand. Get started in a few minutes by following [this step-by-step guide](https://dev.to/azure/11-share-content-with-docusaurus-azure-static-web-apps-30hc).
+ -->
+[Azure Static Web Apps](https://docs.microsoft.com/en-us/azure/static-web-apps/overview) は、フルスタックの Web アプリケーションをコード・リポジトリから直接 Azure に自動的にビルドおよびデプロイするサービスであり、CI/CD のための開発者体験を簡素化するものです。Static Web Apps は、動的 (API) エンドポイントから Web アプリケーションの静的アセットを分離します。静的アセットは、グローバルに分散されたコンテンツサーバーから提供されるため、クライアントは、近くのサーバーを使用してファイルをより速く取得できます。動的 API は、よりコスト効率が高く、オンデマンドでスケールする、イベント駆動型の関数ベースのアプローチを使用したサーバーレス・アーキテクチャーによってスケールされます。[このステップ・バイ・ステップ・ガイド](https://dev.to/azure/11-share-content-with-docusaurus-azure-static-web-apps-30hc)に従って、数分で始めましょう。
 
+<!-- 
 ## Deploying to Kinsta {#deploying-to-kinsta}
+ -->
+## Kinsta へのデプロイ {#deploying-to-kinsta}
 
+<!-- 
 [Kinsta Static Site Hosting](https://kinsta.com/static-site-hosting) lets you deploy up to 100 static sites for free, custom domains with SSL, 100 GB monthly bandwidth, and 260+ Cloudflare CDN locations.
+ -->
+[Kinsta 静的サイト・ホスティング](https://kinsta.com/static-site-hosting) は、100個までの静的サイトを無償でデプロイでき、SSL 付きの独自ドメイン、100GB の月間帯域幅、260以上の CloudFlare CDN ロケーションを利用できます。
 
+<!-- 
 Get started in just a few clicks by following our [Docusaurus on Kinsta](https://kinsta.com/docs/docusaurus-example/) article.
+ -->
+[Kinsta の Docusaurus](https://kinsta.com/docs/docusaurus-example/) 記事に従って、数クリックで始めましょう。

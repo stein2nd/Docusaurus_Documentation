@@ -1036,7 +1036,7 @@ After creating this simple pipeline, each new commit pushed to the branch you se
 1. まだなら、[Azure Pipelines](https://azure.microsoft.com/en-us/services/devops/pipelines/) にサインアップしてください。
 2. 組織を作成します。組織内でプロジェクトを作成し、GitHub からリポジトリを接続します。
 3. `https://github.com/settings/tokens` にアクセスし、`repo` スコープで新しい[パーソナル・アクセストークン (PAT)](https://help.github.com/articles/creating-a-personal-access-token-for-the-command-line/) を生成します。
-4. (`https://dev.azure.com/ORG_NAME/REPO_NAME/_build` のように見える) プロジェクト・ページで、以下のテキストで新しいパイプラインを作成します。また、edit をクリックし、新しく生成したトークンをその値とする、`GH_TOKEN` という名前の新しい環境変数を作成し、次に `GH_EMAIL` (あなたのメールアドレス) と `GH_NAME` (GitHub ユーザー名) を作成します。必ずシークレットにしてください。あるいは、リポジトリのルートに `azure-pipelines.yml` というファイルを追加できます。
+4. (`https://dev.azure.com/ORG_NAME/REPO_NAME/_build` のように見える) プロジェクト・ページで、以下のテキストで新しいパイプラインを作成します。また、edit をクリックし、新しく生成したトークンをその値とする、`GH_TOKEN` という名前の新しい環境変数を作成し、次に `GH_EMAIL` (あなたのメールアドレス) と `GH_NAME` (GitHub ユーザー名) を作成します。必ず secret にしてください。あるいは、リポジトリのルートに `azure-pipelines.yml` というファイルを追加できます。
 
 ```yml title="azure-pipelines.yml"
 trigger:
@@ -1085,7 +1085,7 @@ steps:
 2. 他の [SSH 鍵](https://docs.github.com/en/free-pro-team@latest/github/authenticating-to-github/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent)を上書きしないように、秘密鍵と公開鍵にそれぞれ名前を付けてください。
 3. `https://github.com/USERNAME/REPO/settings/keys` にアクセスし、先ほど生成した公開鍵をペーストして、新しいデプロイ鍵を追加します。
 4. Drone.io のダッシュボードを開き、ログインします。URL は `https://cloud.drone.io/USERNAME/REPO` のようになります。
-5. リポジトリをクリックし、activate repository をクリックし、`git_deploy_private_key` というシークレットに、先ほど生成した秘密鍵の値を追加します。
+5. リポジトリをクリックし、activate repository をクリックし、`git_deploy_private_key` という secret に、先ほど生成した秘密鍵の値を追加します。
 6. リポジトリのルートに以下のテキストで `.drone.yml` を作成します。
 
 ```yml title=".drone.yml"

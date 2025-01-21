@@ -1,10 +1,20 @@
+<!-- 
 ---
 id: react
 description: Using the power of React in Docusaurus Markdown documents, thanks to MDX
 slug: /markdown-features/react
 ---
+ -->
+---
+id: react
+description: Docusaurus Markdown 文書で、MDX の機能を利用して、React のパワーを使う
+slug: /markdown-features/react
+---
 
+<!-- 
 # MDX and React
+ -->
+# MDX と React
 
 ```mdx-code-block
 import BrowserWindow from '@site/src/components/BrowserWindow';
@@ -13,27 +23,51 @@ import TabItem from '@theme/TabItem';
 import styles from './markdown-features-react.module.css';
 ```
 
+<!-- 
 Docusaurus has built-in support for [MDX](https://mdxjs.com/), which allows you to write JSX within your Markdown files and render them as React components.
+ -->
+Docusaurus には [MDX](https://mdxjs.com/) 対応が組み込まれており、Markdown ファイル内に JSX を記述して React コンポーネントとしてレンダリングできます。
 
+<!-- 
 Check out the [MDX docs](https://mdxjs.com/) to see what fancy stuff you can do with MDX.
+ -->
+MDX でどんな派手なことができるかは、[MDX のドキュメント](https://mdxjs.com/)をご覧ください。
 
+<!-- 
 :::tip Debugging MDX
+ -->
+:::tip MDX のデバッグ
 
+<!-- 
 The MDX format is quite strict, and you may get compilation errors.
+ -->
+MDX フォーマットはかなり厳密ですので、コンパイルエラーが発生する可能性があります。
 
+<!-- 
 Use the **[MDX playground](https://mdxjs.com/playground/)** to debug them and make sure your syntax is valid.
+ -->
+**[MDX playground](https://mdxjs.com/playground/)** を使ってデバッグし、構文が正しいことを確認してください。
 
 :::
 
 :::info
 
+<!-- 
 Prettier, the most popular formatter, [supports only the legacy MDX v1](https://github.com/prettier/prettier/issues/12209). If you get an unintentional formatting result, you may want to add `{/* prettier-ignore */}` before the problematic area, or add `*.mdx` to your `.prettierignore`, until Prettier has proper support for MDX v3. [One of the main authors of MDX recommends `remark-cli` with `remark-mdx`](https://github.com/orgs/mdx-js/discussions/2067).
+ -->
+最もポピュラーなフォーマッターである Prettier は、[旧来の MDX v1のみをサポートしています](https://github.com/prettier/prettier/issues/12209)。意図しないフォーマット結果が出る場合は、Prettier が MDX v3を適切にサポートするまで、問題のある部分の前に `{/* prettier-ignore */}` を追加するか、`.prettierignore` に `*.mdx` を追加するとよいでしょう。[MDX の主要な作者の一人は、`remark-cli` と `remark-mdx` を推薦しています](https://github.com/orgs/mdx-js/discussions/2067)。
 
 :::
 
+<!-- 
 ### Exporting components {#exporting-components}
+ -->
+### コンポーネントのエクスポート {#exporting-components}
 
+<!-- 
 To define any custom component within an MDX file, you have to export it: only paragraphs that start with `export` will be parsed as components instead of prose.
+ -->
+MDX ファイル内で独自コンポーネントを定義するには、それをエクスポートする必要があります: `export` で始まる段落のみが、散文ではなくコンポーネントとしてパースされます。
 
 ```jsx
 export const Highlight = ({children, color}) => (
@@ -53,7 +87,10 @@ export const Highlight = ({children, color}) => (
 I can write **Markdown** alongside my _JSX_!
 ```
 
+<!-- 
 Notice how it renders both the markup from your React component and the Markdown syntax:
+ -->
+React コンポーネントからのマークアップと Markdown 構文の両方をレンダリングしていることに注目してください:
 
 ```mdx-code-block
 export const Highlight = ({children, color}) => (
@@ -78,9 +115,15 @@ I can write **Markdown** alongside my _JSX_!
 </BrowserWindow>
 ```
 
+<!-- 
 :::warning MDX is JSX
+ -->
+:::warning MDX は JSX
 
+<!-- 
 Since all doc files are parsed using MDX, anything that looks like HTML is actually JSX. Therefore, if you need to inline-style a component, follow JSX flavor and provide style objects.
+ -->
+すべてのドキュメント・ファイルは MDX を使用してパースされるため、HTML のように見えるものは実際には JSX です。したがって、コンポーネントを inline スタイルにする必要がある場合は、JSX の流儀に従って style オブジェクトを提供してください。
 
 {/* prettier-ignore */}
 ```jsx
@@ -92,9 +135,15 @@ Since all doc files are parsed using MDX, anything that looks like HTML is actua
 
 :::
 
+<!-- 
 ### Importing components {#importing-components}
+ -->
+### コンポーネントのインポート {#importing-components}
 
+<!-- 
 You can also import your own components defined in other files or third-party components installed via npm.
+ -->
+また、他のファイルで定義された独自コンポーネントや、npm 経由でインストールされたサードパーティ製コンポーネントもインポートできます。
 
 {/* prettier-ignore */}
 ```md
@@ -108,11 +157,17 @@ import BrowserWindow from '@site/src/components/BrowserWindow';
 
 :::tip
 
+<!-- 
 The `@site` alias points to your website's directory, usually where the `docusaurus.config.js` file is. Using an alias instead of relative paths (`'../../src/components/BrowserWindow'`) saves you from updating import paths when moving files around, or when [versioning docs](../docs/versioning.mdx) and [translating](../../i18n/i18n-tutorial.mdx).
+ -->
+エイリアス `@site` は、あなたの Web サイトのディレクトリ、通常は `docusaurus.config.js` ファイルがある場所を指します。相対パス (`'../../src/components/BrowserWindow'`) の代わりにエイリアスを使用すると、ファイルを移動したり、[ドキュメントのバージョン管理](../docs/versioning.mdx)や[翻訳](../../i18n/i18n-tutorial.mdx)の際にインポートパスを更新する手間が省けます。
 
 :::
 
+<!-- 
 While declaring components within Markdown is very convenient for simple cases, it becomes hard to maintain because of limited editor support, risks of parsing errors, and low reusability. Use a separate `.js` file when your component involves complex JS logic:
+ -->
+Markdown 内でコンポーネントを宣言することは、単純なケースでは非常に便利ですが、エディターのサポートが制限され、パースエラーのリスクがあり、再利用性が低いため、メンテナンスが難しくなります。コンポーネントが複雑な JS ロジックを含む場合は、独立した `.js` ファイルを使用しましょう:
 
 ```jsx title="src/components/Highlight.js"
 import React from 'react';
@@ -140,15 +195,27 @@ import Highlight from '@site/src/components/Highlight';
 
 :::tip
 
+<!-- 
 If you use the same component across a lot of files, you don't need to import it everywhere—consider adding it to the global scope. [See below](#mdx-component-scope)
+ -->
+多くのファイルで同じコンポーネントを使用する場合、あらゆる場所でインポートする必要はありません — グローバルスコープに追加することを検討してください。[下記参照](#mdx-component-scope)
 
 :::
 
+<!-- 
 ### MDX component scope {#mdx-component-scope}
+ -->
+### MDX コンポーネントのスコープ {#mdx-component-scope}
 
+<!-- 
 Apart from [importing a component](#importing-components) and [exporting a component](#exporting-components), a third way to use a component in MDX is to **register it to the global scope**, which will make it automatically available in every MDX file, without any import statements.
+ -->
+[コンポーネントのインポート](#importing-components)と[コンポーネントのエクスポート](#exporting-components)とは別に、MDX でコンポーネントを使用する3つ目の方法は、**グローバル・スコープに登録する** ことで、import 文なしで、すべての MDX ファイルで自動的に使用できるようになるというものです。
 
+<!-- 
 For example, given this MDX file:
+ -->
+たとえば、このような MDX ファイルがあるとしましょう:
 
 ```md
 - a
@@ -157,13 +224,25 @@ For example, given this MDX file:
 And some <Highlight>custom markup</Highlight>...
 ```
 
+<!-- 
 It will be compiled to a React component containing `ul`, `li`, `p`, and `Highlight` elements. `Highlight` is not a native html element: you need to provide your own React component implementation for it.
+ -->
+`ul`、`li`、`p`、Highlight` 要素を含む React コンポーネントにコンパイルされます。`Highlight` は、ネイティブの html 要素ではありません: そのため、独自の React コンポーネント実装を提供する必要があります。
 
+<!-- 
 In Docusaurus, the MDX component scope is provided by the `@theme/MDXComponents` file. It's not a React component, _per se_, unlike most other exports under the `@theme/` alias: it is a record from tag names like `Highlight` to their React component implementations.
+ -->
+Docusaurus では、MDX コンポーネントのスコープは `@theme/MDXComponents` ファイルによって提供されます。これは、エイリアス `@theme/` 下にある他のほとんどのエクスポートとは異なり、_それ自体_ React コンポーネントではありません: `Highlight` のようなタグ名から React コンポーネント実装までのレコードです。
 
+<!-- 
 If you [swizzle](../../swizzling.mdx) this component, you will find all tags that have been implemented, and you can further customize our implementation by swizzling the respective sub-component, like `@theme/MDXComponents/Code` (which is used to render [Markdown code blocks](./markdown-features-code-blocks.mdx)).
+ -->
+このコンポーネントを [swizzle](../../swizzling.mdx) すると、実装されているすべてのタグが表示されます。また、([Markdown コードブロック](./markdown-features-code-blocks.mdx)をレンダリングするために使用される) `@theme/MDXComponents/Code` のように、それぞれのサブコンポーネントを swizzle することで、私たちの実装をさらにカスタマイズできます。
 
+<!-- 
 If you want to register extra tag names (like the `<Highlight>` tag above), you should consider [wrapping `@theme/MDXComponents`](../../swizzling.mdx#wrapping), so you don't have to maintain all the existing mappings. Since the swizzle CLI doesn't allow wrapping non-component files yet, you should manually create the wrapper:
+ -->
+(上記の `<Highlight>` タグのような) 追加タグ名を登録したい場合は、既存のマッピングをすべて維持する必要がないように、[`@theme/MDXComponents` のラップ](../../swizzling.mdx#wrapping)を検討すべきです。swizzle CLI では、非コンポーネントファイルのラップはまだできないので、手動でラッパーを作成する必要があります:
 
 ```js title="src/theme/MDXComponents.js"
 import React from 'react';
@@ -182,7 +261,10 @@ export default {
 };
 ```
 
+<!-- 
 And now, you can freely use `<Highlight>` in every page, without writing the import statement:
+ -->
+これで、import 文を書かなくても、すべてのページで `<Highlight>` を自由に使うことができるようになりました:
 
 ```md
 I can conveniently use <Highlight color="#25c2a0">Docusaurus green</Highlight> everywhere!
@@ -198,15 +280,24 @@ I can conveniently use <Highlight color="#25c2a0">Docusaurus green</Highlight> e
 
 :::warning
 
+<!-- 
 We use **upper-case** tag names like `Highlight` on purpose.
+ -->
+`Highlight` のような **大文字** のタグ名はわざと使っています。
 
+<!-- 
 From MDX v3+ onward (Docusaurus v3+), lower-case tag names are always rendered as native html elements, and will not use any component mapping you provide.
+ -->
+MDX v3以降 (Docusaurus v3以降) では、小文字のタグ名は常にネイティブの html 要素としてレンダリングされ、指定したコンポーネント・マッピングは使用されません。
 
 :::
 
 :::warning
 
+<!-- 
 This feature is powered by [an `MDXProvider`](https://mdxjs.com/docs/using-mdx/#mdx-provider). If you are importing Markdown in a React page, you have to supply this provider yourself through the `MDXContent` theme component.
+ -->
+この機能は [`MDXProvider`](https://mdxjs.com/docs/using-mdx/#mdx-provider) によって提供されます。React ページで Markdown をインポートする場合、`MDXContent` テーマコンポーネントを通して、自身でこのプロバイダを提供する必要があります。
 
 ```jsx title="src/pages/index.js"
 import React from 'react';
@@ -227,43 +318,86 @@ export default function LandingPage() {
 }
 ```
 
+<!-- 
 If you don't wrap your imported MDX with `MDXContent`, the global scope will not be available.
+ -->
+インポートした MDX を `MDXContent` でラップしないと、グローバルスコープは利用できません。
 
 :::
 
+<!-- 
 ### Markdown and JSX interoperability {#markdown-and-jsx-interoperability}
+ -->
+### Markdown と JSX の相互運用性 {#markdown-and-jsx-interoperability}
 
+<!-- 
 Docusaurus v3 is using [MDX v3](https://mdxjs.com/blog/v3/).
+ -->
+Docusaurus v3は [MDX v3](https://mdxjs.com/blog/v3/) を使用しています。
 
+<!-- 
 The [MDX syntax](https://mdxjs.com/docs/what-is-mdx/#mdx-syntax) is mostly compatible with [CommonMark](https://commonmark.org/), but is much stricter because your `.mdx` files can use JSX and are compiled into real React components (check the [playground](https://mdxjs.com/playground/)).
+ -->
+[MDX 構文](https://mdxjs.com/docs/what-is-mdx/#mdx-syntax)は [CommonMark](https://commonmark.org/) とほぼ互換性がありますが、`.mdx` ファイルは JSX を使用でき、実際の React コンポーネントにコンパイルされるため、より厳しくなっています ([playground](https://mdxjs.com/playground/) 参照)。
 
+<!-- 
 Some valid CommonMark features won't work with MDX ([more info](https://mdxjs.com/docs/what-is-mdx/#markdown)), notably:
+ -->
+CommonMark のいくつかの有効な機能は、MDX では動作しないことに注意してください ([詳細](https://mdxjs.com/docs/what-is-mdx/#markdown)):
 
+<!-- 
 - Indented code blocks: use triple backticks instead
 - Autolinks (`<http://localhost:3000>`): use regular link syntax instead (`[http://localhost:3000](http://localhost:3000)`)
 - HTML syntax (`<p style="color: red;">`): use JSX instead (`<p style={{color: 'red'}}>`)
 - Unescaped `{` and `<`: escape them with `\` instead (`\{` and `\<`)
+ -->
+- インデントされたコードブロック: 代わりに三連バックティックスを使用してください (` ``` `)。
+- オートリンク (`<http://localhost:3000>`): 代わりに通常のリンク構文を使用してください (`[http://localhost:3000](http://localhost:3000)`)。
+- HTML 構文 (`<p style="color: red;">`): 代わりに JSX を使用してください (`<p style={{color: 'red'}}>`)。
+- エスケープされていない `{` と `<`: 代わりに `\` でエスケープしてください (`\{` と `\<`)。
 
+<!-- 
 :::danger Experimental CommonMark support
+ -->
+:::danger 実験的な CommonMark 対応
 
+<!-- 
 Docusaurus v3 makes it possible to opt-in for a less strict, standard [CommonMark](https://commonmark.org/) support with the following options:
+ -->
+Docusaurus v3では、以下のオプションにより、より厳密でない標準的な [CommonMark](https://commonmark.org/) 対応を選択できます:
 
+<!-- 
 - The `mdx.format: md` front matter
 - The `.md` file extension combined with the `siteConfig.markdown.format: "detect"` configuration
+ -->
+- `mdx.format: md` front 項目
+- `.md` ファイル拡張子と `siteConfig.markdown.format: "detect"` 設定の組み合わせ
 
+<!-- 
 This feature is **experimental** and currently has a few [limitations](https://github.com/facebook/docusaurus/issues/9092).
+ -->
+この機能は **実験的** であり、現在のところいくつかの[制限](https://github.com/facebook/docusaurus/issues/9092)があります。
 
 :::
 
+<!-- 
 ## Importing code snippets {#importing-code-snippets}
+ -->
+## コード・スニペットのインポート {#importing-code-snippets}
 
+<!-- 
 You can not only import a file containing a component definition, but also import any code file as raw text, and then insert it in a code block, thanks to [Webpack raw-loader](https://webpack.js.org/loaders/raw-loader/). In order to use `raw-loader`, you first need to install it in your project:
+ -->
+[Webpack raw-loader](https://webpack.js.org/loaders/raw-loader/) の利用により、コンポーネント定義を含むファイルをインポートするだけでなく、任意のコードファイルを raw テキストとしてインポートし、コードブロックに挿入できます。`raw-loader` を使用するには、まずプロジェクトにインストールする必要があります:
 
 ```bash npm2yarn
 npm install --save raw-loader
 ```
 
+<!-- 
 Now you can import code snippets from another file as it is:
+ -->
+これで、別のファイルからコード・スニペットを、そのままインポートできるようになりました:
 
 {/* prettier-ignore */}
 ```jsx title="myMarkdownFile.mdx"
@@ -284,25 +418,43 @@ import MyComponentSource from '!!raw-loader!@site/src/pages/examples/_myComponen
 </BrowserWindow>
 ```
 
+<!-- 
 See [using code blocks in JSX](./markdown-features-code-blocks.mdx#usage-in-jsx) for more details of the `<CodeBlock>` component.
+ -->
+`<CodeBlock>` コンポーネントの詳細については、[JSX でのコードブロックの使用](./markdown-features-code-blocks.mdx#usage-in-jsx)をご覧ください。
 
 :::note
 
+<!-- 
 You have to use `<CodeBlock>` rather than the Markdown triple-backtick ` ``` `, because the latter will ship out any of its content as-is, but you want to interpolate the imported text here.
+ -->
+後者はどのコンテンツもそのまま出力されるが、ここではインポートしたテキストを補間したいから、Markdown の三重バックティックス ` ``` ` ではなく、`<CodeBlock>` を使用する必要があります。
 
 :::
 
 :::warning
 
+<!-- 
 This feature is experimental and might be subject to breaking API changes in the future.
+ -->
+この機能は実験的なものであり、将来的に API が変更される可能性があります。
 
 :::
 
+<!-- 
 ## Importing Markdown {#importing-markdown}
+ -->
+## Markdown のインポート {#importing-markdown}
 
+<!-- 
 You can use Markdown files as components and import them elsewhere, either in Markdown files or in React pages. Each MDX file default-exports its page content as a React component. In the `import` statement, you can default-import this component with any name, but it must be capitalized following React's naming rules.
+ -->
+Markdown ファイルをコンポーネントとして使用し、Markdown ファイルまたは React ページの別の場所にインポートできます。各 MDX ファイルは、そのページのコンテンツを React コンポーネントとしてデフォルト・エクスポートします。`import` 文では、このコンポーネントを任意の名前でデフォルト・インポートできますが、React の命名規則に従って大文字にする必要があります。
 
+<!-- 
 By convention, using the **`_` filename prefix** will not create any doc page and means the Markdown file is a **"partial"**, to be imported by other files.
+ -->
+慣例により、**ファイル名接頭辞 `_` ** を使用すると、ドキュメントページが作成されず、Markdown ファイルが **「部分的」** であり、他のファイルによってインポートされることを意味します。
 
 ```md title="_markdown-partial-example.mdx"
 <span>Hello {props.name}</span>
@@ -325,15 +477,29 @@ import PartialExample from './_markdown-partial-example.mdx';
 </BrowserWindow>
 ```
 
+<!-- 
 This way, you can reuse content among multiple pages and avoid duplicating materials.
+ -->
+これにより、複数のページでコンテンツを再利用し、資料の重複を回避できます。
 
+<!-- 
 ## Available exports {#available-exports}
+ -->
+## 可能なエクスポート {#available-exports}
 
+<!-- 
 Within the MDX page, the following variables are available as globals:
+ -->
+MDX ページでは、グローバルとして以下の変数を使用できます:
 
+<!-- 
 - `frontMatter`: the front matter as a record of string keys and values;
 - `toc`: the table of contents, as a tree of headings. See also [Inline TOC](./markdown-features-toc.mdx#inline-table-of-contents) for a more concrete use-case.
 - `contentTitle`: the Markdown title, which is the first `h1` heading in the Markdown text. It's `undefined` if there isn't one (e.g. title specified in the front matter).
+ -->
+- `frontMatter`: 文字列のキーと値のレコードとしての、front 項目;
+- `toc`: 見出しのツリーとしての、目次。より具体的なユースケースについては[インライン TOC](./markdown-features-toc.mdx#inline-table-of-contents) も参照のこと。
+- `contentTitle`: Markdown テキストの最初の見出し `h1`。これがない場合は `undefined` となる (例 front 項目で指定されたタイトル)。
 
 ```jsx
 import TOCInline from '@theme/TOCInline';
